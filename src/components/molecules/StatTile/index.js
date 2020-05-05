@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 import TileTitle from '../../atoms/TileTitle';
+import ValueHolder from '../../atoms/ValueHolder';
+import Chart from "../../atoms/Chart";
 
 type Props = {
   title: string,
@@ -14,7 +16,8 @@ const StatTile = (props: Props) => {
         title={title}
         toolTipMessage="test"
       />
-      <div className="chart-block" />
+      <ValueHolder value={500}/>
+      <Chart />
     </div>
   );
 };
