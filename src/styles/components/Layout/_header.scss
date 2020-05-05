@@ -1,0 +1,39 @@
+.site-header {
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  line-height: 23px;
+  min-width: 418px;
+}
+
+ul.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar__list {
+  display: flex;
+}
+
+
+
+.site-header .navbar__list > .navbar__list-item:not(:last-child):after {
+  content: "//";
+  display: inline-block;
+  margin: 0 5px 0 5px;
+}
+
+
+.logo-img {
+  height: 36px;
+  width: 210px;
+}
+

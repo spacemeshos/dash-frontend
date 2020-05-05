@@ -1,0 +1,39 @@
+main {
+  margin: 0 80px;
+}
+.site-wrapper {
+  margin: 4% 46px 46px;
+  height: 100%;
+}
+
+.corner-box {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  border: 2px solid $dark;
+  z-index: 1;
+  padding: 4px;
+}
+
+.corner-box:before,
+.corner-box:after {
+  content: "";
+  z-index: -1;
+  display: block;
+  position: absolute;
+  background-color: $white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.corner-box:before {
+  width: calc(100% + 5px);
+  height: calc(100% - 10px);
+  z-index: 1;
+}
+.corner-box:after {
+  height: calc(100% + 5px);
+  width: calc(100% - 10px);
+  z-index: 1;
+}
+

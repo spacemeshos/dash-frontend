@@ -1,0 +1,38 @@
+@mixin flex-complex-center() {
+  display: -ms-flex;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+@mixin display-flex($args) {
+  display: -ms-#{$args};
+  display: $args;
+}
+
+@mixin align-items($args) {
+  -ms-flex-align: $args !important;
+  align-items: $args !important;
+}
+
+@mixin justify-content($args) {
+  -ms-flex-pack: $args !important;
+  justify-content: $args !important;
+}
+
+@mixin flex-direction($args) {
+  -ms-flex-direction: $args !important;
+  flex-direction: $args !important;
+}
+
+@mixin flex-wrap($args) {
+  -ms-flex-wrap: $args !important;
+  flex-wrap: $args !important;
+}
+
+@mixin flex-fill($args) {
+  -ms-flex: $args !important;
+  flex: $args !important;
+}

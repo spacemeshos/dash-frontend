@@ -1,0 +1,32 @@
+body {
+  position: relative;
+  font-family: $main-font-family;
+  color: $dark;
+  background-color: $white;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 18px;
+}
+
+a {
+  color: $blue;
+  &:hover {
+    text-decoration: none;
+  }
+  &:visited {
+    text-decoration: none;
+  }
+  &:link{
+    text-decoration: none;
+  }
+  &:active{
+    text-decoration: none;
+  }
+}

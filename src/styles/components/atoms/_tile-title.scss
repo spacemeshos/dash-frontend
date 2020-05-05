@@ -1,0 +1,25 @@
+.tileTitle {
+  &-wrap {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &-text {
+    white-space: pre;
+    color: $tile_title;
+    font-size: 12px;
+    line-height: 30px;
+    width: 93px;
+    border-bottom: 1px solid $tile_title_bottom_border;
+  }
+
+  &-icons {
+    display: flex;
+    width: 100%;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    > img {
+      margin-left: 4px;
+    }
+  }
+}
