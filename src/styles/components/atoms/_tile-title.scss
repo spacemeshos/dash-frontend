@@ -7,10 +7,10 @@
   &-text {
     white-space: pre;
     color: $tile_title;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 30px;
-    width: 93px;
-    border-bottom: 1px solid $tile_title_bottom_border;
+    width: 120px;
+    border-bottom: 2px solid $tile_title_bottom_border;
   }
 
   &-icons {

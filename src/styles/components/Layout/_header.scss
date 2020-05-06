@@ -10,7 +10,7 @@
   display: flex;
   flex-wrap: wrap;
   line-height: 23px;
-  min-width: 418px;
+  min-width: 400px;
 }
 
 ul.menu {
@@ -23,17 +23,25 @@ ul.menu {
   display: flex;
 }
 
-
-
 .site-header .navbar__list > .navbar__list-item:not(:last-child):after {
   content: "//";
   display: inline-block;
   margin: 0 5px 0 5px;
 }
 
-
 .logo-img {
   height: 36px;
   width: 210px;
+}
+
+@include media-breakpoint-down(xs) {
+  .site-header {
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+  .navbar {
+    padding: 10px 0;
+    min-width: 300px;
+  }
 }
 

@@ -1,8 +1,9 @@
 main {
-  margin: 0 80px;
+  margin: 0 160px 0 80px;
 }
+
 .site-wrapper {
-  margin: 4% 46px 46px;
+  margin: 28px 46px 46px;
   height: 100%;
 }
 
@@ -21,7 +22,7 @@ main {
   z-index: -1;
   display: block;
   position: absolute;
-  background-color: $white;
+  background-color: $page_background;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -37,3 +38,19 @@ main {
   z-index: 1;
 }
 
+@include media-breakpoint-down(xs) {
+  main {
+    margin: 0 10px 0 10px;
+  }
+
+  .site-wrapper {
+    margin: 10px;
+    height: 100%;
+  }
+
+  .corner-box:after {
+    height: calc(100% + 6px);
+    width: calc(100% - 10px);
+    z-index: 1;
+  }
+}
