@@ -1,0 +1,11 @@
+.map-wrap {
+  width: 100%;
+  height: 483px;
+  background: $map_background;
+
+  > img {
+    width: 100%;
+    height: 483px;
+    object-fit: cover;
+  }
+}

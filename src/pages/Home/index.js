@@ -5,6 +5,7 @@ import StatTile from '../../components/molecules/StatTile';
 import NetTitle from '../../components/atoms/NetTitle';
 import BarChartCustom from '../../components/atoms/BarChartCustom';
 import chartData from "../../utils";
+import Map from "../../components/molecules/Map";
 
 const Home = () => {
   const netTitle = 'TestNet 0.1';
@@ -19,7 +20,7 @@ const Home = () => {
         <title>Spacemesh Dashboard</title>
         <meta name="description" content="" />
       </Helmet>
-      <div className="row">
+      <div className="row pb-2">
         <div className="col-lg-12">
           <NetTitle title={netTitle} />
         </div>
@@ -39,21 +40,23 @@ const Home = () => {
               <StatTile title="Layer / Epoch" value="126812/13"/>
             </div>
           </div>
-          <div className="row">
-            <div className="col-lg-12">Map</div>
+          <div className="row pb-2">
+            <div className="col-lg-12">
+              <Map />
+            </div>
           </div>
           <div className="row">
             <div className="col-lg-6">
-              <StatTile title="Tx/S Capasity" />
+              <StatTile title="Tx/S Capasity" value="20%" />
             </div>
             <div className="col-lg-6">
-              <StatTile title="Decentralization Ratio" />
+              <StatTile title="Decentralization Ratio" value="50%" />
             </div>
           </div>
         </div>
         <div className="col-lg-3">
           <StatTile title="Transactions" value={550} Chart={() => <BarChartCustom data={data1}/>} />
-          <StatTile title="Circulation"value={250} Chart={() => <BarChartCustom data={data2}/>} />
+          <StatTile title="Circulation" value={250} Chart={() => <BarChartCustom data={data2}/>} />
           <StatTile title="Security" value={523} valueUnit="SMH" Chart={() => <BarChartCustom data={data3}/>}  />
         </div>
       </div>

@@ -1,0 +1,29 @@
+.mapTitle {
+  &-wrap {
+    display: flex;
+    align-items: flex-start;
+    position: absolute;
+  }
+
+  &-text {
+    font-family: $code-pro-font-family;
+    white-space: pre;
+    color: $dark;
+    font-size: 32px;
+    margin: 20px 5px 10px 25px;
+    text-transform: uppercase;
+  }
+
+  &-text:after {
+    content: "--";
+    display: block;
+    position: absolute;
+    top: 45px;
+  }
+
+  &-icons {
+    > img {
+      margin-top: 32px;
+    }
+  }
+}
