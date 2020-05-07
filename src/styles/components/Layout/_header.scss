@@ -29,9 +29,19 @@ ul.menu {
   margin: 0 5px 0 5px;
 }
 
+.link-header {
+  display: flex;
+  align-items: center;
+}
+
 .logo-img {
-  height: 36px;
-  width: 210px;
+  height: 15px;
+  width: 20px;
+}
+.logo-text {
+  font-size: 28px;
+  margin-bottom: 0;
+  line-height: 1.5;
 }
 
 @include media-breakpoint-down(xs) {

@@ -1,13 +1,16 @@
 import React from 'react';
 
-import darkLogo from '../../../assets/logo-invert.svg';
+import darkLogo from '../../../assets/logo-icon.svg';
 
 const Header = () => (
 
   <header className="site-header">
-    <a className="link-header" href="/">
-      <img className="logo-img" src={darkLogo} alt="spacemesh" />
-    </a>
+    <div className="link-header" href="/">
+      <div>
+        <img className="logo-img" src={darkLogo} alt="spacemesh" />
+      </div>
+      <div className="logo-text">spacemesh</div>
+    </div>
     <nav className="navbar">
       <ul className="navbar__list menu">
         <li className="navbar__list-item">
