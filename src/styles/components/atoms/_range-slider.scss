@@ -1,0 +1,34 @@
+.rangeSlider-wrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 30px;
+}
+
+.renderTrack {
+  height: 15px;
+  display: flex;
+  width: 100%;
+  border-right: 2px solid #ccc;
+  border-left: 2px solid #ccc;
+}
+
+.renderThumb {
+  height: 10px;
+  width: 2px;
+  background-color: #FFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-value {
+    position: absolute;
+    top: -28px;
+    color: #65B042;
+    font-family: $code-pro-font-family;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 4px;
+  }
+}

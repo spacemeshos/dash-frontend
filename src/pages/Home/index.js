@@ -6,6 +6,7 @@ import NetTitle from '../../components/atoms/NetTitle';
 import BarChartCustom from '../../components/atoms/BarChartCustom';
 import chartData from "../../utils";
 import Map from "../../components/molecules/Map";
+import RangeSlider from "../../components/atoms/RangeSlider";
 
 const Home = () => {
   const netTitle = 'TestNet 0.1';
@@ -47,10 +48,10 @@ const Home = () => {
           </div>
           <div className="row">
             <div className="col-lg-6">
-              <StatTile title="Tx/S Capasity" value="20%" />
+              <StatTile title="Tx/S Capasity" Chart={() => <RangeSlider data={[20]}/>} />
             </div>
             <div className="col-lg-6">
-              <StatTile title="Decentralization Ratio" value="50%" />
+              <StatTile title="Decentralization Ratio" Chart={() => <RangeSlider data={[75]}/>} />
             </div>
           </div>
         </div>

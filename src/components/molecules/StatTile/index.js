@@ -5,7 +5,7 @@ import ValueHolder from '../../atoms/ValueHolder';
 
 type Props = {
   title: string,
-  value: string,
+  value?: string,
   valueUnit?: string,
   Chart?: React.Node,
 }
