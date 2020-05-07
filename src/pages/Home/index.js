@@ -51,7 +51,7 @@ const Home = () => {
               <StatTile title="Tx/S Capasity" Chart={() => <RangeSlider data={[20]}/>} />
             </div>
             <div className="col-lg-6">
-              <StatTile title="Decentralization Ratio" Chart={() => <RangeSlider data={[75]}/>} />
+              <StatTile title="Decentralization Ratio" Chart={() => <RangeSlider data={[64]}/>} />
             </div>
           </div>
         </div>

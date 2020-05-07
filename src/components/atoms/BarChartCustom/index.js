@@ -10,7 +10,7 @@ const BarChartCustom = (props: Props) => {
   const { data } = props;
 
   return (
-    <ResponsiveContainer width='100%' height={130}>
+    <ResponsiveContainer width='100%' height={100}>
       <BarChart data={data}>
         <Bar dataKey="uv" fill="#C4C4C4" barSize={2}/>
       </BarChart>

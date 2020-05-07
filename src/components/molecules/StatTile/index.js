@@ -18,7 +18,7 @@ const StatTile = (props: Props) => {
         title={title}
         toolTipMessage="test"
       />
-      <ValueHolder value={value} units={valueUnit}/>
+      {value && (<ValueHolder value={value} units={valueUnit}/>)}
       {Chart && (<Chart/>)}
     </div>
   );

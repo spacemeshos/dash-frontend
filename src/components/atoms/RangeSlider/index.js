@@ -66,16 +66,11 @@ const RangeSlider = (props: Props) => {
           </div>
         )}
       />
-      <div style={{
-        position: 'absolute',
-        height: "10px",
-        width: "2px",
-        marginRight: '20px',
-        display: "flex",
-        backgroundColor: '#FFF',
-        bottom: '21px',
-        left: '50px',
-      }} />
+      <div className="chartLabel zero">0</div>
+      <div className="chartDash first"/>
+      <div className="chartDash second"/>
+      <div className="chartDash third"/>
+      <div className="chartLabel hundred">100</div>
     </div>
   );
 }

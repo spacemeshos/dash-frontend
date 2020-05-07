@@ -2,15 +2,50 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding-top: 30px;
+  padding: 25px 0 0 15px;
+
+  .chartLabel {
+    position: absolute;
+    font-size: 10px;
+    bottom: 43px;
+    color: $tile_title;
+
+    &.zero {
+      left: 43px
+    }
+
+    &.hundred {
+      right: 23px
+    }
+  }
+  .chartDash {
+    position: absolute;
+    height: 10px;
+    width: 2px;
+    display: flex;
+    background-color: $tile_title_bottom_border;
+    bottom: 26px;
+
+    &.first {
+      left: 110px;
+    }
+
+    &.second {
+      left: 174px;
+    }
+
+    &.third {
+      right: 95px;
+    }
+  }
 }
 
 .renderTrack {
-  height: 15px;
+  height: 25px;
   display: flex;
   width: 100%;
-  border-right: 2px solid #ccc;
-  border-left: 2px solid #ccc;
+  border-right: 2px solid $tile_title_bottom_border;
+  border-left: 2px solid $tile_title_bottom_border;
 }
 
 .renderThumb {
@@ -27,7 +62,7 @@
     color: #65B042;
     font-family: $code-pro-font-family;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 18px;
     padding: 4px;
   }
