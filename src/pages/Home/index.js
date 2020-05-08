@@ -1,5 +1,5 @@
 // @flow
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import StatTile from '../../components/molecules/StatTile';
 import NetTitle from '../../components/atoms/NetTitle';
@@ -14,6 +14,13 @@ const Home = () => {
   const data1 = chartData(50);
   const data2 = chartData(50);
   const data3 = chartData(50);
+  const [activeSmashers, setActiveSmashers] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setActiveSmashers(250);
+    }, 2000)
+  }, []);
 
   return (
     <div className="wrap">
@@ -28,17 +35,17 @@ const Home = () => {
       </div>
       <div className="row">
         <div className="col-lg-3">
-          <StatTile title="Active smashers" value={550} Chart={() => <BarChartCustom data={data1}/>} />
-          <StatTile title="Accounts" value={250} Chart={() => <BarChartCustom data={data2}/>}  />
-          <StatTile title="Smeshing rewards" value={523} valueUnit="SMH" Chart={() => <BarChartCustom data={data3}/>} />
+          <StatTile title="Active smashers" value={activeSmashers} showValue Chart={() => <BarChartCustom data={data1}/>} />
+          <StatTile title="Accounts" value={250} showValue Chart={() => <BarChartCustom data={data2}/>}  />
+          <StatTile title="Smeshing rewards" showValue value={523} valueUnit="SMH" Chart={() => <BarChartCustom data={data3}/>} />
         </div>
         <div className="col-lg-6">
           <div className="row">
             <div className="col-lg-6">
-              <StatTile title="Age" value="32d:5h"/>
+              <StatTile title="Age" showValue value="32d:5h"/>
             </div>
             <div className="col-lg-6">
-              <StatTile title="Layer / Epoch" value="126812/13"/>
+              <StatTile title="Layer / Epoch" showValue  value="126812/13"/>
             </div>
           </div>
           <div className="row pb-2">
@@ -56,9 +63,9 @@ const Home = () => {
           </div>
         </div>
         <div className="col-lg-3">
-          <StatTile title="Transactions" value={550} Chart={() => <BarChartCustom data={data1}/>} />
-          <StatTile title="Circulation" value={250} Chart={() => <BarChartCustom data={data2}/>} />
-          <StatTile title="Security" value={523} valueUnit="SMH" Chart={() => <BarChartCustom data={data3}/>}  />
+          <StatTile title="Transactions" value={550} showValue Chart={() => <BarChartCustom data={data1}/>} />
+          <StatTile title="Circulation" value={250} showValue Chart={() => <BarChartCustom data={data2}/>} />
+          <StatTile title="Security" value={523} showValue valueUnit="SMH" Chart={() => <BarChartCustom data={data3}/>}  />
         </div>
       </div>
     </div>
