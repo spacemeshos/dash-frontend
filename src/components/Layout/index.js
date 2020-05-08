@@ -13,7 +13,7 @@ const Layout = ({ children }) => (
       </main>
     </div>
     <div className="rightLine">
-      <img src={Line} alt />
+      <img src={Line} alt="" />
     </div>
   </>
 );

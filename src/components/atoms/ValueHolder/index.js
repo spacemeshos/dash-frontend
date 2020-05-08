@@ -12,14 +12,13 @@ const ValueHolder = (props: Props) => {
   const data = units ? `${value} / ${units}` : value;
 
   return (
-    <p className="value-holder">
-     { value ? data : (<ClipLoader
-       css={'margin-left: 15px'}
-       size={150}
-       color={"#65B042"}
-       loading={true}
-     />) }
-    </p>
+    <div className="value-holder">
+      { value ? data : (<ClipLoader
+        size={150}
+        color={"#65B042"}
+        loading={true}
+      />) }
+    </div>
   );
 };
 
