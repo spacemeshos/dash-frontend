@@ -1,6 +1,7 @@
 // @flow
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+// import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
 // Component
 import NetworkName from '../../components/atoms/NetworkName';
@@ -24,8 +25,31 @@ import SecurityIcon from '../../assets/icons/security.svg';
 import TxnCapacityIcon from '../../assets/icons/txn-capacity.svg';
 import DecentralizationRatio from '../../assets/icons/decentralization-ratio.svg';
 
-
 const Home = () => {
+// Rework and uncomment after backend add logic for getting data
+//   const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+//   const [ws, setWs] = useState(null);
+//
+//   const connect = () => {
+//     const socketClient = new W3CWebSocket(`${protocol}://localhost:3001/client`);
+//
+//     // websocket onopen event listener
+//     socketClient.onopen = () => {
+//       console.log('connected');
+//       setWs(socketClient);
+//     };
+//
+//     socketClient.onclose = (e) => {
+//       console.log('Socket is closed.', e.reason);
+//     };
+//
+//     socketClient.onerror = (err) => {
+//       console.error('Socket encountered error: ', err.message, 'Closing socket');
+//     };
+//   };
+//
+//   useEffect(() => connect(), []);
+
   const networkName = 'TestNet 0.1';
 
   // Mock data for chart
