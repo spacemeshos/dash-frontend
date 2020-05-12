@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import Line from '../../assets/rightLineBg.svg'
+import Line from '../../assets/right_decoration.svg';
 
 const Layout = ({ children }) => (
   <>

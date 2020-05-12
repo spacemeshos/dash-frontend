@@ -29,12 +29,12 @@ main {
   transform: translate(-50%, -50%);
 }
 .corner-box:before {
-  width: calc(100% + 8px);
+  width: calc(100% + 7px);
   height: calc(100% - 12px);
   z-index: 1;
 }
 .corner-box:after {
-  height: calc(100% + 8px);
+  height: calc(100% + 7px);
   width: calc(100% - 12px);
   z-index: 1;
 }
@@ -55,13 +55,18 @@ main {
     margin: 0 10px 0 10px;
   }
 
+  .rightLine {
+    display: none;
+  }
+
   .site-wrapper {
-    margin: 10px;
+    margin: 0 10px 0;
     height: 100%;
+    padding-top: 0;
   }
 
   .corner-box:after {
-    height: calc(100% + 6px);
+    height: calc(100% + 10px);
     width: calc(100% - 10px);
     z-index: 1;
   }

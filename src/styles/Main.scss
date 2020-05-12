@@ -12,10 +12,10 @@
 
 // Utilities
 @import "./utilities/base";
-//@import "./utilities/typography";
+@import "./utilities/typography";
 
 // atoms
-@import "./components/atoms/net-title";
+@import "./components/atoms/network-name";
 @import "./components/atoms/tile-title";
 @import "./components/atoms/value-holder";
 @import "./components/atoms/map-title";

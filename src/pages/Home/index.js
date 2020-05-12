@@ -1,25 +1,44 @@
 // @flow
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import StatTile from '../../components/molecules/StatTile';
-import NetTitle from '../../components/atoms/NetTitle';
+
+// Component
+import NetworkName from '../../components/atoms/NetworkName';
 import BarChartCustom from '../../components/atoms/BarChartCustom';
-import chartData from "../../utils";
-import Map from "../../components/molecules/Map";
-import RangeSlider from "../../components/atoms/RangeSlider";
+import RangeSlider from '../../components/atoms/RangeSlider';
+import DataTile from '../../components/molecules/DataTile';
+import Map from '../../components/molecules/Map';
+
+// Utils
+import chartData from '../../utils';
+
+// Icons
+import ActiveSmashersIcon from '../../assets/icons/active-smashers.svg';
+import AccountsIcon from '../../assets/icons/accounts.svg';
+import SmashingRewardIcon from '../../assets/icons/smeshing-reward.svg';
+import AgeIcon from '../../assets/icons/age.svg';
+import LayerEpoch from '../../assets/icons/layer-epoch.svg';
+import TxnsIcon from '../../assets/icons/txns.svg';
+import CirculationIcon from '../../assets/icons/circulation.svg';
+import SecurityIcon from '../../assets/icons/security.svg';
+import TxnCapacityIcon from '../../assets/icons/txn-capacity.svg';
+import DecentralizationRatio from '../../assets/icons/decentralization-ratio.svg';
+
 
 const Home = () => {
-  const netTitle = 'TestNet 0.1';
+  const networkName = 'TestNet 0.1';
 
+  // Mock data for chart
   const data1 = chartData(50);
   const data2 = chartData(50);
   const data3 = chartData(50);
+
   const [activeSmashers, setActiveSmashers] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
       setActiveSmashers(250);
-    }, 2000)
+    }, 2000);
   }, []);
 
   return (
@@ -30,22 +49,28 @@ const Home = () => {
       </Helmet>
       <div className="row pb-2">
         <div className="col-lg-12">
-          <NetTitle title={netTitle} />
+          <NetworkName name={networkName} />
         </div>
       </div>
       <div className="row">
         <div className="col-lg-3">
-          <StatTile title="Active smashers" value={activeSmashers} showValue Chart={() => <BarChartCustom data={data1}/>} />
-          <StatTile title="Accounts" value={250} showValue Chart={() => <BarChartCustom data={data2}/>}  />
-          <StatTile title="Smeshing rewards" showValue value={523} valueUnit="SMH" Chart={() => <BarChartCustom data={data3}/>} />
+          <DataTile icon={ActiveSmashersIcon} title="Active smashers" value={activeSmashers} showValue>
+            <BarChartCustom data={data1} />
+          </DataTile>
+          <DataTile icon={AccountsIcon} title="Accounts" value={250} showValue>
+            <BarChartCustom data={data2} />
+          </DataTile>
+          <DataTile icon={SmashingRewardIcon} title="Smeshing rewards" showValue value={523} valueUnit="SMH">
+            <BarChartCustom data={data3} />
+          </DataTile>
         </div>
         <div className="col-lg-6">
           <div className="row">
             <div className="col-lg-6">
-              <StatTile title="Age" showValue value="32d:5h"/>
+              <DataTile icon={AgeIcon} title="Age" showValue value="32d:5h" />
             </div>
             <div className="col-lg-6">
-              <StatTile title="Layer / Epoch" showValue  value="126812/13"/>
+              <DataTile icon={LayerEpoch} title="Layer / Epoch" showValue value="126812/13" />
             </div>
           </div>
           <div className="row pb-2">
@@ -55,17 +80,27 @@ const Home = () => {
           </div>
           <div className="row">
             <div className="col-lg-6">
-              <StatTile title="Tx/S Capasity" Chart={() => <RangeSlider data={[20]}/>} />
+              <DataTile icon={TxnCapacityIcon} title="Tx/S Capasity">
+                <RangeSlider data={[20]} />
+              </DataTile>
             </div>
             <div className="col-lg-6">
-              <StatTile title="Decentralization Ratio" Chart={() => <RangeSlider data={[64]}/>} />
+              <DataTile icon={DecentralizationRatio} title="Decentralization Ratio">
+                <RangeSlider data={[64]} />
+              </DataTile>
             </div>
           </div>
         </div>
         <div className="col-lg-3">
-          <StatTile title="Transactions" value={550} showValue Chart={() => <BarChartCustom data={data1}/>} />
-          <StatTile title="Circulation" value={250} showValue Chart={() => <BarChartCustom data={data2}/>} />
-          <StatTile title="Security" value={523} showValue valueUnit="SMH" Chart={() => <BarChartCustom data={data3}/>}  />
+          <DataTile icon={TxnsIcon} title="Transactions" value={550} showValue>
+            <BarChartCustom data={data1} />
+          </DataTile>
+          <DataTile icon={CirculationIcon} title="Circulation" value={250} showValue>
+            <BarChartCustom data={data2} />
+          </DataTile>
+          <DataTile icon={SecurityIcon} title="Security" value={523} showValue valueUnit="SMH">
+            <BarChartCustom data={data3} />
+          </DataTile>
         </div>
       </div>
     </div>

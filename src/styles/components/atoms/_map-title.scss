@@ -28,3 +28,12 @@
     }
   }
 }
+
+@include media-breakpoint-down(xs) {
+  .mapTitle {
+    &-text {
+      font-size: 32px;
+      margin: 20px 5px 10px 35px;
+    }
+  }
+}
