@@ -3,14 +3,18 @@ $white: #FFFFFF;
 $dark: #252429;
 $blue: #1776E3;
 $tile_title_bottom_border: #797979;
+$green: #65B042;
+$map_background: #c4c4c485;
+$map_color: #5D5A6D;
 
 // Colors RGBA
-$tile_background: rgba(0, 0, 0, 0.02);
-$page_background: rgba(243, 243, 243, 0.2);
+$tile_background: rgba(238, 238, 238, 1);
+$page_background: rgba(243, 243, 243, 1);
 $tile_title: rgba(64, 64, 64, 0.5);
 $tile_title: rgba(64, 64, 64, 0.5);
-$tile_title_bottom_border: rgba(215, 215, 215, 0.2);
+$tile_title_bottom_border: rgba(215, 215, 215, 1);
 
 
 // Fonts
 $main-font-family: 'NeubauGrotesk', sans-serif;
+$code-pro-font-family: 'Source Code Pro', monospace;

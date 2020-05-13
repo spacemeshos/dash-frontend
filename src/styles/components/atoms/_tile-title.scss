@@ -7,19 +7,31 @@
   &-text {
     white-space: pre;
     color: $tile_title;
-    font-size: 12px;
-    line-height: 30px;
-    width: 93px;
-    border-bottom: 1px solid $tile_title_bottom_border;
+    font-family: $code-pro-font-family;
+    font-size: 16px;
+    line-height: 38px;
+
+    width: 120px;
+    margin: 8px 10px 10px 15px;
+    border-bottom: 2px solid $tile_title_bottom_border;
   }
 
   &-icons {
+    margin-top: 5px;
     display: flex;
     width: 100%;
     flex-direction: row-reverse;
     align-items: flex-start;
-    > img {
+    .icon-tile {
+      width: 35px;
+    }
+    .icon-tooltip {
+      width: 15px;
       margin-left: 4px;
     }
   }
+}
+
+.short-letter-spacing {
+  letter-spacing: -1px;
 }

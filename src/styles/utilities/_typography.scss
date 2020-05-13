@@ -5,98 +5,11 @@
   }
 
   &-2 {
-    font-size: 26px;
-    font-weight: 700;
-  }
-
-  &-light {
-    color: $white;
+    font-size: 18px;
+    font-weight: bold;
   }
 }
 
-.subheading {
-  &-1 {
-    font-size: 20px;
-    font-weight: 700;
-  }
+.subheading {}
 
-  &-2 {
-    font-size: 20px;
-  }
-
-  &-3 {
-    font-size: 17px;
-    font-weight: 700;
-  }
-
-  &-primary {
-    color: $brand-primaryLight-color;
-  }
-
-  &-gray {
-    color: $brand-text-color;
-  }
-
-  &-light-gray {
-    color: $cadet-blue;
-  }
-
-  &-light {
-    color: $white;
-  }
-}
-
-
-.text {
-  &-1 {
-    font-size: 17px;
-  }
-
-  &-2 {
-    font-size: 14px;
-  }
-
-  &-gray {
-    color: $brand-text-color;
-  }
-
-  &-light-gray {
-    color: $cadet-blue;
-  }
-
-  &-light {
-    color: $white;
-  }
-}
-
-.caption {
-
-
-  &-1 {
-    font-size: 12px;
-  }
-
-  &-2 {
-    font-size: 10px;
-  }
-
-  &-primary {
-    color: $brand-primaryLight-color;
-  }
-
-  &-secondary {
-    color: $brand-secondary-color;
-  }
-
-  &-warning {
-    color: $lightning-yellow;
-  }
-
-  &-purple {
-    color: $brand-text-color;
-  }
-
-  &-light {
-    color: $white;
-  }
-}
+.text {}
