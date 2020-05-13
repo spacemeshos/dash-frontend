@@ -1,0 +1,54 @@
+{
+  "network":"TESTNET 0.1",
+  "age": "32d:5h",
+  "layer":126812,
+  "epoch":12,
+  "capacity":20,
+  "decentral":24,
+  "smeshersGeo":[
+    { "name": "Buenos Aire", "coordinates": [-58.3816, -34.6037]},
+    { "name": "La Paz", "coordinates": [-68.1193, -16.4897]}
+  ],
+  "smeshers": [
+    {"uv": 1, "amt": 10},
+    {"uv": 2, "amt": 15},
+    {"uv": 3, "amt": 20},
+    {"uv": 4, "amt": 25},
+    {"uv": 5, "amt": 30}
+  ],
+  "transactions":[
+    {"uv": 1, "amt": 10},
+    {"uv": 2, "amt": 15},
+    {"uv": 3, "amt": 20},
+    {"uv": 4, "amt": 25},
+    {"uv": 5, "amt": 30}
+  ],
+  "accounts":[
+    {"uv": 1, "amt": 10},
+    {"uv": 2, "amt": 15},
+    {"uv": 3, "amt": 20},
+    {"uv": 4, "amt": 25},
+    {"uv": 5, "amt": 30}
+  ],
+  "circulation":[
+    {"uv": 1, "amt": 10},
+    {"uv": 2, "amt": 15},
+    {"uv": 3, "amt": 20},
+    {"uv": 4, "amt": 25},
+    {"uv": 5, "amt": 30}
+  ],
+  "rewards":[
+    {"uv": 1, "amt": 10},
+    {"uv": 2, "amt": 15},
+    {"uv": 3, "amt": 20},
+    {"uv": 4, "amt": 25},
+    {"uv": 5, "amt": 30}
+  ],
+  "security":[
+    {"uv": 1, "amt": 10},
+    {"uv": 2, "amt": 15},
+    {"uv": 3, "amt": 20},
+    {"uv": 4, "amt": 25},
+    {"uv": 5, "amt": 30}
+  ]
+}

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import ClipLoader from "react-spinners/ScaleLoader";
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 type Props = {
   value: string,
@@ -12,14 +12,16 @@ const ValueHolder = (props: Props) => {
   const data = units ? `${value} / ${units}` : value;
 
   return (
-    <div className="value-holder">
-      { value ? data : (<ClipLoader
+    value ? (
+      <div className="value-holder">{data}</div>
+    ) : (
+      <ScaleLoader
+        css="margin-left: 15px; height: 18px"
         size={150}
-        color={"#65B042"}
-        loading={true}
-      />) }
-    </div>
-  );
+        color="#65B042"
+        loading
+      />
+    ));
 };
 
 export default ValueHolder;

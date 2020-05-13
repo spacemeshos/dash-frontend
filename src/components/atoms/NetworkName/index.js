@@ -7,7 +7,7 @@ type Props = {
 
 const NetworkName = (props: Props) => {
   const { name } = props;
-  const value = name || 'Undefined Network';
+  const value = name || 'Loading Network...';
 
   return (
     <div className="network-name">
