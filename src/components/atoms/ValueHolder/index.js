@@ -16,7 +16,7 @@ const ValueHolder = (props: Props) => {
       <div className="value-holder">{data}</div>
     ) : (
       <ScaleLoader
-        css="margin-left: 15px; height: 18px"
+        css="margin-left: 10px; height: 18px"
         size={150}
         color="#65B042"
         loading

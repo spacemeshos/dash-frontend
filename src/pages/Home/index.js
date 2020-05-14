@@ -90,7 +90,7 @@ const Home = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col-lg-3">
+        <div className="col-lg-3 pr-lg-2">
           <DataTile icon={ActiveSmashersIcon} title="Active smashers" value={activeSmashers && activeSmashers.amt} showValue>
             <BarChartCustom data={activeSmashersChartData} />
           </DataTile>
@@ -103,32 +103,32 @@ const Home = () => {
         </div>
         <div className="col-lg-6">
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-6 pl-lg-0 pr-lg-1">
               <DataTile icon={AgeIcon} title="Age" showValue value={data && data.age} />
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6 pr-lg-0 pl-lg-1">
               <DataTile icon={LayerEpoch} title="Layer / Epoch" showValue value={data && `${data.layer}/${data.epoch}`} />
             </div>
           </div>
           <div className="row pb-2">
-            <div className="col-lg-12">
+            <div className="col-lg-12 pl-lg-0 pr-lg-0">
               <Map geoMarkers={data && data.smeshersGeo} />
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-6 pl-lg-0 pr-lg-1">
               <DataTile icon={TxnCapacityIcon} title="Tx/S Capasity">
                 <RangeSlider data={data && [data.capacity]} />
               </DataTile>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6 pr-lg-0 pl-lg-1">
               <DataTile icon={DecentralizationRatio} title="Decentralization Ratio">
                 <RangeSlider data={data && [data.decentral]} />
               </DataTile>
             </div>
           </div>
         </div>
-        <div className="col-lg-3">
+        <div className="col-lg-3 pl-lg-2">
           <DataTile icon={TxnsIcon} title="Transactions" value={transactions && transactions.amt} showValue>
             <BarChartCustom data={transactionsChartData} />
           </DataTile>

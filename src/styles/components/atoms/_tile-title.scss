@@ -8,22 +8,20 @@
     white-space: pre;
     color: $tile_title;
     font-family: $code-pro-font-family;
-    font-size: 16px;
-    line-height: 38px;
-
-    width: 120px;
-    margin: 8px 10px 10px 15px;
+    font-size: 14px;
+    width: 100%;
+    margin: 8px 10px 10px 8px;
     border-bottom: 2px solid $tile_title_bottom_border;
   }
 
   &-icons {
     margin-top: 5px;
     display: flex;
-    width: 100%;
+    width: 20%;
     flex-direction: row-reverse;
     align-items: flex-start;
     .icon-tile {
-      width: 35px;
+      width: 30px;
     }
     .icon-tooltip {
       width: 15px;
@@ -34,4 +32,30 @@
 
 .short-letter-spacing {
   letter-spacing: -1px;
+}
+
+@include media-breakpoint-up(xl) {
+  .tileTitle {
+    &-text {
+      // font-size: 12px;
+    }
+  }
+
+  &-icons {
+    .icon-tile {
+      width: 25px;
+    }
+    .icon-tooltip {
+      width: 15px;
+      margin-left: 4px;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .tileTitle {
+    &-text {
+      font-size: 18px;
+    }
+  }
 }

@@ -7,6 +7,9 @@ import {
 } from 'react-simple-maps';
 import MapTitle from '../../atoms/MapTitle';
 
+// Colors
+import * as colors from '../../../styles/utilities/_variables.scss';
+
 const geoUrl = 'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json';
 
 type Props = {
@@ -19,7 +22,7 @@ const Map = (props: Props) => {
 
   return (
     <div className="map-wrap">
-      <MapTitle title="Live Smeshers" toolTipMessage="test" />
+      <MapTitle title="Live Smeshers" toolTipMessage="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout." />
       <ComposableMap
         projection="geoAzimuthalEqualArea"
         projectionConfig={{
@@ -38,11 +41,10 @@ const Map = (props: Props) => {
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                fill="#EAEAEC"
-                stroke="#D6D6DA"
+                fill={colors.mapGeographiesFill}
+                stroke={colors.mapGeographiesStroke}
               />
-            ))
-          }
+            ))}
         </Geographies>
         {markers.map(({ name, coordinates, markerOffset }) => (
           <Marker key={name} coordinates={coordinates}>
