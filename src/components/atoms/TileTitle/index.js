@@ -23,7 +23,9 @@ const TileTitle = (props: Props) => {
         <img className="icon-tooltip" data-tip data-for="tile-tooltip" src={tooltipIcon} alt="" />
         <img className="icon-tile" src={icon} alt="" />
         <ReactTooltip id="tile-tooltip" aria-haspopup="true">
-          {toolTipMessage}
+          <div style={{ width: '150px' }}>
+            {toolTipMessage}
+          </div>
         </ReactTooltip>
       </div>
     </div>

@@ -8,13 +8,17 @@
     height: 349px;
     object-fit: cover;
   }
+
+  svg path {
+    outline: none;
+  }
 }
 .map-wrap:before {
   content: '';
   position: absolute;
   background: url('../../../assets/mapBorder.svg');
   top: 0;
-  left: 15px;
+  left: 0;
   width: 8px;
   height: 354px;
 }
@@ -24,7 +28,17 @@
   position: absolute;
   background: url('../../../assets/mapBorder.svg');
   top: 0;
-  right: 15px;
+  right: 0;
   width: 8px;
   height: 354px;
+}
+
+@include media-breakpoint-down(md) {
+  .map-wrap:before {
+    left: 15px;
+  }
+
+  .map-wrap:after {
+    right: 15px;
+  }
 }

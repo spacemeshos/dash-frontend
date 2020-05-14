@@ -6,6 +6,10 @@ $tile_title_bottom_border: #797979;
 $green: #65B042;
 $map_background: #c4c4c485;
 $map_color: #5D5A6D;
+$bar_chart: #C4C4C4;
+$grey: #cccccc;
+$map_geographies_fill: #EAEAEC;
+$map_geographies_stroke: #D6D6DA;
 
 // Colors RGBA
 $tile_background: rgba(238, 238, 238, 1);
@@ -14,7 +18,15 @@ $tile_title: rgba(64, 64, 64, 0.5);
 $tile_title: rgba(64, 64, 64, 0.5);
 $tile_title_bottom_border: rgba(215, 215, 215, 1);
 
-
 // Fonts
 $main-font-family: 'NeubauGrotesk', sans-serif;
 $code-pro-font-family: 'Source Code Pro', monospace;
+
+
+:export {
+  barChart: $bar_chart;
+  green: $green;
+  grey: $grey;
+  mapGeographiesFill: $map_geographies_fill;
+  mapGeographiesStroke: $map_geographies_stroke;
+}

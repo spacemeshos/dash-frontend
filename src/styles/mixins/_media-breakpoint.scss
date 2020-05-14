@@ -1,0 +1,11 @@
+@mixin c-media-breakpoint-1200-1360() {
+  @media (min-width: 1200px) and (max-width: 1360px) {
+    @content;
+  }
+}
+
+@mixin c-media-breakpoint-up-1360() {
+  @media (min-width: 1362px) {
+    @content;
+  }
+}

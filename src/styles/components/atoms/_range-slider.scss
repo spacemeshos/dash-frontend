@@ -3,23 +3,34 @@
   justify-content: center;
   flex-wrap: wrap;
   padding: 25px 0 0 15px;
+}
+
+.renderTrack {
+  position: relative;
+  height: 25px;
+  display: flex;
+  width: 100%;
+  border-right: 2px solid $tile_title_bottom_border;
+  border-left: 2px solid $tile_title_bottom_border;
 
   .chartLabel {
     position: absolute;
     font-size: 10px;
-    bottom: 43px;
+    bottom: 23px;
     color: $tile_title;
 
     &.zero {
-      left: 43px
+      left: -4px
     }
 
     &.hundred {
-      right: 23px
+      right: -9px
     }
   }
+
   .chartDash {
     position: absolute;
+    top: 8px;
     height: 10px;
     width: 2px;
     display: flex;
@@ -27,25 +38,17 @@
     bottom: 26px;
 
     &.first {
-      left: 110px;
+      left: 25%;
     }
 
     &.second {
-      left: 174px;
+      left: 50%;
     }
 
     &.third {
-      right: 95px;
+      left: 75%;
     }
   }
-}
-
-.renderTrack {
-  height: 25px;
-  display: flex;
-  width: 100%;
-  border-right: 2px solid $tile_title_bottom_border;
-  border-left: 2px solid $tile_title_bottom_border;
 }
 
 .renderThumb {

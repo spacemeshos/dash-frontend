@@ -4,7 +4,7 @@
   "layer":126812,
   "epoch":12,
   "capacity":20,
-  "decentral":24,
+  "decentral":63,
   "smeshersGeo":[
     { "name": "Buenos Aire", "coordinates": [-58.3816, -34.6037]},
     { "name": "La Paz", "coordinates": [-68.1193, -16.4897]}

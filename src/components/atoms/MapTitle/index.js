@@ -19,7 +19,9 @@ const MapTitle = (props: Props) => {
       <div className="mapTitle-icons">
         <img data-tip data-for="map-tooltip" src={tooltipIcon} alt="" />
         <ReactTooltip id="map-tooltip" aria-haspopup="true">
-          {toolTipMessage}
+          <div style={{ width: '150px' }}>
+            {toolTipMessage}
+          </div>
         </ReactTooltip>
       </div>
     </div>
