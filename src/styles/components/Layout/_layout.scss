@@ -50,6 +50,11 @@ main {
   }
 }
 
+@include media-breakpoint-down(lg) {
+  .rightLine {
+    display: none;
+  }
+}
 @include media-breakpoint-down(xs) {
   main {
     margin: 0 10px 0 10px;
