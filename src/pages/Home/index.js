@@ -1,7 +1,7 @@
 // @flow
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-// import { w3cwebsocket as W3CWebSocket } from 'websocket';
+import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
 // Component
 import NetworkName from '../../components/atoms/NetworkName';
@@ -9,9 +9,6 @@ import BarChartCustom from '../../components/atoms/BarChartCustom';
 import RangeSlider from '../../components/atoms/RangeSlider';
 import DataTile from '../../components/molecules/DataTile';
 import Map from '../../components/molecules/Map';
-
-// Mock Data
-import mockData from '../../mock/data.json';
 
 // Icons
 import ActiveSmashersIcon from '../../assets/icons/active-smashers.svg';
@@ -27,36 +24,25 @@ import DecentralizationRatio from '../../assets/icons/decentralization-ratio.svg
 
 const Home = () => {
 // Rework and uncomment after backend add logic for getting data
-//   const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-//   const [ws, setWs] = useState(null);
-//
-//   const connect = () => {
-//     const socketClient = new W3CWebSocket(`${protocol}://localhost:3001/client`);
-//
-//     // websocket onopen event listener
-//     socketClient.onopen = () => {
-//       console.log('connected');
-//       setWs(socketClient);
-//     };
-//
-//     socketClient.onclose = (e) => {
-//       console.log('Socket is closed.', e.reason);
-//     };
-//
-//     socketClient.onerror = (err) => {
-//       console.error('Socket encountered error: ', err.message, 'Closing socket');
-//     };
-//   };
-//
-//   useEffect(() => connect(), []);
-
+  const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
   const [data, setData] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setData(mockData);
-    }, 2000);
-  }, []);
+  const connect = () => {
+    const socketClient = new W3CWebSocket(`${protocol}://localhost:8080/ws`);
+
+    socketClient.onmessage = (message) => setData(JSON.parse(message.data));
+
+    socketClient.onclose = (e) => {
+      console.log('connection is closed.', e.reason);
+    };
+
+    socketClient.onerror = (err) => {
+      console.error('Socket encountered error: ', err.message, 'Closing socket');
+    };
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => connect(), []);
 
   const networkName = data && data.network;
 
@@ -92,13 +78,13 @@ const Home = () => {
       <div className="row">
         <div className="col-lg-3 pr-lg-2">
           <DataTile icon={ActiveSmashersIcon} title="Active smashers" value={activeSmashers && activeSmashers.amt} showValue>
-            <BarChartCustom data={activeSmashersChartData} />
+            {data && <BarChartCustom data={activeSmashersChartData} />}
           </DataTile>
           <DataTile icon={AccountsIcon} title="Accounts" value={accounts && accounts.amt} showValue>
-            <BarChartCustom data={accountsChartData} />
+            {data && <BarChartCustom data={data && accountsChartData} />}
           </DataTile>
           <DataTile icon={SmashingRewardIcon} title="Smeshing rewards" showValue value={smashingReward && smashingReward.amt} valueUnit="SMH">
-            <BarChartCustom data={smashingRewardChartData} />
+            {data && <BarChartCustom data={data && smashingRewardChartData} />}
           </DataTile>
         </div>
         <div className="col-lg-6">
@@ -118,25 +104,25 @@ const Home = () => {
           <div className="row">
             <div className="col-lg-6 pl-lg-0 pr-lg-1">
               <DataTile icon={TxnCapacityIcon} title="Tx/S Capasity">
-                <RangeSlider data={data && [data.capacity]} />
+                <RangeSlider value={data && [data.capacity]} />
               </DataTile>
             </div>
             <div className="col-lg-6 pr-lg-0 pl-lg-1">
               <DataTile icon={DecentralizationRatio} title="Decentralization Ratio">
-                <RangeSlider data={data && [data.decentral]} />
+                <RangeSlider value={data && [data.decentral]} />
               </DataTile>
             </div>
           </div>
         </div>
         <div className="col-lg-3 pl-lg-2">
           <DataTile icon={TxnsIcon} title="Transactions" value={transactions && transactions.amt} showValue>
-            <BarChartCustom data={transactionsChartData} />
+            {data && <BarChartCustom data={data && transactionsChartData} />}
           </DataTile>
           <DataTile icon={CirculationIcon} title="Circulation" value={circulation && circulation.amt} showValue>
-            <BarChartCustom data={circulationChartData} />
+            {data && <BarChartCustom data={data && circulationChartData} />}
           </DataTile>
           <DataTile icon={SecurityIcon} title="Security" value={security && security.amt} showValue valueUnit="SMH">
-            <BarChartCustom data={securityChartData} />
+            {data && <BarChartCustom data={data && securityChartData} />}
           </DataTile>
         </div>
       </div>
