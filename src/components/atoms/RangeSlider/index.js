@@ -7,7 +7,7 @@ import ScaleLoader from 'react-spinners/ScaleLoader';
 import * as colors from '../../../styles/utilities/_variables.scss';
 
 type Props = {
-  data: Array;
+  value: Array;
 }
 
 const STEP = 1;
@@ -15,7 +15,8 @@ const MIN = 0;
 const MAX = 100;
 
 const RangeSlider = (props: Props) => {
-  const { data } = props;
+  const { value } = props;
+  const data = value < 100 ? [value] : [0];
 
   return (
     data ? (
