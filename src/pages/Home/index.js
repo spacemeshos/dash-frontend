@@ -78,13 +78,13 @@ const Home = () => {
       <div className="row">
         <div className="col-lg-3 pr-lg-2">
           <DataTile icon={ActiveSmashersIcon} title="Active smashers" value={activeSmashers && activeSmashers.amt} showValue>
-            {data && <BarChartCustom data={activeSmashersChartData} />}
+            <BarChartCustom data={activeSmashersChartData} />
           </DataTile>
           <DataTile icon={AccountsIcon} title="Accounts" value={accounts && accounts.amt} showValue>
-            {data && <BarChartCustom data={data && accountsChartData} />}
+            <BarChartCustom data={data && accountsChartData} />
           </DataTile>
           <DataTile icon={SmashingRewardIcon} title="Smeshing rewards" showValue value={smashingReward && smashingReward.amt} valueUnit="SMH">
-            {data && <BarChartCustom data={data && smashingRewardChartData} />}
+            <BarChartCustom data={data && smashingRewardChartData} />
           </DataTile>
         </div>
         <div className="col-lg-6">
@@ -116,13 +116,13 @@ const Home = () => {
         </div>
         <div className="col-lg-3 pl-lg-2">
           <DataTile icon={TxnsIcon} title="Transactions" value={transactions && transactions.amt} showValue>
-            {data && <BarChartCustom data={data && transactionsChartData} />}
+            <BarChartCustom data={data && transactionsChartData} />
           </DataTile>
           <DataTile icon={CirculationIcon} title="Circulation" value={circulation && circulation.amt} showValue>
-            {data && <BarChartCustom data={data && circulationChartData} />}
+            <BarChartCustom data={data && circulationChartData} />
           </DataTile>
           <DataTile icon={SecurityIcon} title="Security" value={security && security.amt} showValue valueUnit="SMH">
-            {data && <BarChartCustom data={data && securityChartData} />}
+            <BarChartCustom data={data && securityChartData} />
           </DataTile>
         </div>
       </div>

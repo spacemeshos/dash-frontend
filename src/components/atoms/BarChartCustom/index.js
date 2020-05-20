@@ -18,9 +18,14 @@ const BarChartCustom = (props: Props) => {
 
   return (
     <ResponsiveContainer width="100%" height={124}>
-      <BarChart data={data}>
-        <Bar dataKey="uv" fill={colors.barChart} barSize={2} />
-      </BarChart>
+      {data.length > 0
+        ? (
+          <BarChart data={data}>
+            <Bar dataKey="uv" fill={colors.barChart} barSize={2} />
+          </BarChart>
+        ) : (
+          <div />
+        )}
     </ResponsiveContainer>
   );
 };
