@@ -24,19 +24,17 @@ const Map = (props: Props) => {
     <div className="map-wrap">
       <MapTitle title="Live Smeshers" toolTipMessage="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout." />
       <ComposableMap
-        projection="geoAzimuthalEqualArea"
+        projection="geoMercator"
         projectionConfig={{
-          rotate: [58, 20, 0],
-          scale: 400,
+          scale: 230,
         }}
         style={{
           width: '100%',
-          height: '390px',
+          height: '355px',
         }}
       >
         <Geographies geography={geoUrl}>
           {({ geographies }) => geographies
-            .filter((d) => d.properties.REGION_UN === 'Americas')
             .map((geo) => (
               <Geography
                 key={geo.rsmKey}

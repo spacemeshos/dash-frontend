@@ -25,10 +25,11 @@ import DecentralizationRatio from '../../assets/icons/decentralization-ratio.svg
 const Home = () => {
 // Rework and uncomment after backend add logic for getting data
   const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+  const hostname = window.location.hostname === 'localhost' ? 'stage.dash.spacemesh.io' : window.location.hostname;
   const [data, setData] = useState(false);
 
   const connect = () => {
-    const socketClient = new W3CWebSocket(`${protocol}://spacemesh.inc4.net:8080/ws`);
+    const socketClient = new W3CWebSocket(`${protocol}://${hostname}:8080/ws`);
 
     socketClient.onmessage = (message) => setData(JSON.parse(message.data));
 
