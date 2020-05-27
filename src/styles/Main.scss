@@ -2,11 +2,12 @@
 @import "./utilities/variables";
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "./themes/color-palette";
 
 // Mixins
 @import "./mixins/flexbox";
 @import "./mixins/media-breakpoint";
-
+@import "./mixins/theme-aware";
 
 // Fonts
 @import "./fonts/fonts";
@@ -23,7 +24,6 @@
 @import "./components/atoms/range-slider";
 @import "./components/molecules/data-tile";
 @import "./components/molecules/map";
-
 
 // Components
 @import "./components/Layout/header";
