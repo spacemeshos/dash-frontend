@@ -1,6 +1,6 @@
-body {
-  @include theme-aware('background', 'color-background');
-}
+//body {
+//  @include theme-aware('background', 'color-background');
+//}
 
 // It will generate the following rules:
 //body {
@@ -21,7 +21,7 @@ body {
   position: relative;
   font-family: $main-font-family;
   @include theme-aware('color', 'body-color-font');
-  background-color: #F3F3F3;
+  @include theme-aware('background-color', 'color-background');
 }
 
 * {
