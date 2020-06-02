@@ -10,7 +10,7 @@ type Props = {
 
 const Header = (props: Props) => {
   const { checkedTheme, switchTheme } = props;
-  console.log('checkedTheme', checkedTheme);
+
   return (
     <header className="header d-flex align-items-center flex-wrap">
       <Link to="/" className="header-link d-flex align-items-center ">
