@@ -10,10 +10,11 @@ type Props = {
   value?: string,
   showValue?: boolean;
   valueUnit?: string,
+  delimiter?: string,
 }
 
 const DataTile = (props: Props) => {
-  const { title, value, valueUnit, showValue, children, icon } = props;
+  const { title, value, valueUnit, showValue, children, icon, delimiter } = props;
 
   return (
     <div className="dataTitle-wrap">
@@ -22,7 +23,7 @@ const DataTile = (props: Props) => {
         title={title}
         toolTipMessage="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
       />
-      {showValue && (<ValueHolder value={value} units={valueUnit} />) }
+      {showValue && (<ValueHolder value={value} delimiter={delimiter} units={valueUnit} />) }
       { children }
     </div>
   );

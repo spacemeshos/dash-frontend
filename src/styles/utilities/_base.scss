@@ -1,27 +1,9 @@
-//body {
-//  @include theme-aware('background', 'color-background');
-//}
-
-// It will generate the following rules:
-//body {
-//  .theme-light & { background: #FAFAFA; }
-//  .theme-dark & { background: #37474F; }
-//}
-
-//// After compiling scss down to css, we get the following
-//.theme-light body {
-//  background: #FAFAFA;
-//}
-//
-//.theme-dark body {
-//  background: #37474F;
-//}
-
 body {
   position: relative;
   font-family: $main-font-family;
   @include theme-aware('color', 'body-color-font');
   @include theme-aware('background-color', 'color-background');
+  transition: background-color .25s ease;
 }
 
 * {

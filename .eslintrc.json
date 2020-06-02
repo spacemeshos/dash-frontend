@@ -47,7 +47,7 @@
     "import/prefer-default-export": "off",
     "no-return-assign": "off",
     "import/no-extraneous-dependencies": "off",
-    "max-len": ["error", { "code": 350 }],
+    "max-len": ["error", { "code": 850 }],
     "react/no-unused-prop-types": "off",
     "react/prop-types": 0,
     "consistent-return": "off",

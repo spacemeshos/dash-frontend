@@ -1,5 +1,5 @@
 .dataTitle-wrap {
-  background-color: $tile_background;
+  @include theme-aware('background-color', 'tile-bg');
   padding: 10px;
   margin-bottom: 9px;
   min-height: 128px;

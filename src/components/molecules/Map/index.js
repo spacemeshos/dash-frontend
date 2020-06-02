@@ -39,8 +39,6 @@ const Map = (props: Props) => {
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                fill={colors.mapGeographiesFill}
-                stroke={colors.mapGeographiesStroke}
               />
             ))}
         </Geographies>

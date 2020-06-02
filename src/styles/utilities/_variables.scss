@@ -8,13 +8,20 @@ $map_background: #c4c4c485;
 $map_color: #5D5A6D;
 $bar_chart: #C4C4C4;
 $grey: #cccccc;
-$map_geographies_fill: #EAEAEC;
+$map_geographies_fill: #EAEAEC; // 3f3e40
 $map_geographies_stroke: #D6D6DA;
+
+$map_geographies_fill_dark: #3f3e40;
+$map_geographies_stroke_dark: #3f3e40;
+$q_icon_bg: #828282;
 
 // Colors RGBA
 $tile_background: rgba(238, 238, 238, 1);
-$page_background: rgba(243, 243, 243, 1);
-$tile_title: rgba(64, 64, 64, 0.5);
+$tile_background_dark: #4D4C4F;
+
+$page_background: #f3f3f3;
+$page_background_dark: #252429;;
+
 $tile_title: rgba(64, 64, 64, 0.5);
 $tile_title_bottom_border: rgba(215, 215, 215, 1);
 

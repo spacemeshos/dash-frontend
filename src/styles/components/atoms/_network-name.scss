@@ -1,7 +1,7 @@
 .network-name {
   padding: 20px 35px 15px 35px;
   font-family: $code-pro-font-family;
-  background-color: $tile_background;
+  @include theme-aware('background-color', 'network-name-bg');
   font-weight: bold;
   font-size: 18px;
   text-transform: uppercase;
