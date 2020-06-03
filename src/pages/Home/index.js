@@ -1,5 +1,9 @@
 // @flow
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+} from 'react';
 import { Helmet } from 'react-helmet';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
@@ -11,9 +15,9 @@ import DataTile from '../../components/molecules/DataTile';
 import Map from '../../components/molecules/Map';
 
 // Icons
-import ActiveSmashersIcon from '../../assets/icons/active-smashers.svg';
+import ActiveSmeshersIcon from '../../assets/icons/active-smeshers.svg';
 import AccountsIcon from '../../assets/icons/accounts.svg';
-import SmashingRewardIcon from '../../assets/icons/smeshing-reward.svg';
+import SmeshingRewardIcon from '../../assets/icons/smeshing-reward.svg';
 import AgeIcon from '../../assets/icons/age.svg';
 import LayerEpoch from '../../assets/icons/layer-epoch.svg';
 import TxnsIcon from '../../assets/icons/txns.svg';
@@ -22,8 +26,14 @@ import SecurityIcon from '../../assets/icons/security.svg';
 import TxnCapacityIcon from '../../assets/icons/txn-capacity.svg';
 import DecentralizationRatio from '../../assets/icons/decentralization-ratio.svg';
 
+// Context providers
+import { LayoutContext } from '../../contextProviders/layoutContext';
+
 const Home = () => {
-// Rework and uncomment after backend add logic for getting data
+  const layoutContextData = useContext(LayoutContext);
+  const { checkedTheme } = layoutContextData;
+
+  // Rework and uncomment after backend add logic for getting data
   const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
   const hostname = window.location.hostname === 'localhost' ? 'stage.dash.spacemesh.io' : window.location.hostname;
   const [data, setData] = useState(false);
@@ -45,16 +55,25 @@ const Home = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => connect(), []);
 
+  useEffect(() => {
+    const color = localStorage.getItem('theme-color');
+    if (color) {
+      document.documentElement.classList.add(`theme-${color}`);
+    } else {
+      document.documentElement.classList.add('theme-light');
+    }
+  }, []);
+
   const networkName = data && data.network;
 
-  const activeSmashers = data && data.smeshers[data.smeshers.length - 1];
-  const activeSmashersChartData = data && data.smeshers;
+  const activeSmeshers = data && data.smeshers[data.smeshers.length - 1];
+  const activeSmeshersChartData = data && data.smeshers;
 
   const accounts = data && data.accounts[data.accounts.length - 1];
   const accountsChartData = data && data.accounts;
 
-  const smashingReward = data && data.rewards[data.rewards.length - 1];
-  const smashingRewardChartData = data && data.rewards;
+  const smeshingReward = data && data.rewards[data.rewards.length - 1];
+  const smeshingRewardChartData = data && data.rewards;
 
   const circulation = data && data.circulation[data.circulation.length - 1];
   const circulationChartData = data && data.circulation;
@@ -78,14 +97,14 @@ const Home = () => {
       </div>
       <div className="row">
         <div className="col-lg-3 pr-lg-2">
-          <DataTile icon={ActiveSmashersIcon} title="Active smashers" value={activeSmashers && activeSmashers.amt} showValue>
-            <BarChartCustom data={activeSmashersChartData} />
+          <DataTile icon={ActiveSmeshersIcon} title="Active smeshers" value={activeSmeshers && activeSmeshers.amt} showValue>
+            <BarChartCustom data={activeSmeshersChartData} />
           </DataTile>
           <DataTile icon={AccountsIcon} title="Accounts" value={accounts && accounts.amt} showValue>
             <BarChartCustom data={data && accountsChartData} />
           </DataTile>
-          <DataTile icon={SmashingRewardIcon} title="Smeshing rewards" showValue value={smashingReward && smashingReward.amt} valueUnit="SMH">
-            <BarChartCustom data={data && smashingRewardChartData} />
+          <DataTile icon={SmeshingRewardIcon} title="Smeshing rewards" showValue value={smeshingReward && smeshingReward.amt} valueUnit="SMH">
+            <BarChartCustom data={data && smeshingRewardChartData} />
           </DataTile>
         </div>
         <div className="col-lg-6">
@@ -104,7 +123,7 @@ const Home = () => {
           </div>
           <div className="row">
             <div className="col-lg-6 pl-lg-0 pr-lg-1">
-              <DataTile icon={TxnCapacityIcon} title="Tx/S Capasity">
+              <DataTile icon={TxnCapacityIcon} title="Tx/S Capacity">
                 <RangeSlider value={data && [data.capacity]} />
               </DataTile>
             </div>
@@ -119,10 +138,10 @@ const Home = () => {
           <DataTile icon={TxnsIcon} title="Transactions" value={transactions && transactions.amt} showValue>
             <BarChartCustom data={data && transactionsChartData} />
           </DataTile>
-          <DataTile icon={CirculationIcon} title="Circulation" value={circulation && circulation.amt} showValue>
+          <DataTile icon={CirculationIcon} valueUnit="SMH" title="Circulation" value={circulation && circulation.amt} showValue>
             <BarChartCustom data={data && circulationChartData} />
           </DataTile>
-          <DataTile icon={SecurityIcon} title="Security" value={security && security.amt} showValue valueUnit="SMH">
+          <DataTile icon={SecurityIcon} title="Security" value={security && security.amt} showValue valueUnit="PB">
             <BarChartCustom data={data && securityChartData} />
           </DataTile>
         </div>

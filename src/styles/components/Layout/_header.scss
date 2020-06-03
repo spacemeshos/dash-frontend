@@ -3,6 +3,10 @@
   position: relative;
 }
 
+a svg {
+  @include theme-aware('fill', 'logo-text');
+}
+
 .header-link {
   &__logo {
     margin-top: 5px;
@@ -11,7 +15,7 @@
   }
 
   &__logo-text {
-    color: $dark;
+    @include theme-aware('color', 'logo-text');
     font-size: 30px;
     letter-spacing: 1px;
   }
@@ -58,6 +62,5 @@ ul.menu {
   .navbar__link {
     font-size: 16px;
   }
-
 }
 

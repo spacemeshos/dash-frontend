@@ -1,8 +1,9 @@
 body {
   position: relative;
   font-family: $main-font-family;
-  color: $dark;
-  background-color: #F3F3F3;
+  @include theme-aware('color', 'body-color-font');
+  @include theme-aware('background-color', 'color-background');
+  transition: background-color .25s ease;
 }
 
 * {

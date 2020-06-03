@@ -12,7 +12,8 @@ main {
   width: 100%;
   display: inline-block;
   position: relative;
-  border: 3px solid $dark;
+  border: 3px solid;
+  @include theme-aware('border-color', 'corner-box-border');
   z-index: 1;
   padding: 4px;
 }
@@ -23,7 +24,7 @@ main {
   z-index: -1;
   display: block;
   position: absolute;
-  background-color: $page_background;
+  @include theme-aware('background-color', 'color-background');
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

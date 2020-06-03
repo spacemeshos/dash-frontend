@@ -17,7 +17,7 @@ import NotFound from './pages/NotFound';
 
 const App = () => (
   <>
-    <Layout>
+    <Layout props>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/not-found" component={NotFound} status={404} />
