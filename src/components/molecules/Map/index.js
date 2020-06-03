@@ -8,9 +8,6 @@ import {
 } from 'react-simple-maps';
 import MapTitle from '../../atoms/MapTitle';
 
-// Colors
-import * as colors from '../../../styles/utilities/_variables.scss';
-
 const geoUrl = 'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json';
 
 type Props = {
@@ -41,8 +38,6 @@ const Map = (props: Props) => {
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill={colors.mapGeographiesFill}
-                  stroke={colors.mapGeographiesStroke}
                 />
               ))}
           </Geographies>
