@@ -5,14 +5,15 @@ import ScaleLoader from 'react-spinners/ScaleLoader';
 type Props = {
   value: string,
   units?: string,
+  delimiter: string,
 }
 
 const ValueHolder = (props: Props) => {
-  const { value, units } = props;
-  const data = units ? `${value} / ${units}` : value;
+  const { value, units, delimiter } = props;
+  const data = units ? `${value} ${delimiter || ''} ${units}` : value;
 
   return (
-    value ? (
+    (value || value === 0) ? (
       <div className="value-holder">{data}</div>
     ) : (
       <ScaleLoader

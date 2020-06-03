@@ -2,11 +2,12 @@
 @import "./utilities/variables";
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "./themes/color-palette";
 
 // Mixins
 @import "./mixins/flexbox";
 @import "./mixins/media-breakpoint";
-
+@import "./mixins/theme-aware";
 
 // Fonts
 @import "./fonts/fonts";
@@ -16,6 +17,7 @@
 @import "./utilities/typography";
 
 // atoms
+@import "./components/atoms/switcher";
 @import "./components/atoms/network-name";
 @import "./components/atoms/tile-title";
 @import "./components/atoms/value-holder";
@@ -23,7 +25,6 @@
 @import "./components/atoms/range-slider";
 @import "./components/molecules/data-tile";
 @import "./components/molecules/map";
-
 
 // Components
 @import "./components/Layout/header";
