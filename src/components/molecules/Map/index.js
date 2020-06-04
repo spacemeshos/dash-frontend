@@ -7,6 +7,7 @@ import {
   ZoomableGroup,
 } from 'react-simple-maps';
 import MapTitle from '../../atoms/MapTitle';
+import Title from '../../atoms/Title';
 
 const geoUrl = 'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json';
 
@@ -65,6 +66,9 @@ const Map = (props: Props) => {
           ))}
         </ZoomableGroup>
       </ComposableMap>
+      <div className="bottom-text-wrap">
+        <Title text="Note: User Min 100 GB GPU And Max 1TB GPU" />
+      </div>
     </div>
   );
 };

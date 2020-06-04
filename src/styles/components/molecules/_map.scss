@@ -29,6 +29,11 @@
       }
     }
   }
+  .bottom-text-wrap {
+    position: absolute;
+    bottom: 15px;
+    left: 25px;
+  }
 }
 .map-wrap:before {
   content: '';

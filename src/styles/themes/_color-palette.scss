@@ -15,6 +15,7 @@ $themes: (
     map-path-stroke: $map_geographies_stroke,
     q-icon: $q_icon_bg,
     icon-tile: $dark,
+    title: $dark,
   ),
   dark: (
     corner-box-border: $white,
@@ -32,5 +33,6 @@ $themes: (
     map-path-stroke: $map_geographies_stroke_dark,
     q-icon: $white,
     icon-tile: $white,
+    title: $white,
   )
 );

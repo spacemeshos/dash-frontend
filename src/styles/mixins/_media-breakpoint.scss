@@ -1,5 +1,5 @@
 @mixin c-media-breakpoint-1200-1360() {
-  @media (min-width: 1200px) and (max-width: 1360px) {
+  @media (min-width: 1200px) and (max-width: 1400px) {
     @content;
   }
 }

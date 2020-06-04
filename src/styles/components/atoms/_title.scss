@@ -1,0 +1,7 @@
+.title-text {
+  font-family: $code-pro-font-family;
+  font-size: 14px;
+  line-height: 13px;
+  text-transform: capitalize;
+  @include theme-aware('color', 'title');
+}
