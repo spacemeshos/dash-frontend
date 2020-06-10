@@ -38,20 +38,20 @@
 .map-wrap:before {
   content: '';
   position: absolute;
-  background: url('../../../assets/mapBorder.svg');
+  @include theme-aware('background', 'map-decoration');
   top: 0;
   left: 0;
-  width: 8px;
+  width: 7px;
   height: 354px;
 }
 
 .map-wrap:after {
   content: '';
   position: absolute;
-  background: url('../../../assets/mapBorder.svg');
+  @include theme-aware('background', 'map-decoration');
   top: 0;
   right: 0;
-  width: 8px;
+  width: 7px;
   height: 354px;
 }
 

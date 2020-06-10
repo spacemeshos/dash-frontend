@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
-import Line from '../../assets/right_decoration.svg';
+import darkLine from '../../assets/right_decoration.svg';
+import whiteLine from '../../assets/darkTheme/right_decoration_dark.svg';
 // ContextProviders
 import { LayoutContext } from '../../contextProviders/layoutContext';
 
@@ -31,7 +32,7 @@ const Layout = ({ children }) => {
         </main>
       </div>
       <div className="rightLine">
-        <img src={Line} alt="" />
+        <img src={checkedTheme === 'light' ? darkLine : whiteLine} alt="" />
       </div>
     </LayoutContext.Provider>
   );

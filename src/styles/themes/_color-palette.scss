@@ -16,6 +16,7 @@ $themes: (
     q-icon: $q_icon_bg,
     icon-tile: $dark,
     title: $dark,
+    map-decoration: url('../../assets/mapBorder.svg'),
   ),
   dark: (
     corner-box-border: $white,
@@ -34,5 +35,6 @@ $themes: (
     q-icon: $white,
     icon-tile: $white,
     title: $white,
+    map-decoration: url('../../assets/darkTheme/map_decoration_dark.svg'),
   )
 );

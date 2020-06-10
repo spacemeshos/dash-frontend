@@ -26,12 +26,25 @@ import SecurityIcon from '../../assets/icons/security.svg';
 import TxnCapacityIcon from '../../assets/icons/txn-capacity.svg';
 import DecentralizationRatio from '../../assets/icons/decentralization-ratio.svg';
 
+// White Icons AccountsIconWhite
+import ActiveSmeshersIconWhite from '../../assets/darkTheme/active-smeshers_white.svg';
+import AccountsIconWhite from '../../assets/darkTheme/accounts_white.svg';
+import SmeshingRewardIconWhite from '../../assets/darkTheme/smeshing-reward_white.svg';
+import AgeIconWhite from '../../assets/darkTheme/age_white.svg';
+import LayerEpochWhite from '../../assets/darkTheme/layer-epoch_white.svg';
+import TxnsIconWhite from '../../assets/darkTheme/txns_white.svg';
+import CirculationIconWhite from '../../assets/darkTheme/circulation_white.svg';
+import SecurityIconWhite from '../../assets/darkTheme/security_white.svg';
+import TxnCapacityIconWhite from '../../assets/darkTheme/txn-capacity_white.svg';
+import DecentralizationRatioWhite from '../../assets/darkTheme/decentralization-ratio_white.svg';
+
 // Context providers
 import { LayoutContext } from '../../contextProviders/layoutContext';
 
 const Home = () => {
   const layoutContextData = useContext(LayoutContext);
   const { checkedTheme } = layoutContextData;
+  const isLightTheme = checkedTheme === 'light';
 
   // Rework and uncomment after backend add logic for getting data
   const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
@@ -97,23 +110,23 @@ const Home = () => {
       </div>
       <div className="row">
         <div className="col-lg-3 pr-lg-2">
-          <DataTile icon={ActiveSmeshersIcon} title="Active smeshers" value={activeSmeshers && activeSmeshers.amt} showValue>
+          <DataTile icon={isLightTheme ? ActiveSmeshersIcon : ActiveSmeshersIconWhite} title="Active smeshers" value={activeSmeshers && activeSmeshers.amt} showValue>
             <BarChartCustom data={activeSmeshersChartData} />
           </DataTile>
-          <DataTile icon={AccountsIcon} title="Accounts" value={accounts && accounts.amt} showValue>
+          <DataTile icon={isLightTheme ? AccountsIcon : AccountsIconWhite} title="Accounts" value={accounts && accounts.amt} showValue>
             <BarChartCustom data={data && accountsChartData} />
           </DataTile>
-          <DataTile icon={SmeshingRewardIcon} title="Smeshing rewards" showValue value={smeshingReward && smeshingReward.amt} valueUnit="SMH">
+          <DataTile icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite} title="Smeshing rewards" showValue value={smeshingReward && smeshingReward.amt} valueUnit="SMH">
             <BarChartCustom data={data && smeshingRewardChartData} />
           </DataTile>
         </div>
         <div className="col-lg-6">
           <div className="row">
             <div className="col-lg-6 pl-lg-0 pr-lg-1">
-              <DataTile icon={AgeIcon} title="Age" showValue value={data && data.age} />
+              <DataTile icon={isLightTheme ? AgeIcon : AgeIconWhite} title="Age" showValue value={data && data.age} />
             </div>
             <div className="col-lg-6 pr-lg-0 pl-lg-1">
-              <DataTile icon={LayerEpoch} title="Layer / Epoch" showValue value={data && `${data.layer}/${data.epoch}`} />
+              <DataTile icon={isLightTheme ? LayerEpoch : LayerEpochWhite} title="Layer / Epoch" showValue value={data && `${data.layer}/${data.epoch}`} />
             </div>
           </div>
           <div className="row pb-2">
@@ -123,25 +136,25 @@ const Home = () => {
           </div>
           <div className="row">
             <div className="col-lg-6 pl-lg-0 pr-lg-1">
-              <DataTile icon={TxnCapacityIcon} title="Tx/S Capacity">
+              <DataTile icon={isLightTheme ? TxnCapacityIcon : TxnCapacityIconWhite} title="Tx/S Capacity">
                 <RangeSlider value={data && [data.capacity]} />
               </DataTile>
             </div>
             <div className="col-lg-6 pr-lg-0 pl-lg-1">
-              <DataTile icon={DecentralizationRatio} title="Decentralization Ratio">
+              <DataTile icon={isLightTheme ? DecentralizationRatio : DecentralizationRatioWhite} title="Decentralization Ratio">
                 <RangeSlider value={data && [data.decentral]} />
               </DataTile>
             </div>
           </div>
         </div>
         <div className="col-lg-3 pl-lg-2">
-          <DataTile icon={TxnsIcon} title="Transactions" value={transactions && transactions.amt} showValue>
+          <DataTile icon={isLightTheme ? TxnsIcon : TxnsIconWhite} title="Transactions" value={transactions && transactions.amt} showValue>
             <BarChartCustom data={data && transactionsChartData} />
           </DataTile>
-          <DataTile icon={CirculationIcon} valueUnit="SMH" title="Circulation" value={circulation && circulation.amt} showValue>
+          <DataTile icon={isLightTheme ? CirculationIcon : CirculationIconWhite} valueUnit="SMH" title="Circulation" value={circulation && circulation.amt} showValue>
             <BarChartCustom data={data && circulationChartData} />
           </DataTile>
-          <DataTile icon={SecurityIcon} title="Security" value={security && security.amt} showValue valueUnit="PB">
+          <DataTile icon={isLightTheme ? SecurityIcon : SecurityIconWhite} title="Security" value={security && security.amt} showValue valueUnit="PB">
             <BarChartCustom data={data && securityChartData} />
           </DataTile>
         </div>
