@@ -1,11 +1,7 @@
-$switchGray: #F3F3F3;
-$switchBlack: #000;
-
 .m-checkbox {
   display: flex;
   align-items: center;
   padding: .5rem;
-  margin-left: auto;
 
   &__input {
     position: relative;
@@ -16,9 +12,9 @@ $switchBlack: #000;
     -webkit-appearance: none;
     -moz-appearance: none;
     outline: none; // TODO: manage :focus
-    background: $switchGray;
+    background: $lightGrey;
     cursor: pointer;
-    border: 2px solid $switchGray;
+    border: 2px solid $lightGrey;
 
     &::before {
       content: ' ';
@@ -28,7 +24,7 @@ $switchBlack: #000;
       bottom: 50%;
       left: 50%;
       transition: all .1s;
-      background: $switchGray;
+      background: $lightGrey;
     }
 
     &:checked {
@@ -45,25 +41,25 @@ $switchBlack: #000;
     &__input {
       width: (2 * 20px) - (2 * 2px);
       height: 20px;
-      border: 2px solid $switchBlack;
+      border: 2px solid $dark;
       border-radius: 20px - (2*2px);
-      background: $switchGray;
+      background: $lightGrey;
       &::before {
         top: 2px;
         right: 20px - 2px;
         bottom: 2px;
         left: 2px;
         border-radius: 50%;
-        background: $switchBlack;
+        background: $dark;
       }
 
       &:checked {
-        border-color: $switchGray;
-        background: $switchBlack;
+        border-color: $lightGrey;
+        background: $dark;
         &::before {
           right: 2px;
           left: 20px - 2px;
-          background: $switchGray;
+          background: $lightGrey;
         }
       }
     }

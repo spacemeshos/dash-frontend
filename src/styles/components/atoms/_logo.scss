@@ -1,0 +1,22 @@
+.logo {
+  margin-right: 20px;
+  font-family: $code-pro-font-family;
+
+  &-wrap {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    svg {
+      width: 10px;
+      height: 14px;
+      margin-top: 7px;
+      @include theme-aware('fill', 'logoTextColor');
+    }
+  }
+
+  &-text {
+    font-size: 30px;
+    @include theme-aware('color', 'logoTextColor');
+  }
+}

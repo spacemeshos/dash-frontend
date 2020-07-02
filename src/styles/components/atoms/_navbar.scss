@@ -1,0 +1,25 @@
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+
+  &-list {
+    display: flex;
+    list-style: none;
+    align-items: center;
+
+    &-item {
+      font-family: $code-pro-font-family;
+      font-size: 18px;
+      a {
+        text-decoration: underline;
+      }
+    }
+
+    &-item:not(:last-child):after {
+      content: "//";
+      display: inline-block;
+      margin: 0 5px 0 5px;
+      @include theme-aware('color', 'navBarSeparator');
+    }
+  }
+}

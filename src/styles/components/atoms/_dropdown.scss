@@ -1,0 +1,89 @@
+.Dropdown-root {
+  display: flex;
+  position: relative;
+  margin-left: auto;
+  font-family: $code-pro-font-family;
+}
+
+.Dropdown-control {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid $secondGrey;
+  border-radius: 2px;
+  box-sizing: border-box;
+  font-size: 18px;
+  color: $green;
+  cursor: default;
+  outline: none;
+  padding: 8px 28px 8px 10px;
+  transition: all 200ms ease;
+}
+
+.Dropdown-control:hover {}
+
+.Dropdown-arrow {
+  border: solid $green;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  height: 0;
+  position: absolute;
+  right: 10px;
+  top: 14px;
+  width: 0;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.is-open .Dropdown-arrow {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.Dropdown-menu {
+  @include theme-aware('background-color', 'dropDownBackground');
+  border: 1px solid $secondGrey;
+  box-sizing: border-box;
+  margin-top: -1px;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 1000;
+  -webkit-overflow-scrolling: touch;
+}
+
+.Dropdown-menu .Dropdown-group > .Dropdown-title{
+  padding: 8px 10px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.Dropdown-option {
+  box-sizing: border-box;
+  color: $secondGrey;
+  cursor: pointer;
+  display: block;
+  padding: 6px 10px 3px 10px;
+  font-size: 16px;
+}
+
+.Dropdown-option:last-child {
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.Dropdown-option.is-selected {}
+
+.Dropdown-option:hover {
+  @include theme-aware('color', 'dropDownOption');
+}
+
+.Dropdown-noresults {
+  box-sizing: border-box;
+  color: $secondGrey;
+  cursor: default;
+  display: block;
+  padding: 8px 10px;
+}
