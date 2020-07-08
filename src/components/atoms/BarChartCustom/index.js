@@ -21,7 +21,7 @@ const BarChartCustom = (props: Props) => {
       {data.length > 0
         ? (
           <BarChart data={data}>
-            <Bar dataKey="uv" fill={colors.barChart} barSize={2} />
+            <Bar dataKey="amt" fill={colors.barChart} barSize={2} />
           </BarChart>
         ) : (
           <div />

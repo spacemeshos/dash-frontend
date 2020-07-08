@@ -48,7 +48,7 @@ const Home = () => {
 
   // Rework and uncomment after backend add logic for getting data
   const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-  const hostname = window.location.hostname === 'localhost' ? 'stage.dash.spacemesh.io' : window.location.hostname;
+  const hostname = window.location.hostname === 'localhost' ? 'stage-dash.spacemesh.io' : window.location.hostname;
   const [data, setData] = useState(false);
 
   const connect = () => {
