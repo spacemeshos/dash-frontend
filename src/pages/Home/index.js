@@ -6,6 +6,8 @@ import React, {
 } from 'react';
 import { Helmet } from 'react-helmet';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
+import moment from 'moment';
+import 'moment-duration-format';
 
 // Component
 import NetworkName from '../../components/atoms/NetworkName';
@@ -40,6 +42,7 @@ import DecentralizationRatioWhite from '../../assets/darkTheme/decentralization-
 
 // Context providers
 import { LayoutContext } from '../../contextProviders/layoutContext';
+import { byteConverter, smhCoinConverter } from '../../helpers/converter';
 
 const Home = () => {
   const layoutContextData = useContext(LayoutContext);
@@ -111,19 +114,19 @@ const Home = () => {
       <div className="row">
         <div className="col-lg-3 pr-lg-2">
           <DataTile icon={isLightTheme ? ActiveSmeshersIcon : ActiveSmeshersIconWhite} title="Active smeshers" value={activeSmeshers && activeSmeshers.amt} showValue>
-            <BarChartCustom data={activeSmeshersChartData} />
+            <BarChartCustom data={activeSmeshersChartData} dataMeasure="smeshers" />
           </DataTile>
           <DataTile icon={isLightTheme ? AccountsIcon : AccountsIconWhite} title="Accounts" value={accounts && accounts.amt} showValue>
-            <BarChartCustom data={data && accountsChartData} />
+            <BarChartCustom data={data && accountsChartData} dataMeasure="accounts" />
           </DataTile>
-          <DataTile icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite} title="Smeshing rewards" showValue value={smeshingReward && smeshingReward.amt} valueUnit="SMH">
-            <BarChartCustom data={data && smeshingRewardChartData} />
+          <DataTile icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite} title="Smeshing rewards" showValue value={smeshingReward && smhCoinConverter(smeshingReward.amt)} valueUnit="SMH">
+            <BarChartCustom data={data && smeshingRewardChartData} dataMeasure="SMH" tooltipFilter={smhCoinConverter} />
           </DataTile>
         </div>
         <div className="col-lg-6">
           <div className="row">
             <div className="col-lg-6 pl-lg-0 pr-lg-1">
-              <DataTile icon={isLightTheme ? AgeIcon : AgeIconWhite} title="Age" showValue value={data && data.age} />
+              <DataTile icon={isLightTheme ? AgeIcon : AgeIconWhite} title="Age" showValue value={data && moment.duration(data.age, 'seconds').format('d[d]:h[h]')} />
             </div>
             <div className="col-lg-6 pr-lg-0 pl-lg-1">
               <DataTile icon={isLightTheme ? LayerEpoch : LayerEpochWhite} title="Layer / Epoch" showValue value={data && `${data.layer}/${data.epoch}`} />
@@ -149,13 +152,13 @@ const Home = () => {
         </div>
         <div className="col-lg-3 pl-lg-2">
           <DataTile icon={isLightTheme ? TxnsIcon : TxnsIconWhite} title="Transactions" value={transactions && transactions.amt} showValue>
-            <BarChartCustom data={data && transactionsChartData} />
+            <BarChartCustom data={data && transactionsChartData} dataMeasure="Txns" />
           </DataTile>
-          <DataTile icon={isLightTheme ? CirculationIcon : CirculationIconWhite} valueUnit="SMH" title="Circulation" value={circulation && circulation.amt} showValue>
-            <BarChartCustom data={data && circulationChartData} />
+          <DataTile icon={isLightTheme ? CirculationIcon : CirculationIconWhite} valueUnit="SMH" title="Circulation" value={circulation && smhCoinConverter(circulation.amt)} showValue>
+            <BarChartCustom data={data && circulationChartData} dataMeasure="SMH" tooltipFilter={smhCoinConverter} />
           </DataTile>
-          <DataTile icon={isLightTheme ? SecurityIcon : SecurityIconWhite} title="Security" value={security && security.amt} showValue valueUnit="PB">
-            <BarChartCustom data={data && securityChartData} />
+          <DataTile icon={isLightTheme ? SecurityIcon : SecurityIconWhite} title="Security" value={security && byteConverter(security.amt)} showValue>
+            <BarChartCustom data={data && securityChartData} dataMeasure="Security" tooltipFilter={byteConverter} />
           </DataTile>
         </div>
       </div>
