@@ -20,11 +20,13 @@
     color: $tile_title;
 
     &.zero {
-      left: -4px
+      left: -4px;
+      @include theme-aware('color', 'range-mark');
     }
 
     &.hundred {
-      right: -9px
+      right: -9px;
+      @include theme-aware('color', 'range-mark');
     }
   }
 

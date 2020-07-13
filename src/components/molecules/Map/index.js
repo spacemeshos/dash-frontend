@@ -18,6 +18,7 @@ type Props = {
 const Map = (props: Props) => {
   const { geoMarkers } = props;
   const markers = geoMarkers || [];
+  const locationsCount = markers.length;
 
   return (
     <div className="map-wrap">
@@ -25,7 +26,7 @@ const Map = (props: Props) => {
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
-          scale: 230,
+          scale: 200,
         }}
         style={{
           width: '100%',
@@ -52,7 +53,7 @@ const Map = (props: Props) => {
         </ZoomableGroup>
       </ComposableMap>
       <div className="bottom-text-wrap">
-        <Title text="Note: User Min 100 GB GPU And Max 1TB GPU" />
+        <Title text={`Note: Smeshing from ${locationsCount} world locations`} />
       </div>
     </div>
   );

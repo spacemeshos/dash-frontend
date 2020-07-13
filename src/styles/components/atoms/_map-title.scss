@@ -9,7 +9,7 @@
     font-family: $code-pro-font-family;
     white-space: pre;
     @include theme-aware('color', 'map-title');
-    font-size: 44px;
+    font-size: 26px;
     margin: 20px 5px 10px 35px;
     text-transform: uppercase;
   }

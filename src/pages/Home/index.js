@@ -114,10 +114,10 @@ const Home = () => {
       <div className="row">
         <div className="col-lg-3 pr-lg-2">
           <DataTile icon={isLightTheme ? ActiveSmeshersIcon : ActiveSmeshersIconWhite} title="Active smeshers" value={activeSmeshers && activeSmeshers.amt} showValue>
-            <BarChartCustom data={activeSmeshersChartData} dataMeasure="smeshers" />
+            <BarChartCustom data={activeSmeshersChartData} dataMeasure="Smeshers" />
           </DataTile>
           <DataTile icon={isLightTheme ? AccountsIcon : AccountsIconWhite} title="Accounts" value={accounts && accounts.amt} showValue>
-            <BarChartCustom data={data && accountsChartData} dataMeasure="accounts" />
+            <BarChartCustom data={data && accountsChartData} dataMeasure="Accounts" />
           </DataTile>
           <DataTile icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite} title="Smeshing rewards" showValue value={smeshingReward && smhCoinConverter(smeshingReward.amt)} valueUnit="SMH">
             <BarChartCustom data={data && smeshingRewardChartData} dataMeasure="SMH" tooltipFilter={smhCoinConverter} />
