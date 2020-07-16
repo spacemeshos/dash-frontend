@@ -13,16 +13,18 @@ const geoUrl = 'https://raw.githubusercontent.com/zcreativelabs/react-simple-map
 
 type Props = {
   geoMarkers?: Array,
+  activeSmeshers?: number,
 }
 
 const Map = (props: Props) => {
-  const { geoMarkers } = props;
+  const { geoMarkers, activeSmeshers } = props;
   const markers = geoMarkers || [];
   const locationsCount = markers.length;
+  const smeshers = activeSmeshers || 0;
 
   return (
     <div className="map-wrap">
-      <MapTitle title="Live Smeshers" toolTipMessage="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout." />
+      <MapTitle title="Live Smeshers" toolTipMessage="The map displays world locations of smeshers that opted-in to report geo location data back to Spacemesh. Each circle represents one active smesher at a specific world location, and the size of the circle is based on the amount of storage committed by that smesher." />
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
@@ -53,7 +55,7 @@ const Map = (props: Props) => {
         </ZoomableGroup>
       </ComposableMap>
       <div className="bottom-text-wrap">
-        <Title text={`Note: Smeshing from ${locationsCount} world locations`} />
+        <Title text={`Note: ${smeshers} Smeshers in ${locationsCount} world locations`} />
       </div>
     </div>
   );

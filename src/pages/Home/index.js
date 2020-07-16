@@ -113,51 +113,109 @@ const Home = () => {
       </div>
       <div className="row">
         <div className="col-lg-3 pr-lg-2">
-          <DataTile icon={isLightTheme ? ActiveSmeshersIcon : ActiveSmeshersIconWhite} title="Active smeshers" value={activeSmeshers && activeSmeshers.amt} showValue>
+          <DataTile
+            icon={isLightTheme ? ActiveSmeshersIcon : ActiveSmeshersIconWhite}
+            title="Active smeshers"
+            value={activeSmeshers && activeSmeshers.amt}
+            toolTipMess="Total of active smeshers in the most recent epoch. The graph displays the number of active smeshers in previous epochs. Active smeshers are deployed Spacemesh full p2p nodes that participate in the Spacemesh consensus protocol and submit blocks with transactions to the network."
+            showValue
+          >
             <BarChartCustom data={activeSmeshersChartData} dataMeasure="Smeshers" />
           </DataTile>
-          <DataTile icon={isLightTheme ? AccountsIcon : AccountsIconWhite} title="Accounts" value={accounts && accounts.amt} showValue>
+          <DataTile
+            icon={isLightTheme ? AccountsIcon : AccountsIconWhite}
+            title="Accounts"
+            value={accounts && accounts.amt}
+            toolTipMess="Current total of number of user coin accounts on the network with a non-zero coin balance. The graph displays the total number of accounts in previous epochs."
+            showValue
+          >
             <BarChartCustom data={data && accountsChartData} dataMeasure="Accounts" />
           </DataTile>
-          <DataTile icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite} title="Smeshing rewards" showValue value={smeshingReward && smhCoinConverter(smeshingReward.amt)} valueUnit="SMH">
+          <DataTile
+            icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite}
+            title="Smeshing rewards"
+            showValue
+            value={smeshingReward && smhCoinConverter(smeshingReward.amt)}
+            valueUnit="SMH"
+            toolTipMess="The total amount of coins awarded to smeshers since genesis. The graph displays the total rewards amount awarded to smeshers at the end of previous epochs. Smeshers are rewarded for submitting blocks with transactions to the network, for participating in the Spacemesh consensus protocol and for publishing proof of space time proofs."
+          >
             <BarChartCustom data={data && smeshingRewardChartData} dataMeasure="SMH" tooltipFilter={smhCoinConverter} />
           </DataTile>
         </div>
         <div className="col-lg-6">
           <div className="row">
             <div className="col-lg-6 pl-lg-0 pr-lg-1">
-              <DataTile icon={isLightTheme ? AgeIcon : AgeIconWhite} title="Age" showValue value={data && moment.duration(data.age, 'seconds').format('d[d]:h[h]')} />
+              <DataTile
+                icon={isLightTheme ? AgeIcon : AgeIconWhite}
+                title="Age"
+                showValue
+                value={data && moment.duration(data.age, 'seconds').format('d[d]:h[h]')}
+                toolTipMess="The network age is the time which passed from the network went online (genesis time) until the current time."
+              />
             </div>
             <div className="col-lg-6 pr-lg-0 pl-lg-1">
-              <DataTile icon={isLightTheme ? LayerEpoch : LayerEpochWhite} title="Layer / Epoch" showValue value={data && `${data.layer}/${data.epoch}`} />
+              <DataTile
+                icon={isLightTheme ? LayerEpoch : LayerEpochWhite}
+                title="Layer / Epoch"
+                showValue
+                value={data && `${data.layer}/${data.epoch}`}
+                toolTipMess="The current layer number and the current epoch number. One layer's duration is [XX] minutes and one epoch's duration is [YY] days"
+              />
             </div>
           </div>
           <div className="row pb-2">
             <div className="col-lg-12 pl-lg-0 pr-lg-0">
-              <Map geoMarkers={data && data.smeshersGeo} />
+              <Map geoMarkers={data && data.smeshersGeo} activeSmeshers={activeSmeshers && activeSmeshers.amt} />
             </div>
           </div>
           <div className="row">
             <div className="col-lg-6 pl-lg-0 pr-lg-1">
-              <DataTile icon={isLightTheme ? TxnCapacityIcon : TxnCapacityIconWhite} title="Tx/S Capacity">
+              <DataTile
+                icon={isLightTheme ? TxnCapacityIcon : TxnCapacityIconWhite}
+                title="Tx/S Capacity"
+                toolTipMess="The recent average transactions processed per second by the network over the network's transactions per second capacity. This indicates the current network transaction processing utilization. This network capacity is xxx transactions per second."
+              >
                 <RangeSlider value={data && [data.capacity]} />
               </DataTile>
             </div>
             <div className="col-lg-6 pr-lg-0 pl-lg-1">
-              <DataTile icon={isLightTheme ? DecentralizationRatio : DecentralizationRatioWhite} title="Decentralization Ratio">
+              <DataTile
+                icon={isLightTheme ? DecentralizationRatio : DecentralizationRatioWhite}
+                title="Decentralization Ratio"
+                toolTipMess="TBD - formula likely to change to consider post distro"
+              >
                 <RangeSlider value={data && [data.decentral]} />
               </DataTile>
             </div>
           </div>
         </div>
         <div className="col-lg-3 pl-lg-2">
-          <DataTile icon={isLightTheme ? TxnsIcon : TxnsIconWhite} title="Transactions" value={transactions && transactions.amt} showValue>
+          <DataTile
+            icon={isLightTheme ? TxnsIcon : TxnsIconWhite}
+            title="Transactions"
+            value={transactions && transactions.amt}
+            toolTipMess="The total number of transactions processed by the network since it went online (genesis time). The graph displays the total number of transactions processed by the network up to the end of previous epochs."
+            showValue
+          >
             <BarChartCustom data={data && transactionsChartData} dataMeasure="Txns" />
           </DataTile>
-          <DataTile icon={isLightTheme ? CirculationIcon : CirculationIconWhite} valueUnit="SMH" title="Circulation" value={circulation && smhCoinConverter(circulation.amt)} showValue>
+          <DataTile
+            icon={isLightTheme ? CirculationIcon : CirculationIconWhite}
+            valueUnit="SMH"
+            title="Circulation"
+            value={circulation && smhCoinConverter(circulation.amt)}
+            toolTipMess="The total amount of Smesh coins currently in circulation. This is determined by the coin rewards awarded to Smeshers as well as genesis minted coins. The graph displays the total amount in circulation at the end of previous epochs."
+            showValue
+          >
             <BarChartCustom data={data && circulationChartData} dataMeasure="SMH" tooltipFilter={smhCoinConverter} />
           </DataTile>
-          <DataTile icon={isLightTheme ? SecurityIcon : SecurityIconWhite} title="Security" value={security && byteConverter(security.amt)} showValue>
+          <DataTile
+            icon={isLightTheme ? SecurityIcon : SecurityIconWhite}
+            title="Security"
+            value={security && byteConverter(security.amt)}
+            toolTipMess="Security is measured by the total storage size committed to the network by smeshers. The bigger the number, the more storage is required by an adversary to attack the network. The number displays the amount of storage committed by all active smeshers in the previous epoch. The graph displays the amount of storage committed in previous epochs."
+            showValue
+          >
             <BarChartCustom data={data && securityChartData} dataMeasure="Security" tooltipFilter={byteConverter} />
           </DataTile>
         </div>
