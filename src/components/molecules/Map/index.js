@@ -55,7 +55,7 @@ const Map = (props: Props) => {
         </ZoomableGroup>
       </ComposableMap>
       <div className="bottom-text-wrap">
-        <Title text={`Note: ${smeshers} Smeshers in ${locationsCount} world locations`} />
+        <Title text={`${smeshers} Smeshers in ${locationsCount} world locations`} />
       </div>
     </div>
   );

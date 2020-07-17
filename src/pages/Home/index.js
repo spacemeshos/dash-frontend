@@ -182,7 +182,7 @@ const Home = () => {
               <DataTile
                 icon={isLightTheme ? DecentralizationRatio : DecentralizationRatioWhite}
                 title="Decentralization Ratio"
-                toolTipMess="TBD - formula likely to change to consider post distro"
+                toolTipMess="The network degree of decentralization where 100 is highly decentralized and 0 is highly centralized. This measure factors in both the overall number of smeshers and the amount of space committed by each. A network is more decentralized if the long tail of smeshers is longer and the ratio of space committed by whales is low compared to the amount of space committed by home smeshers."
               >
                 <RangeSlider value={data && [data.decentral]} />
               </DataTile>
