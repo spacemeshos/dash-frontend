@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import ScaleLoader from 'react-spinners/ScaleLoader';
+import Loader from '../Loader';
 
 type Props = {
   value: string,
@@ -16,12 +17,7 @@ const ValueHolder = (props: Props) => {
     (value || value === 0) ? (
       <div className="value-holder">{data}</div>
     ) : (
-      <ScaleLoader
-        css="margin-left: 10px; height: 18px"
-        size={150}
-        color="#65B042"
-        loading
-      />
+      <Loader size={25} />
     ));
 };
 
