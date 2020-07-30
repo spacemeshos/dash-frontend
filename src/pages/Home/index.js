@@ -136,7 +136,6 @@ const Home = () => {
             title="Smeshing rewards"
             showValue
             value={smeshingReward && smhCoinConverter(smeshingReward.amt)}
-            valueUnit="SMH"
             toolTipMess="The total amount of coins awarded to smeshers since genesis. The graph displays the total rewards amount awarded to smeshers at the end of previous epochs. Smeshers are rewarded for submitting blocks with transactions to the network, for participating in the Spacemesh consensus protocol and for publishing proof of space time proofs."
           >
             <BarChartCustom data={data && smeshingRewardChartData} dataMeasure="SMH" tooltipFilter={smhCoinConverter} />
@@ -201,7 +200,6 @@ const Home = () => {
           </DataTile>
           <DataTile
             icon={isLightTheme ? CirculationIcon : CirculationIconWhite}
-            valueUnit="SMH"
             title="Circulation"
             value={circulation && smhCoinConverter(circulation.amt)}
             toolTipMess="The total amount of Smesh coins currently in circulation. This is determined by the coin rewards awarded to Smeshers as well as genesis minted coins. The graph displays the total amount in circulation at the end of previous epochs."
