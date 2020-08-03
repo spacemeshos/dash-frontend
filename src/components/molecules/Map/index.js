@@ -29,14 +29,14 @@ const Map = (props: Props) => {
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
-          scale: 100,
+          scale: 140,
         }}
         style={{
           width: '100%',
           height: '355px',
         }}
       >
-        <ZoomableGroup>
+        <ZoomableGroup center={[0, 40]}>
           <Geographies geography={geoUrl}>
             {({ geographies }) => geographies
               .map((geo) => (
@@ -48,8 +48,8 @@ const Map = (props: Props) => {
           </Geographies>
           {markers.map(({ name, coordinates }) => (
             <Marker key={`${nanoid()}-${name}`} coordinates={coordinates}>
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="6" cy="6" r="6" fill="#AA58B1" />
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="5" cy="5" r="5" fill="#AA58B1" />
               </svg>
             </Marker>
           ))}
