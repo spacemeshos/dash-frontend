@@ -55,7 +55,7 @@ const Home = () => {
   const [data, setData] = useState(false);
 
   const connect = () => {
-    const socketClient = new W3CWebSocket(`${protocol}://${hostname}:8080/ws`);
+    const socketClient = new W3CWebSocket(`${protocol}://${hostname}/ws`);
 
     socketClient.onmessage = (message) => setData(JSON.parse(message.data));
 
