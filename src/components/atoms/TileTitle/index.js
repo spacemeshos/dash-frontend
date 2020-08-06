@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import { nanoid } from 'nanoid';
 
 type Props = {
   icon: string,

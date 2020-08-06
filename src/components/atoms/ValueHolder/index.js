@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import ScaleLoader from 'react-spinners/ScaleLoader';
 import Loader from '../Loader';
 
 type Props = {
