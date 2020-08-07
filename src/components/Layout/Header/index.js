@@ -8,6 +8,7 @@ import DropDown from '../../atoms/DropDown';
 type Props = {
   checkedTheme: string,
   switchTheme: Function,
+  viewStore: Object,
 }
 
 const links = [
@@ -22,13 +23,13 @@ const links = [
 ];
 
 const Header = (props: Props) => {
-  const { checkedTheme, switchTheme } = props;
+  const { checkedTheme, switchTheme, viewStore } = props;
 
   return (
     <div className="header">
       <Logo />
       <NavBar links={links} />
-      <DropDown />
+      <DropDown viewStore={viewStore} />
       <Switcher id="switch" onChange={switchTheme} checked={checkedTheme === 'dark'} />
     </div>
   );

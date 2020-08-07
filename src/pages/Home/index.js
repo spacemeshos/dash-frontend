@@ -8,6 +8,8 @@ import { Helmet } from 'react-helmet';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import moment from 'moment';
 import 'moment-duration-format';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 
 // Component
 import NetworkName from '../../components/atoms/NetworkName';
@@ -44,32 +46,48 @@ import DecentralizationRatioWhite from '../../assets/darkTheme/decentralization-
 import { LayoutContext } from '../../contextProviders/layoutContext';
 import { byteConverter, smhCoinConverter } from '../../helpers/converter';
 
-const Home = () => {
+type Props = {
+  viewStore: Object,
+  uiStore: Object,
+}
+
+const Home = (props: Props) => {
+  const { viewStore } = props;
+
   const layoutContextData = useContext(LayoutContext);
   const { checkedTheme } = layoutContextData;
   const isLightTheme = checkedTheme === 'light';
 
-  // Rework and uncomment after backend add logic for getting data
-  const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-  const hostname = window.location.hostname === 'localhost' ? 'stage-dash.spacemesh.io' : window.location.hostname;
   const [data, setData] = useState(false);
+  const network = toJS(viewStore.currentNetwork);
 
-  const connect = () => {
-    const socketClient = new W3CWebSocket(`${protocol}://${hostname}/ws`);
+  const [socketClient, setSocketClient] = useState(null);
 
-    socketClient.onmessage = (message) => setData(JSON.parse(message.data));
-
-    socketClient.onclose = (e) => {
-      console.log('connection is closed.', e.reason);
-    };
-
-    socketClient.onerror = (err) => {
-      console.error('Socket encountered error: ', err.message, 'Closing socket');
-    };
+  const connect = (url) => {
+    if (socketClient) {
+      socketClient.close();
+      setSocketClient(new W3CWebSocket(`${url}`));
+    } else {
+      setSocketClient(new W3CWebSocket(`${url}`));
+    }
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => connect(), []);
+  useEffect(() => connect(network.value), [network.value]);
+
+  useEffect(() => {
+    if (socketClient) {
+      socketClient.onmessage = (message) => setData(JSON.parse(message.data));
+
+      socketClient.onclose = (e) => {
+        console.log('connection is closed.', e.reason);
+      };
+
+      socketClient.onerror = (err) => {
+        console.error('Socket encountered error: ', err.message, 'Closing socket');
+      };
+    }
+  }, [socketClient]);
 
   useEffect(() => {
     const color = localStorage.getItem('theme-color');
@@ -222,4 +240,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default observer(Home);

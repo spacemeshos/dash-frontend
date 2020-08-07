@@ -2,22 +2,25 @@
 import * as React from 'react';
 
 import Dropdown from 'react-dropdown';
+import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
 
-const options = [
-  { value: 'network1', label: 'DevNet' }, { value: 'network2', label: 'TestNet 0.1 "TweedleDee"' },
-];
+type Props = {
+  viewStore: Object,
+}
 
-const DropDown = () => {
-  const onSelect = (e) => console.log('select', e);
+const DropDown = (props: Props) => {
+  const { viewStore } = props;
+  const network = toJS(viewStore.currentNetwork);
 
   return (
     <Dropdown
-      options={options}
-      onChange={onSelect}
-      value="DevNet"
+      options={toJS(viewStore.networks)}
+      onChange={(e) => viewStore.selectNetwork(e)}
+      value={network}
       placeholder="Select an option"
     />
   );
 };
 
-export default DropDown;
+export default observer(DropDown);

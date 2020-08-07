@@ -5,7 +5,9 @@ import whiteLine from '../../assets/darkTheme/right_decoration_dark.svg';
 // ContextProviders
 import { LayoutContext } from '../../contextProviders/layoutContext';
 
-const Layout = ({ children }) => {
+const Layout = (props) => {
+  //console.log('Layout props', props);
+  const { children, viewStore } = props;
   const [checkedTheme, setCheckedTheme] = useState('light');
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const Layout = ({ children }) => {
   return (
     <LayoutContext.Provider value={{ checkedTheme }}>
       <div className="site-wrapper">
-        <Header switchTheme={switchTheme} checkedTheme={checkedTheme} />
+        <Header switchTheme={switchTheme} checkedTheme={checkedTheme} viewStore={viewStore} />
         <main>
           <div className="corner-box">
             { children }
