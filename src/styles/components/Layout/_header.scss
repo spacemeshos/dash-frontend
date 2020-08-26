@@ -1,5 +1,57 @@
 .header {
-  display: flex;
-  height: 36px;
+  display: grid;
+  grid-template-areas: "logo navbar Dropdown-root m-checkbox";
+  grid-template-columns: 1fr 4fr 1fr 0.5fr;
+  grid-template-rows: auto;
+  grid-gap: 10px;
   margin-bottom: 60px;
+}
+
+.logo {
+  grid-area: logo;
+}
+
+.navbar {
+  grid-area: navbar;
+  align-self: center;
+  justify-self: left;
+}
+
+.m-checkbox {
+  grid-area: m-checkbox;
+  justify-self: end;
+}
+
+.Dropdown-root {
+  grid-area: Dropdown-root;
+  align-self: center;
+  justify-self: end;
+}
+
+@media (max-width: 1150px){
+  .header{
+    grid-template-areas: "logo m-checkbox";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .logo {
+    grid-column: 1 / 2;
+  }
+  .m-checkbox {
+    grid-column: 4 / 4;
+  }
+
+  .navbar {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3
+  }
+  .Dropdown-root {
+    grid-column: 1 / span 4;
+    grid-row: 3;
+    justify-self: start;
+    margin-left: 0;
+    width: 100%;
+    .Dropdown-control {
+      width: 100%;
+    }
+  }
 }

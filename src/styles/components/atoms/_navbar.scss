@@ -1,6 +1,11 @@
 .navbar {
   display: flex;
   flex-wrap: wrap;
+  padding: 0;
+
+  ul {
+    margin-bottom: 0;
+  }
 
   &-list {
     display: flex;
