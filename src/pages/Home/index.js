@@ -99,24 +99,27 @@ const Home = (props: Props) => {
   }, []);
 
   const networkName = data && data.network;
+  const sec = data && data.security.map((item, i) => {
+    return ({ uv: i, amt: 52428800 });
+  });
 
   const activeSmeshers = data && data.smeshers[data.smeshers.length - 1];
   const activeSmeshersChartData = data && data.smeshers;
 
-  const accounts = data && data.accounts[data.accounts.length - 1];
-  const accountsChartData = data && data.accounts;
+  const accounts = data && data.smeshers[data.smeshers.length - 1];
+  const accountsChartData = data && data.smeshers;
 
   const smeshingReward = data && data.rewards[data.rewards.length - 1];
   const smeshingRewardChartData = data && data.rewards;
 
-  const circulation = data && data.circulation[data.circulation.length - 1];
-  const circulationChartData = data && data.circulation;
+  const circulation = data && data.rewards[data.rewards.length - 1];
+  const circulationChartData = data && data.rewards;
 
   const transactions = data && data.transactions[data.transactions.length - 1];
   const transactionsChartData = data && data.transactions;
 
-  const security = data && data.security[data.security.length - 1];
-  const securityChartData = data && data.security;
+  const security = sec && sec[sec.length - 1];
+  const securityChartData = sec && sec;
 
   return (
     <div className="wrap">
