@@ -133,7 +133,7 @@ const Home = (props: Props) => {
         <div className="col-lg-3 pr-lg-2">
           <DataTile
             icon={isLightTheme ? ActiveSmeshersIcon : ActiveSmeshersIconWhite}
-            title="Active smeshers"
+            title="Active Smeshers"
             value={activeSmeshers && activeSmeshers.amt}
             toolTipMess="Total of active smeshers in the most recent epoch. The graph displays the number of active smeshers in previous epochs. Active smeshers are deployed Spacemesh full p2p nodes that participate in the Spacemesh consensus protocol and submit blocks with transactions to the network."
             showValue
@@ -151,7 +151,7 @@ const Home = (props: Props) => {
           </DataTile>
           <DataTile
             icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite}
-            title="Smeshing rewards"
+            title="Smeshing Rewards"
             showValue
             value={smeshingReward && smhCoinConverter(smeshingReward.amt)}
             toolTipMess="The total amount of coins awarded to smeshers since genesis. The graph displays the total rewards amount awarded to smeshers at the end of previous epochs. Smeshers are rewarded for submitting blocks with transactions to the network, for participating in the Spacemesh consensus protocol and for publishing proof of space time proofs."
@@ -175,7 +175,7 @@ const Home = (props: Props) => {
                 icon={isLightTheme ? LayerEpoch : LayerEpochWhite}
                 title="Layer / Epoch"
                 showValue
-                value={data && `${data.layer}/${data.epoch}`}
+                value={data && `${data.layer} / ${data.epoch}`}
                 toolTipMess="The current layer number and the current epoch number. One layer's duration is [XX] minutes and one epoch's duration is [YY] days"
               />
             </div>
@@ -189,7 +189,7 @@ const Home = (props: Props) => {
             <div className="col-lg-6 pl-lg-0 pr-lg-1">
               <DataTile
                 icon={isLightTheme ? TxnCapacityIcon : TxnCapacityIconWhite}
-                title="Tx/S Capacity"
+                title="Transactions / Second"
                 toolTipMess="The recent average transactions processed per second by the network over the network's transactions per second capacity. This indicates the current network transaction processing utilization. This network capacity is xxx transactions per second."
               >
                 <RangeSlider value={data && [data.capacity]} />
