@@ -98,6 +98,8 @@ const Home = (props: Props) => {
     }
   }, []);
 
+  console.log('data', data);
+
   const networkName = data && data.network;
 
   const activeSmeshers = data && data.smeshers[data.smeshers.length - 1];

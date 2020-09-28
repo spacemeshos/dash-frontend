@@ -20,7 +20,6 @@ type Props = {
 const Map = (props: Props) => {
   const { geoMarkers, activeSmeshers } = props;
   const markers = geoMarkers || [];
-  const locationsCount = markers.length;
   const smeshers = activeSmeshers || 0;
 
   return (
@@ -56,7 +55,7 @@ const Map = (props: Props) => {
         </ZoomableGroup>
       </ComposableMap>
       <div className="bottom-text-wrap">
-        <Title text={`${smeshers} Smeshers in ${locationsCount} world locations`} />
+        <Title text={`${smeshers} Smeshers`} />
       </div>
     </div>
   );

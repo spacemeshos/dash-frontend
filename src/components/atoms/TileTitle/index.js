@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import mobile from 'is-mobile';
 import ReactTooltip from 'react-tooltip';
 
 type Props = {
@@ -23,8 +24,8 @@ const TileTitle = (props: Props) => {
         </svg>
         <img className="icon-tile" src={icon} alt="" />
         {toolTipMessage && (
-          <ReactTooltip id={`tile-tooltip-${icon}`} aria-haspopup="true">
-            <div style={{ width: '350px' }}>
+          <ReactTooltip place={mobile() ? 'left' : 'top'} id={`tile-tooltip-${icon}`} aria-haspopup="true">
+            <div style={{ width: mobile() ? '250px' : '350px' }}>
               {toolTipMessage}
             </div>
           </ReactTooltip>
