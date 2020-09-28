@@ -98,8 +98,6 @@ const Home = (props: Props) => {
     }
   }, []);
 
-  console.log('data', data);
-
   const networkName = data && data.network;
 
   const activeSmeshers = data && data.smeshers[data.smeshers.length - 1];
@@ -119,6 +117,8 @@ const Home = (props: Props) => {
 
   const security = data && data.security[data.security.length - 1];
   const securityChartData = data && data.security;
+
+  const epochDuration = (data?.epochnumlayers * data?.layerduration) / 60;
 
   return (
     <div className="wrap">
@@ -178,7 +178,7 @@ const Home = (props: Props) => {
                 title="Layer / Epoch"
                 showValue
                 value={data && `${data.layer} / ${data.epoch}`}
-                toolTipMess="The current layer number and the current epoch number. One layer's duration is [XX] minutes and one epoch's duration is [YY] days"
+                toolTipMess={`The current layer number and the current epoch number. One layer's duration is ${data?.layerduration} seconds and one epoch's duration is ${epochDuration} minutes`}
               />
             </div>
           </div>
@@ -192,7 +192,7 @@ const Home = (props: Props) => {
               <DataTile
                 icon={isLightTheme ? TxnCapacityIcon : TxnCapacityIconWhite}
                 title="Transactions / Second"
-                toolTipMess="The recent average transactions processed per second by the network over the network's transactions per second capacity. This indicates the current network transaction processing utilization. This network capacity is xxx transactions per second."
+                toolTipMess={`The recent average transactions processed per second by the network over the network's transactions per second capacity. This indicates the current network transaction processing utilization. This network capacity is ${data?.maxcapacity} transactions per second.`}
               >
                 <RangeSlider value={data && [data.capacity]} />
               </DataTile>

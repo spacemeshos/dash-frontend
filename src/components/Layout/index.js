@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import darkLine from '../../assets/right_decoration.svg';
 import whiteLine from '../../assets/darkTheme/right_decoration_dark.svg';
@@ -6,14 +6,8 @@ import whiteLine from '../../assets/darkTheme/right_decoration_dark.svg';
 import { LayoutContext } from '../../contextProviders/layoutContext';
 
 const Layout = (props) => {
-  //console.log('Layout props', props);
   const { children, viewStore } = props;
-  const [checkedTheme, setCheckedTheme] = useState('light');
-
-  useEffect(() => {
-    const color = localStorage.getItem('theme-color');
-    setCheckedTheme(color);
-  }, []);
+  const [checkedTheme, setCheckedTheme] = useState(localStorage.getItem('theme-color') || 'light');
 
   const switchTheme = (e) => {
     const color = e.target.checked ? 'dark' : 'light';
