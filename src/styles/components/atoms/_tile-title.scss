@@ -12,6 +12,13 @@
     width: 100%;
     margin: 8px 10px 10px 8px;
     border-bottom: 2px solid $tile_title_bottom_border;
+
+    .link {
+      @include theme-aware('color', 'tile-title-color');
+    }
+    .link:hover {
+      text-decoration: underline;
+    }
   }
 
   &-icons {
