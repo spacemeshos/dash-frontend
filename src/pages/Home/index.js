@@ -59,6 +59,7 @@ const Home = (props: Props) => {
   const isLightTheme = checkedTheme === 'light';
 
   const [data, setData] = useState(false);
+  const [lastUpdatedTime, setLastUpdatedTime] = useState(0);
   const network = toJS(viewStore.currentNetwork);
 
   const [socketClient, setSocketClient] = useState(null);
@@ -77,7 +78,10 @@ const Home = (props: Props) => {
 
   useEffect(() => {
     if (socketClient) {
-      socketClient.onmessage = (message) => setData(JSON.parse(message.data));
+      socketClient.onmessage = (message) => {
+        setData(JSON.parse(message.data));
+        setLastUpdatedTime(1000);
+      };
 
       socketClient.onclose = (e) => {
         console.log('connection is closed.', e.reason);
@@ -132,7 +136,7 @@ const Home = (props: Props) => {
       </Helmet>
       <div className="row pb-2">
         <div className="col-lg-12">
-          <NetworkName name={networkName} />
+          <NetworkName name={networkName} age={lastUpdatedTime} />
         </div>
       </div>
       <div className="row">

@@ -1,0 +1,18 @@
+.round {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: $tile_title;
+
+  &.green {
+    background-color: $green;
+  }
+
+  &.red {
+    background-color: $red;
+  }
+
+  &.orange {
+    background-color: $orange;
+  }
+}

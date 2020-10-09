@@ -1,10 +1,29 @@
 .network-name {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
   padding: 20px 35px 15px 35px;
   font-family: $code-pro-font-family;
   @include theme-aware('background-color', 'network-name-bg');
   font-weight: bold;
   font-size: 18px;
   text-transform: uppercase;
+
+  &_title {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    p {
+      margin-left: 15px;
+    }
+  }
+
+  &_time {
+    font-size: 14px;
+    font-weight: normal;
+    @include theme-aware('color', 'tile-title-color');
+  }
 }
 
 @include media-breakpoint-down(xs) {
