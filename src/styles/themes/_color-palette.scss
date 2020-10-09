@@ -21,6 +21,8 @@ $themes: (
     icon-tile: $dark,
     title: $dark,
     map-decoration: url('../../assets/mapBorder.svg'),
+    tooltipBg: $tile_background,
+    tooltipText: $dark,
   ),
   dark: (
     corner-box-border: $white,
@@ -43,6 +45,8 @@ $themes: (
     q-icon: $white,
     icon-tile: $white,
     title: $white,
+    tooltipBg: $tile_background,
+    tooltipText: $white,
     map-decoration: url('../../assets/darkTheme/map_decoration_dark.svg'),
   )
 );

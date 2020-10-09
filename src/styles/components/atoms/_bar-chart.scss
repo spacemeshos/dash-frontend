@@ -1,0 +1,11 @@
+.custom-tooltip {
+  font-family: "Source Code Pro", monospace;
+  font-size: 14px;
+  border: 1px solid $map_background;
+  @include theme-aware('background-color', 'tooltipBg');
+  padding: 5px 20px;
+
+  &_label {
+    color: $tile_title;
+  }
+}

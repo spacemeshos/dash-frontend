@@ -7,6 +7,8 @@ import {
   Tooltip,
 } from 'recharts';
 
+import CustomTimeAgo from '../CustomTimeAgo';
+
 // Colors
 import * as colors from '../../../styles/utilities/_variables.scss';
 
@@ -19,11 +21,28 @@ type Props = {
 const BarChartCustom = (props: Props) => {
   const { data, dataMeasure, tooltipFilter } = props;
 
-  const customFormatter = (value) => {
-    const unit = dataMeasure || 'data';
-    const item = tooltipFilter ? tooltipFilter(value) : value;
+  const CustomizedTooltip = (graphProps) => {
+    const { active } = graphProps;
+    if (active) {
+      const { payload } = graphProps;
+      const { epoch, age } = payload[0].payload;
+      const dataValue = tooltipFilter ? tooltipFilter(payload[0].value) : payload[0].value;
+      return (
+        <div className="custom-tooltip">
+          <p className="custom-tooltip_label">{`${dataMeasure}:${dataValue}`}</p>
+          <p className="custom-tooltip_label">
+            Epoch:
+            { epoch }
+          </p>
+          <p className="custom-tooltip_label">
+            Age:
+            <CustomTimeAgo time={age} />
+          </p>
+        </div>
+      );
+    }
 
-    return [`${item}`, `${unit}`];
+    return null;
   };
 
   return (
@@ -32,7 +51,7 @@ const BarChartCustom = (props: Props) => {
         ? (
           <BarChart data={data}>
             <Bar dataKey="amt" fill={colors.barChart} barSize={2} />
-            <Tooltip formatter={(value) => customFormatter(value)} labelFormatter={() => undefined} />
+            <Tooltip content={<CustomizedTooltip />} />
           </BarChart>
         ) : (
           <div />
