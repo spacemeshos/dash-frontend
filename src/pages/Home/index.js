@@ -169,7 +169,7 @@ const Home = (props: Props) => {
             value={smeshingReward && smhCoinConverter(smeshingReward.amt)}
             toolTipMess="The total amount of coins awarded to smeshers since genesis. The graph displays the total rewards amount awarded to smeshers at the end of previous epochs. Smeshers are rewarded for submitting blocks with transactions to the network, for participating in the Spacemesh consensus protocol and for publishing proof of space time proofs."
           >
-            <BarChartCustom data={data && smeshingRewardChartData} dataMeasure="SMH" tooltipFilter={smhCoinConverter} />
+            <BarChartCustom data={data && smeshingRewardChartData} dataMeasure="" tooltipFilter={smhCoinConverter} />
           </DataTile>
         </div>
         <div className="col-lg-6">
@@ -229,7 +229,7 @@ const Home = (props: Props) => {
             toolTipMess="The total number of transactions processed by the network since it went online (genesis time). The graph displays the total number of transactions processed by the network up to the end of previous epochs."
             showValue
           >
-            <BarChartCustom data={data && transactionsChartData} dataMeasure="Txns" />
+            <BarChartCustom data={data && transactionsChartData} dataMeasure="Transactions" />
           </DataTile>
           <DataTile
             icon={isLightTheme ? CirculationIcon : CirculationIconWhite}
@@ -238,7 +238,7 @@ const Home = (props: Props) => {
             toolTipMess="The total amount of Smesh coins currently in circulation. This is determined by the coin rewards awarded to Smeshers as well as genesis minted coins. The graph displays the total amount in circulation at the end of previous epochs."
             showValue
           >
-            <BarChartCustom data={data && circulationChartData} dataMeasure="SMH" tooltipFilter={smhCoinConverter} />
+            <BarChartCustom data={data && circulationChartData} dataMeasure="" tooltipFilter={smhCoinConverter} />
           </DataTile>
           <DataTile
             icon={isLightTheme ? SecurityIcon : SecurityIconWhite}

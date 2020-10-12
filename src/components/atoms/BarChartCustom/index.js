@@ -29,14 +29,13 @@ const BarChartCustom = (props: Props) => {
       const dataValue = tooltipFilter ? tooltipFilter(payload[0].value) : payload[0].value;
       return (
         <div className="custom-tooltip">
-          <p className="custom-tooltip_label">{`${dataMeasure}:${dataValue}`}</p>
+          <p className="custom-tooltip_label">{`${dataValue} ${dataMeasure}`}</p>
           <p className="custom-tooltip_label">
-            Epoch:
-            { epoch }
+            <CustomTimeAgo live={false} time={age} />
           </p>
           <p className="custom-tooltip_label">
-            Age:
-            <CustomTimeAgo time={age} />
+            Epoch&nbsp;
+            { epoch }
           </p>
         </div>
       );

@@ -20,7 +20,7 @@ const NetworkName = (props: Props) => {
       </div>
       <div className="network-name_time">
         Updated&nbsp;
-        <CustomTimeAgo time={age} />
+        <CustomTimeAgo live time={age} />
       </div>
     </div>
   );
