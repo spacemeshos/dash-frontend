@@ -12,7 +12,7 @@ const CustomTimeAgo = (props: Props) => {
   const now = new Date().getTime().toString();
 
   const currentTimestamp = now.substring(0, now.length - 3);
-  const jsDate = new Date((+currentTimestamp - (time / 1000)) * 1000);
+  const jsDate = new Date((+currentTimestamp - (time)) * 1000);
 
   return (
     <span>
