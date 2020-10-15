@@ -12,6 +12,7 @@ const NetworkName = (props: Props) => {
   const { name, age } = props;
   const value = name || 'Loading Network...';
 
+  console.log('age', age);
   return (
     <div className="network-name">
       <div className="network-name_title">
@@ -20,7 +21,7 @@ const NetworkName = (props: Props) => {
       </div>
       <div className="network-name_time">
         Updated&nbsp;
-        <CustomTimeAgo live time={age} />
+        <CustomTimeAgo live time={age / 1000} />
       </div>
     </div>
   );
