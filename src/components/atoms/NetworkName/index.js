@@ -12,7 +12,6 @@ const NetworkName = (props: Props) => {
   const { name, age } = props;
   const value = name || 'Loading Network...';
 
-  console.log('age', age);
   return (
     <div className="network-name">
       <div className="network-name_title">
