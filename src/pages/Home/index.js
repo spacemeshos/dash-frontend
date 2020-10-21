@@ -154,7 +154,7 @@ const Home = (props: Props) => {
           <DataTile
             icon={isLightTheme ? AccountsIcon : AccountsIconWhite}
             title="Accounts"
-            url={`${deployConfig.explorerUrl}/address`}
+            url={`${deployConfig.explorerUrl}/accounts`}
             value={accounts && accounts.amt}
             toolTipMess="Current total of number of user coin accounts on the network with a non-zero coin balance. The graph displays the total number of accounts in previous epochs."
             showValue
