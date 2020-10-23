@@ -45,6 +45,7 @@ import DecentralizationRatioWhite from '../../assets/darkTheme/decentralization-
 // Context providers
 import { LayoutContext } from '../../contextProviders/layoutContext';
 import { byteConverter, smhCoinConverter } from '../../helpers/converter';
+import { ERROR_STATUS, SYNC_STATUS, SYNCING_STATUS } from '../../config/constants';
 
 type Props = {
   viewStore: Object,
@@ -52,7 +53,7 @@ type Props = {
 }
 
 const Home = (props: Props) => {
-  const { viewStore } = props;
+  const { viewStore, uiStore } = props;
 
   const layoutContextData = useContext(LayoutContext);
   const { checkedTheme } = layoutContextData;
@@ -79,15 +80,27 @@ const Home = (props: Props) => {
   useEffect(() => {
     if (socketClient) {
       socketClient.onmessage = (message) => {
-        setData(JSON.parse(message.data));
+        const incomeData = JSON.parse(message.data);
+        setData(incomeData);
+        // TODO 24 it's simple num, should be getting from backend
+        if (incomeData.lastapprovedlayer < incomeData.lastlayer + 24) {
+          uiStore.setNetworkStatus(ERROR_STATUS);
+        } else if (incomeData.lastlayerts < (new Date().getTime() - (incomeData.layerduration * 1000))) {
+          uiStore.setNetworkStatus(SYNCING_STATUS);
+        } else {
+          uiStore.setNetworkStatus(SYNC_STATUS);
+        }
+
         setLastUpdatedTime(1000);
       };
 
       socketClient.onclose = (e) => {
+        uiStore.setNetworkStatus(ERROR_STATUS);
         console.log('connection is closed.', e.reason);
       };
 
       socketClient.onerror = (err) => {
+        uiStore.setNetworkStatus(ERROR_STATUS);
         console.error('Socket encountered error: ', err.message, 'Closing socket');
       };
     }
@@ -136,7 +149,7 @@ const Home = (props: Props) => {
       </Helmet>
       <div className="row pb-2">
         <div className="col-lg-12">
-          <NetworkName name={networkName} age={lastUpdatedTime} />
+          <NetworkName name={networkName} age={lastUpdatedTime} uiStore={uiStore} />
         </div>
       </div>
       <div className="row">
