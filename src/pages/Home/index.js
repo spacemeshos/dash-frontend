@@ -85,7 +85,7 @@ const Home = (props: Props) => {
         // TODO 24 it's simple num, should be getting from backend
         if (incomeData.lastapprovedlayer < incomeData.lastlayer + 24) {
           uiStore.setNetworkStatus(ERROR_STATUS);
-        } else if (incomeData.lastlayerts < (new Date().getTime() - (incomeData.layerduration * 1000))) {
+        } else if (incomeData.lastlayerts < ((Math.floor(Date.now() / 1000)) - (incomeData.layerduration))) {
           uiStore.setNetworkStatus(SYNCING_STATUS);
         } else {
           uiStore.setNetworkStatus(SYNC_STATUS);
