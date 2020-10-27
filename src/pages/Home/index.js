@@ -83,7 +83,7 @@ const Home = (props: Props) => {
         const incomeData = JSON.parse(message.data);
         setData(incomeData);
         // TODO 24 it's simple num, should be getting from backend
-        if (incomeData.lastapprovedlayer < incomeData.lastlayer + 24) {
+        if ((incomeData.lastlayer + 24) < incomeData.lastapprovedlayer) {
           uiStore.setNetworkStatus(ERROR_STATUS);
         } else if (incomeData.lastlayerts < ((Math.floor(Date.now() / 1000)) - (incomeData.layerduration))) {
           uiStore.setNetworkStatus(SYNCING_STATUS);
