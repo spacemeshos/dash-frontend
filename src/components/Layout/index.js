@@ -17,6 +17,8 @@ const Layout = (props) => {
     localStorage.setItem('theme-color', color);
   };
 
+  const hideLine = window.location.search.indexOf('hide-right-line') === -1;
+
   return (
     <LayoutContext.Provider value={{ checkedTheme }}>
       <div className="site-wrapper">
@@ -27,9 +29,11 @@ const Layout = (props) => {
           </div>
         </main>
       </div>
-      <div className="rightLine">
-        <img src={checkedTheme === 'light' ? darkLine : whiteLine} alt="" />
-      </div>
+      {hideLine && (
+        <div className="rightLine">
+          <img src={checkedTheme === 'light' ? darkLine : whiteLine} alt="" />
+        </div>
+      )}
     </LayoutContext.Provider>
   );
 };
