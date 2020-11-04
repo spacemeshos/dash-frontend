@@ -22,7 +22,7 @@ const Layout = (props) => {
   return (
     <LayoutContext.Provider value={{ checkedTheme }}>
       <div className="site-wrapper">
-        <Header switchTheme={switchTheme} checkedTheme={checkedTheme} viewStore={viewStore} />
+        {hideLine && (<Header switchTheme={switchTheme} checkedTheme={checkedTheme} viewStore={viewStore} />)}
         <main>
           <div className="corner-box">
             { children }
