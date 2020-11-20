@@ -107,7 +107,7 @@ const Home = (props: Props) => {
   }, [socketClient]);
 
   useEffect(() => {
-    const color = localStorage.getItem('theme-color');
+    const color = localStorage.getItem('theme');
     if (color) {
       document.documentElement.classList.add(`theme-${color}`);
     } else {
