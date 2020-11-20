@@ -7,13 +7,13 @@ import { LayoutContext } from '../../contextProviders/layoutContext';
 
 const Layout = (props) => {
   const { children, viewStore } = props;
-  const [checkedTheme, setCheckedTheme] = useState(localStorage.getItem('theme-color') || 'light');
+  const [checkedTheme, setCheckedTheme] = useState(localStorage.getItem('theme') || 'light');
 
   const setColor = (color: string) => {
     setCheckedTheme(color);
     document.documentElement.className = '';
     document.documentElement.classList.add(`theme-${color}`);
-    localStorage.setItem('theme-color', color);
+    localStorage.setItem('theme', color);
   };
 
   const switchTheme = (e) => {
@@ -25,7 +25,7 @@ const Layout = (props) => {
   const darkMode = window.location.search.indexOf('darkMode') !== -1;
 
   useEffect(() => {
-    const color = darkMode ? 'dark' : 'light';
+    const color = darkMode ? 'dark' : localStorage.getItem('theme');
     setColor(color);
   }, [darkMode]);
 
