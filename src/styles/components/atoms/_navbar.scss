@@ -28,3 +28,9 @@
     }
   }
 }
+
+@media (min-width: 320px) and (max-width: 468px) {
+  .navbar-list {
+    flex-wrap: wrap;
+  }
+}
