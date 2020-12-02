@@ -1,6 +1,5 @@
 .logo {
   margin-right: 20px;
-  font-family: $code-pro-font-family;
 
   &-wrap {
     display: flex;
@@ -8,15 +7,24 @@
     height: 100%;
 
     svg {
-      width: 10px;
-      height: 14px;
+      width: 100%;
       margin-top: 7px;
       @include theme-aware('fill', 'logoTextColor');
     }
   }
 
   &-text {
-    font-size: 30px;
+    font-size: 26px;
     @include theme-aware('color', 'logoTextColor');
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1150px) {
+  .logo {
+    &-wrap {
+      svg {
+        width: 130px;
+      }
+    }
   }
 }

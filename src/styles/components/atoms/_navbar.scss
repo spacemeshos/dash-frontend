@@ -15,6 +15,7 @@
     &-item {
       font-family: $code-pro-font-family;
       font-size: 18px;
+
       a {
         text-decoration: underline;
       }
@@ -26,5 +27,11 @@
       margin: 0 5px 0 5px;
       @include theme-aware('color', 'navBarSeparator');
     }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 468px) {
+  .navbar-list {
+    flex-wrap: wrap;
   }
 }
