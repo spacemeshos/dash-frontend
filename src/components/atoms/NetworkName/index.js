@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { observer } from 'mobx-react';
 import NetworkStatus from '../NetworkStatus';
 import CustomTimeAgo from '../CustomTimeAgo';
 
@@ -28,4 +27,4 @@ const NetworkName = (props: Props) => {
   );
 };
 
-export default observer(NetworkName);
+export default NetworkName;
