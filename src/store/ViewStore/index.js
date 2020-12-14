@@ -7,8 +7,8 @@ import {
 } from 'mobx';
 
 const mockedNetworks = [
-  { value: 'wss://stage-dash.spacemesh.io/ws/dev-net', label: 'Dev-Net' },
-  { value: 'wss://stage-dash.spacemesh.io/ws/tweedledee', label: 'TestNet 0.1 "TweedleDee"' },
+  { value: 'wss://stage-dash.spacemesh.io/ws/dev-net', label: 'TweedleDee Open Testnet 122' },
+  // { value: 'wss://stage-dash.spacemesh.io/ws/tweedledee', label: 'TweedleDee Open Testnet 122' },
 ];
 
 class ViewStore {

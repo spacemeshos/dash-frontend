@@ -13,12 +13,12 @@ type Props = {
 
 const links = [
   {
-    href: '/',
-    title: 'download wallet',
+    href: 'https://spacemesh.io/testnet/',
+    title: 'join testnet',
   },
   {
-    href: '/',
-    title: 'spacemesh home',
+    href: 'https://stage-explore.spacemesh.io/',
+    title: 'explore testnet',
   },
 ];
 

@@ -14,7 +14,7 @@ const NavBar = (props: Props) => {
       <ul className="navbar-list">
         {links.map((link) => (
           <li key={nanoid()} className="navbar-list-item">
-            <a href={link.href}>{link.title}</a>
+            <a href={link.href} target="_blank" rel="noopener noreferrer">{link.title}</a>
           </li>
         ))}
       </ul>

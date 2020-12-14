@@ -4,7 +4,7 @@ import * as React from 'react';
 const Logo = () => (
 
   <div className="logo">
-    <a href="/" className="logo-wrap">
+    <a href="https://spacemesh.io" target="_blank" rel="noreferrer noopener" className="logo-wrap">
       <svg
         version="1.1"
         id="Layer_1"
