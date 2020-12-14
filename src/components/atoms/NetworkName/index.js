@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import NetworkStatus from '../NetworkStatus';
 import CustomTimeAgo from '../CustomTimeAgo';
 
@@ -12,11 +12,6 @@ type Props = {
 const NetworkName = (props: Props) => {
   const { name, age, uiStore } = props;
   const value = name || 'Loading Network...';
-  // const [isAge, setIsAge] = useState(0);
-  //
-  // useEffect(() => {
-  //   setIsAge(age);
-  // }, [age]);
 
   return (
     <div className="network-name">
