@@ -45,7 +45,9 @@ import DecentralizationRatioWhite from '../../assets/darkTheme/decentralization-
 // Context providers
 import { LayoutContext } from '../../contextProviders/layoutContext';
 import { byteConverter, smhCoinConverter } from '../../helpers/converter';
-import { ERROR_STATUS, SYNC_STATUS, SYNCING_STATUS } from '../../config/constants';
+import {
+  ERROR_STATUS, SYNC_STATUS, SYNCING_STATUS,
+} from '../../config/constants';
 
 type Props = {
   viewStore: Object,

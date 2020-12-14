@@ -11,31 +11,32 @@
     "eslint": "./node_modules/.bin/eslint 'src/**/*.js'"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "bootstrap": "^4.4.1",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.6.0",
+    "bootstrap": "^4.5.3",
     "is-mobile": "^2.2.2",
-    "mobx": "^5.15.5",
-    "mobx-react": "^6.2.5",
-    "moment": "^2.27.0",
+    "mobx": "^6.0.4",
+    "mobx-react": "^7.0.5",
+    "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
-    "nanoid": "^3.1.10",
-    "node-sass": "^4.14.0",
+    "nanoid": "^3.1.20",
     "normalize.css": "^8.0.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-dropdown": "^1.7.0",
-    "react-helmet": "^6.0.0",
-    "react-range": "^1.6.1",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "react-simple-maps": "^2.0.0",
-    "react-spinners": "^0.8.3",
-    "react-tooltip": "^4.2.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-dropdown": "^1.9.0",
+    "react-helmet": "^6.1.0",
+    "react-range": "^1.8.3",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.1",
+    "react-simple-maps": "^2.3.0",
+    "react-spinners": "^0.9.0",
+    "react-tooltip": "^4.2.11",
     "recharts": "^1.8.5",
+    "sass": "^1.30.0",
     "timeago-react": "^3.0.1",
-    "websocket": "^1.0.31"
+    "web-vitals": "^1.0.1",
+    "websocket": "^1.0.33"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,11 +54,11 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-flowtype": "^4.7.0",
-    "eslint-plugin-react": "^7.19.0",
+    "eslint": "^7.15.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-react": "^7.21.5",
     "flow": "^0.2.3",
-    "flow-bin": "^0.123.0"
+    "flow-bin": "^0.140.0"
   }
 }

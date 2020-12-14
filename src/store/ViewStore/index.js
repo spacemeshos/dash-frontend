@@ -3,7 +3,7 @@ import {
   observable,
   computed,
   action,
-  decorate,
+  makeAutoObservable,
 } from 'mobx';
 
 const mockedNetworks = [
@@ -15,6 +15,13 @@ class ViewStore {
   constructor() {
     this.network = mockedNetworks[0];
     this.networkList = mockedNetworks;
+
+    makeAutoObservable(this, {
+      currentNetwork: computed,
+      networks: computed,
+      network: observable,
+      selectNetwork: action,
+    });
   }
 
   get currentNetwork() {
@@ -29,12 +36,5 @@ class ViewStore {
     this.network = data;
   }
 }
-
-decorate(ViewStore, {
-  currentNetwork: computed,
-  networks: computed,
-  network: observable,
-  selectNetwork: action,
-});
 
 export default ViewStore;

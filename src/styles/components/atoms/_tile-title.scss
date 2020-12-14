@@ -16,6 +16,7 @@
     .link {
       @include theme-aware('color', 'tile-title-color');
     }
+
     .link:hover {
       text-decoration: underline;
     }
@@ -24,21 +25,22 @@
   &-icons {
     .icon-tooltip {
       @include theme-aware('fill', 'q-icon');
-      //svg {
-      //  @include theme-aware('fill', 'q-icon');
-      //}
     }
+
     .icon-tile {
       @include theme-aware('fill', 'icon-tile');
     }
+
     margin-top: 5px;
     display: flex;
     width: 20%;
     flex-direction: row-reverse;
     align-items: flex-start;
+
     .icon-tile {
       width: 30px;
     }
+
     .icon-tooltip {
       width: 15px;
       margin-left: 4px;
@@ -51,16 +53,11 @@
 }
 
 @include media-breakpoint-up(xl) {
-  .tileTitle {
-    &-text {
-      // font-size: 12px;
-    }
-  }
-
-  &-icons {
+  .tileTitle-icons {
     .icon-tile {
       width: 25px;
     }
+
     .icon-tooltip {
       width: 15px;
       margin-left: 4px;

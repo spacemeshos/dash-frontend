@@ -1,9 +1,8 @@
 // @flow
 import {
-  decorate,
   observable,
   action,
-  computed,
+  computed, makeAutoObservable,
 } from 'mobx';
 import { ERROR_STATUS, SYNCING_STATUS } from '../../config/constants';
 
@@ -11,6 +10,14 @@ class UiStore {
   constructor() {
     this.theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
     document.documentElement.classList.add(`theme-${this.theme}`);
+
+    makeAutoObservable(this, {
+      theme: observable,
+      color: observable,
+      changeTheme: action,
+      setNetworkStatus: action,
+      networkStatusColor: computed,
+    });
   }
 
   color = 'orange';
@@ -36,13 +43,5 @@ class UiStore {
     }
   }
 }
-
-decorate(UiStore, {
-  theme: observable,
-  color: observable,
-  changeTheme: action,
-  setNetworkStatus: action,
-  networkStatusColor: computed,
-});
 
 export default UiStore;
