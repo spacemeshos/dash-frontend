@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable */
 import React from 'react';
 import { Range, getTrackBackground } from 'react-range';
 import ScaleLoader from 'react-spinners/ScaleLoader';
