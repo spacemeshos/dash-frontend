@@ -1,3 +1,7 @@
+.recharts-bar-rectangle {
+  fill: rgba(64, 64, 64, 0.5);
+}
+
 .custom-tooltip {
   font-family: "Source Code Pro", monospace;
   font-size: 14px;
@@ -8,8 +12,4 @@
   &_label {
     color: $tile_title;
   }
-}
-
-.recharts-bar-rectangle {
-  fill: rgba(64, 64, 64, 0.5);
 }
