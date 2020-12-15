@@ -9,9 +9,6 @@ import {
 
 import CustomTimeAgo from '../CustomTimeAgo';
 
-// Colors
-import * as colors from '../../../styles/utilities/_variables.scss';
-
 type Props = {
   data: Array;
   dataMeasure?: string,
@@ -49,7 +46,7 @@ const BarChartCustom = (props: Props) => {
       {data.length > 0
         ? (
           <BarChart data={data}>
-            <Bar dataKey="amt" fill={colors.barChart} barSize={2} />
+            <Bar dataKey="amt" barSize={2} />
             <Tooltip content={<CustomizedTooltip />} />
           </BarChart>
         ) : (
