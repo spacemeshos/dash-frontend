@@ -144,7 +144,7 @@ const Home = (props: Props) => {
   const epochDuration = (data?.epochnumlayers * data?.layerduration) / 60;
 
   const deployConfig = {
-    explorerUrl: network?.explorerUrl,
+    explorerUrl: network?.explorer,
   };
 
   return (
@@ -163,7 +163,7 @@ const Home = (props: Props) => {
           <DataTile
             icon={isLightTheme ? ActiveSmeshersIcon : ActiveSmeshersIconWhite}
             title="Active Smeshers"
-            url={`${deployConfig.explorerUrl}/smeshers`}
+            url={`${deployConfig.explorerUrl}smeshers`}
             value={activeSmeshers && activeSmeshers.amt}
             toolTipMess="Total of active smeshers in the most recent epoch. The graph displays the number of active smeshers in previous epochs. Active smeshers are deployed Spacemesh full p2p nodes that participate in the Spacemesh consensus protocol and submit blocks with transactions to the network."
             showValue
@@ -173,7 +173,7 @@ const Home = (props: Props) => {
           <DataTile
             icon={isLightTheme ? AccountsIcon : AccountsIconWhite}
             title="Accounts"
-            url={`${deployConfig.explorerUrl}/accounts`}
+            url={`${deployConfig.explorerUrl}accounts`}
             value={accounts && accounts.amt}
             toolTipMess="Current total of number of user coin accounts on the network with a non-zero coin balance. The graph displays the total number of accounts in previous epochs."
             showValue
@@ -183,7 +183,7 @@ const Home = (props: Props) => {
           <DataTile
             icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite}
             title="Smeshing Rewards"
-            url={`${deployConfig.explorerUrl}/rewards`}
+            url={`${deployConfig.explorerUrl}rewards`}
             showValue
             value={smeshingReward && smhCoinConverter(smeshingReward.amt)}
             toolTipMess="The total amount of coins awarded to smeshers since genesis. The graph displays the total rewards amount awarded to smeshers at the end of previous epochs. Smeshers are rewarded for submitting blocks with transactions to the network, for participating in the Spacemesh consensus protocol and for publishing proof of space time proofs."
@@ -243,7 +243,7 @@ const Home = (props: Props) => {
           <DataTile
             icon={isLightTheme ? TxnsIcon : TxnsIconWhite}
             title="Transactions"
-            url={`${deployConfig.explorerUrl}/txs`}
+            url={`${deployConfig.explorerUrl}txs`}
             value={transactions && transactions.amt}
             toolTipMess="The total number of transactions processed by the network since it went online (genesis time). The graph displays the total number of transactions processed by the network up to the end of previous epochs."
             showValue

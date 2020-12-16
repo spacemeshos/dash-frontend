@@ -30,9 +30,9 @@ const TileTitle = (props: Props) => {
     <div className="tileTitle-text">
       { url && (
         <>
-          <a className="link" href={`${url}/layers`} target="_blank" rel="noopener noreferrer">Layer</a>
+          <a className="link" href={`${url}layers`} target="_blank" rel="noopener noreferrer">Layer</a>
           <span>/</span>
-          <a className="link" href={`${url}/epochs`} target="_blank" rel="noopener noreferrer">Epoch</a>
+          <a className="link" href={`${url}epochs`} target="_blank" rel="noopener noreferrer">Epoch</a>
         </>
       )}
     </div>
