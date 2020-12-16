@@ -77,7 +77,7 @@ const Home = (props: Props) => {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => connect(network.value), [network.value]);
+  useEffect(() => network.value && connect(network.value), [network.value]);
 
   useEffect(() => {
     if (socketClient) {
@@ -98,17 +98,20 @@ const Home = (props: Props) => {
 
       socketClient.onclose = (e) => {
         uiStore.setNetworkStatus(ERROR_STATUS);
+        setData(false);
         console.log('connection is closed.', e.reason);
       };
 
       socketClient.onerror = (err) => {
         uiStore.setNetworkStatus(ERROR_STATUS);
+        setData(false);
         console.error('Socket encountered error: ', err.message, 'Closing socket');
       };
     }
   }, [socketClient]);
 
   useEffect(() => {
+    viewStore.getConfigFile();
     const color = localStorage.getItem('theme');
     if (color !== 'null' && color) {
       document.documentElement.classList.add(`theme-${color}`);
@@ -118,7 +121,7 @@ const Home = (props: Props) => {
     }
   }, []);
 
-  const networkName = data && data.network;
+  const networkName = network?.label;
 
   const activeSmeshers = data && data.smeshers[data.smeshers.length - 1];
   const activeSmeshersChartData = data && data.smeshers;
@@ -141,7 +144,7 @@ const Home = (props: Props) => {
   const epochDuration = (data?.epochnumlayers * data?.layerduration) / 60;
 
   const deployConfig = {
-    explorerUrl: 'https://stage-explore.spacemesh.io',
+    explorerUrl: network?.explorerUrl,
   };
 
   return (

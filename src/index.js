@@ -7,9 +7,10 @@ import App from './App';
 
 import ViewStore from './store/ViewStore';
 import UiStore from './store/UiStore';
+import { fetchAPI } from './api/fetchAPI';
 import reportWebVitals from './reportWebVitals';
 
-const viewStore = new ViewStore();
+const viewStore = new ViewStore(fetchAPI);
 const uiStore = new UiStore();
 
 ReactDOM.render(
