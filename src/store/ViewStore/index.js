@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 import { reMappingNetworkArray } from '../../helpers/mapping';
 
-const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL;
+const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://discover.spacemesh.io/networks.json';
 
 class ViewStore {
   constructor(apiFetch: Object) {
@@ -32,7 +32,7 @@ class ViewStore {
   }
 
   setNetwork(data) {
-    this.network = data;
+    this.network = this.networks.find((item) => item.value === data.value);
   }
 
   get networks() {
@@ -48,9 +48,9 @@ class ViewStore {
       const response = await this.fetch(DISCOVERY_SERVICE_URL);
       const networks = reMappingNetworkArray(response);
       // TODO remove this after moving dash to discovery service
-      networks.push({ value: 'wss://stage-dash.spacemesh.io/ws/dev-net', label: 'TweedleDee Open Testnet 122', explorer: 'https://stage-explore.spacemesh.io/' });
+      // networks.push({ value: 'wss://stage-dash.spacemesh.io/ws/dev-net', label: 'TweedleDee Open Testnet 122', explorer: 'https://stage-explore.spacemesh.io/' });
       this.setNetworks(networks);
-      this.setNetwork(networks[1]);
+      this.setNetwork(networks[0]);
     } catch (e) {
       console.log('Error: ', e.message);
     }

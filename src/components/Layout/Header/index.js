@@ -1,5 +1,7 @@
 // @flow
 import React from 'react';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 import Switcher from '../../atoms/Switcher';
 import Logo from '../../atoms/Logo';
 import NavBar from '../../atoms/NavBar';
@@ -11,19 +13,20 @@ type Props = {
   viewStore: Object,
 }
 
-const links = [
-  {
-    href: 'https://spacemesh.io/testnet/',
-    title: 'join testnet',
-  },
-  {
-    href: 'https://stage-explore.spacemesh.io/',
-    title: 'explore testnet',
-  },
-];
-
 const Header = (props: Props) => {
   const { checkedTheme, switchTheme, viewStore } = props;
+
+  const links = [
+    {
+      href: 'https://spacemesh.io/testnet/',
+      title: 'join testnet',
+    },
+    {
+      href: toJS(viewStore.network.explorer),
+      title: 'explore testnet',
+    },
+  ];
+  console.log('viewStore.network.value', toJS(viewStore.network.explorer));
 
   return (
     <div className="header">
@@ -35,4 +38,4 @@ const Header = (props: Props) => {
   );
 };
 
-export default Header;
+export default observer(Header);
