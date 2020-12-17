@@ -24,4 +24,4 @@ jobs:
           yarn build
 
       - name: Upload
-        run: gsutil cp -r build/* gs://spacemesh-dash
+        run: gsutil -m rsync -r -d ./build gs://spacemesh-dash
