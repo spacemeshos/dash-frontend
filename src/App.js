@@ -23,6 +23,8 @@ type Props = {
 const App = (props: Props) => {
   const { viewStore, uiStore } = props;
 
+  window.name = '_dash';
+
   return (
     <>
       <Layout viewStore={viewStore} uiStore={uiStore}>
