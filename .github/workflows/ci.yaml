@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Init gcloud
+        run: |
+          echo "${{ secrets.GCLOUD_KEY }}" | base64 -d > key.json
+          gcloud auth activate-service-account --key-file=key.json
+
+      - name: Build
+        env:
+          REACT_APP_DISCOVERY_SERVICE_URL: https://discover.spacemesh.io/networks.json
+        run: |
+          yarn
+          yarn build
+
+      - name: Upload
+        run: gsutil -m rsync -r -d ./build gs://spacemesh-dash
