@@ -5,7 +5,11 @@ import { Range, getTrackBackground } from 'react-range';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 
 // Colors
-import * as colors from '../../../styles/utilities/_variables.scss';
+// import * as colors from '../../../styles/utilities/_variables.scss';
+const colors = {
+  green: '#65B042',
+  grey: '#cccccc',
+}
 
 type Props = {
   value: Array;
@@ -17,6 +21,8 @@ const MAX = 100;
 
 const RangeSlider = (props: Props) => {
   const { value } = props;
+  const isBottomScale = value[0] === 0;
+  const isSmallScale = value[0] <= 4;
   const data = value < 100 ? [value] : [0];
 
   return (
@@ -31,7 +37,7 @@ const RangeSlider = (props: Props) => {
           onChange={(values) => ({ values })}
           renderTrack={({ props, children }) => (
             <div
-              className="renderTrack"
+              className={isBottomScale ? 'renderTrack renderTrackBottom' : 'renderTrack'}
               onMouseDown={props.onMouseDown}
               onTouchStart={props.onTouchStart}
               style={{ ...props.style }}
@@ -52,7 +58,7 @@ const RangeSlider = (props: Props) => {
               >
                 {children}
               </div>
-              <div className="chartLabel zero">0</div>
+              {isBottomScale || isSmallScale ? null : <div className="chartLabel zero">0</div>}
               <div className="chartDash first" />
               <div className="chartDash second" />
               <div className="chartDash third" />
@@ -62,7 +68,7 @@ const RangeSlider = (props: Props) => {
           renderThumb={({ props }) => (
             <div
               {...props}
-              className="renderThumb"
+              className={isBottomScale ? 'renderThumb renderThumbBottom' : 'renderThumb'}
               style={{ ...props.style }}
             >
               <div className="renderThumb-value">
@@ -70,8 +76,8 @@ const RangeSlider = (props: Props) => {
               </div>
               <div
                 style={{
-                  height: '10px',
-                  width: '2px',
+                  height: isBottomScale ? '100%' : '10px',
+                  width: '3px',
                   backgroundColor: colors.green,
                 }}
               />
