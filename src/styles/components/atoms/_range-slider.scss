@@ -13,6 +13,10 @@
   border-right: 2px solid $tile_title_bottom_border;
   border-left: 2px solid $tile_title_bottom_border;
 
+  &.renderTrackBottom {
+    border-left-color: transparent;
+  }
+
   .chartLabel {
     position: absolute;
     font-size: 10px;
@@ -55,11 +59,16 @@
 
 .renderThumb {
   height: 10px;
-  width: 2px;
+  width: 3px;
+  z-index: 1 !important;
   background-color: #FFF;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &.renderThumbBottom {
+    height: 25px;
+  }
 
   &-value {
     position: absolute;
