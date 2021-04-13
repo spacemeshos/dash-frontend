@@ -46,6 +46,24 @@
       margin-left: 4px;
     }
   }
+  
+  &-tooltip {
+    padding: 9px 10px 15px 20px !important;
+    background: $lightGrey !important;
+    border: 1px solid $dark !important;
+    border-radius: 0px !important;
+    font-family: $code-pro-font-family !important;
+    color: $dark !important;
+    text-transform: lowercase !important;
+
+    & .active-tooltip-icon {
+      width: 15px;
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      fill: $q_icon_bg;
+    }
+  }
 }
 
 .short-letter-spacing {
