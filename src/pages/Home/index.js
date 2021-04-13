@@ -198,7 +198,7 @@ const Home = (props: Props) => {
                 icon={isLightTheme ? AgeIcon : AgeIconWhite}
                 title="Age"
                 showValue
-                value={data && moment.duration(data.age, 'seconds').format('d[d]:h[h]')}
+                value={data && moment.duration(data.age, 'seconds').format('d[d]:h[h]', { trim: 'small' })}
                 toolTipMess="The network age is the time which passed from the network went online (genesis time) until the current time."
               />
             </div>
