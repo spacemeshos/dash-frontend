@@ -1,8 +1,5 @@
 // @flow
-const randomNumber = (min, max) => {
-  return Math.floor(Math.random() * (max - min) + min);
-};
-
+const randomNumber = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
 const chartData = (count) => {
   return new Array(count).fill().map((e, i) => (

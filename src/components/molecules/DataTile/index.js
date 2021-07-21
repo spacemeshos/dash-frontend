@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 
 import TileTitle from '../../atoms/TileTitle';

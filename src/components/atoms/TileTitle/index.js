@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import mobile from 'is-mobile';
 import ReactTooltip from 'react-tooltip';
@@ -31,7 +30,7 @@ const TileTitle = (props: Props) => {
       { url && (
         <>
           <a className="link" href={`${url}layers`} target="_blank" rel="noopener noreferrer">Layer</a>
-          <span>/</span>
+          <span> / </span>
           <a className="link" href={`${url}epochs`} target="_blank" rel="noopener noreferrer">Epoch</a>
         </>
       )}
