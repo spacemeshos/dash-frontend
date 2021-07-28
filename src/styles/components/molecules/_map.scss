@@ -1,7 +1,7 @@
 .map-wrap {
   width: 100%;
   height: 354px;
-  @include theme-aware('background-color', 'map-background');
+  @include theme-aware("background-color", "map-background");
 
   > img {
     width: 100%;
@@ -11,8 +11,8 @@
 
   svg path {
     outline: none;
-    @include theme-aware('fill', 'map-path-fill');
-    @include theme-aware('stroke', 'map-path-stroke');
+    @include theme-aware("fill", "map-path-fill");
+    @include theme-aware("stroke", "map-path-stroke");
   }
   .mapTitle {
     &-icons {
@@ -23,9 +23,8 @@
         stroke: none !important;
         path {
           stroke: none;
-          @include theme-aware('fill', 'q-icon');
+          @include theme-aware("fill", "q-icon");
         }
-
       }
     }
   }
@@ -36,9 +35,9 @@
   }
 }
 .map-wrap:before {
-  content: '';
+  content: "";
   position: absolute;
-  @include theme-aware('background', 'map-decoration');
+  @include theme-aware("background", "map-decoration");
   top: 0;
   left: 0;
   width: 7px;
@@ -46,13 +45,14 @@
 }
 
 .map-wrap:after {
-  content: '';
+  content: "";
   position: absolute;
-  @include theme-aware('background', 'map-decoration');
+  @include theme-aware("background", "map-decoration");
   top: 0;
   right: 0;
   width: 7px;
   height: 354px;
+  z-index: 110;
 }
 
 @include media-breakpoint-down(md) {
@@ -62,5 +62,28 @@
 
   .map-wrap:after {
     right: 15px;
+  }
+}
+.world-wrap {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  height: 354px;
+  z-index: 10;
+}
+.world {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 100%;
+  z-index: 100;
+  opacity: 40%;
+  filter: invert(0%);
+  mix-blend-mode: difference;
+  &.dark {
+    filter: invert(100%);
   }
 }

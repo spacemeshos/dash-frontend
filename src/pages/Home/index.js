@@ -16,7 +16,8 @@ import NetworkName from '../../components/atoms/NetworkName';
 import BarChartCustom from '../../components/atoms/BarChartCustom';
 import RangeSlider from '../../components/atoms/RangeSlider';
 import DataTile from '../../components/molecules/DataTile';
-import Map from '../../components/molecules/Map';
+// import Map from '../../components/molecules/Map';
+import TemporaryImage from '../../components/atoms/TemporaryImage';
 
 // Icons
 import ActiveSmeshersIcon from '../../assets/icons/active-smeshers.svg';
@@ -215,7 +216,8 @@ const Home = (props: Props) => {
           </div>
           <div className="row pb-2">
             <div className="col-lg-12 pl-lg-0 pr-lg-0">
-              <Map geoMarkers={data && data.smeshersGeo} activeSmeshers={activeSmeshers && activeSmeshers.amt} />
+              <TemporaryImage themeColor={isLightTheme} />
+              {/* <Map geoMarkers={data && data.smeshersGeo} activeSmeshers={activeSmeshers && activeSmeshers.amt} /> */}
             </div>
           </div>
           <div className="row">
