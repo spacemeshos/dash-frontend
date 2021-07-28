@@ -74,9 +74,4 @@
   width: 100%;
   z-index: 100;
   opacity: 40%;
-  filter: invert(0%);
-  mix-blend-mode: difference;
-  &.dark {
-    filter: invert(100%);
-  }
 }
