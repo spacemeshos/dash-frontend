@@ -84,7 +84,6 @@ const Home = (props: Props) => {
     if (socketClient) {
       socketClient.onmessage = (message) => {
         const incomeData = JSON.parse(message.data);
-        setData(incomeData);
         // TODO 24 it's simple num, should be getting from backend
         if ((incomeData.lastlayer + 24) < incomeData.lastapprovedlayer || incomeData.issynced === false) {
           uiStore.setNetworkStatus(ERROR_STATUS);
@@ -93,12 +92,13 @@ const Home = (props: Props) => {
         } else {
           uiStore.setNetworkStatus(SYNC_STATUS);
         }
+        setData(incomeData);
 
         setLastUpdatedTime(1000);
       };
 
       socketClient.onclose = (e) => {
-        uiStore.setNetworkStatus(ERROR_STATUS);
+        uiStore.setNetworkStatus(SYNCING_STATUS);
         setData(false);
         console.log('connection is closed.', e.reason);
       };

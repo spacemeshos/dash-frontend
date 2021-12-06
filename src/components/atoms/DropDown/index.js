@@ -11,13 +11,20 @@ type Props = {
 
 const DropDown = (props: Props) => {
   const { viewStore } = props;
-  const network = toJS(viewStore.currentNetwork);
+  const networks = toJS(viewStore.networks);
+  const currentNetwork = toJS(viewStore.currentNetwork);
+
+  const onChange = ({ label }) => {
+    // use label for find selectedNetwork from array of networks
+    const selectedNetwork = networks.find((network) => (network.label === label));
+    viewStore.selectNetwork(selectedNetwork);
+  };
 
   return (
     <Dropdown
-      options={toJS(viewStore.networks)}
-      onChange={(e) => viewStore.selectNetwork(e)}
-      value={network}
+      options={networks}
+      onChange={onChange}
+      value={currentNetwork}
       placeholder="Select an option"
     />
   );

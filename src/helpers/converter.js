@@ -12,9 +12,11 @@ export const byteConverter = (x) => {
 };
 
 const divideNumber = (number) => {
-  const decimals = number.split('.')[1];
+  const afterDot = number.split('.')[1];
+  // correct decimals
+  const decimals = afterDot ? `.${afterDot}` : '';
   const int = String(Math.trunc(number));
-  if (int.length <= 3) return int;
+  if (int.length <= 3) return `${int}${decimals}`;
   let space = 0;
   let dividedNumber = ' ';
 
@@ -26,7 +28,7 @@ const divideNumber = (number) => {
     dividedNumber = int.charAt(i) + dividedNumber;
     space++;
   }
-  return `${dividedNumber.trim()}.${decimals}`;
+  return `${dividedNumber.trim()}${decimals}`;
 };
 
 export const smhCoinConverter = (amount: number) => {
@@ -51,7 +53,11 @@ export const smhCoinConverter = (amount: number) => {
   }
 
   // truncate to 3 decimals and truncate trailing fractional 0s
-  const s = parseFloat(v.toFixed(3)).toString();
+  // const s = parseFloat(v.toFixed(3)).toString(); previos version
+  const vString = v.toString();
+  const vDotIndex = vString.indexOf('.');
+  const s = vDotIndex === -1 ? vString : vString.slice(0, vDotIndex + 4);
+
   // return { value: s, unit };
   return `${divideNumber(s)} ${unit}`;
 };
