@@ -2,7 +2,6 @@
 import React, {
   useState,
   useEffect,
-  useContext,
 } from 'react';
 import { Helmet } from 'react-helmet';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
@@ -43,23 +42,17 @@ import SecurityIconWhite from '../../assets/darkTheme/security_white.svg';
 import TxnCapacityIconWhite from '../../assets/darkTheme/txn-capacity_white.svg';
 import DecentralizationRatioWhite from '../../assets/darkTheme/decentralization-ratio_white.svg';
 
-// Context providers
-import { LayoutContext } from '../../contextProviders/layoutContext';
 import { byteConverter, smhCoinConverter } from '../../helpers/converter';
 import {
   ERROR_STATUS, SYNC_STATUS, SYNCING_STATUS,
 } from '../../config/constants';
+import { useUiStore } from '../../store/UiStore';
+import { useViewStore } from '../../store/ViewStore';
 
-type Props = {
-  viewStore: Object,
-  uiStore: Object,
-}
-
-const Home = (props: Props) => {
-  const { viewStore, uiStore } = props;
-
-  const layoutContextData = useContext(LayoutContext);
-  const { checkedTheme } = layoutContextData;
+const Home = () => {
+  const uiStore = useUiStore();
+  const viewStore = useViewStore();
+  const { checkedTheme } = uiStore;
   const isLightTheme = checkedTheme === 'light';
 
   const [data, setData] = useState(false);
@@ -78,7 +71,12 @@ const Home = (props: Props) => {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => network.value && connect(network.value), [network.value]);
+  useEffect(() => {
+    async function conn() {
+      if (network.value) connect(network.value);
+    }
+    conn();
+  }, [network.value]);
 
   useEffect(() => {
     if (socketClient) {
@@ -112,14 +110,17 @@ const Home = (props: Props) => {
   }, [socketClient]);
 
   useEffect(() => {
-    viewStore.getConfigFile();
-    const color = localStorage.getItem('theme');
-    if (color !== 'null' && color) {
-      document.documentElement.classList.add(`theme-${color}`);
-    } else {
-      localStorage.setItem('theme', 'light');
-      document.documentElement.classList.add('theme-light');
+    async function fetchConfig() {
+      await viewStore.getConfigFile();
+      const color = localStorage.getItem('theme');
+      if (color !== 'null' && color) {
+        document.documentElement.classList.add(`theme-${color}`);
+      } else {
+        localStorage.setItem('theme', 'light');
+        document.documentElement.classList.add('theme-light');
+      }
     }
+    fetchConfig();
   }, []);
 
   const networkName = network?.label;
@@ -142,7 +143,7 @@ const Home = (props: Props) => {
   const security = data && data.security[data.security.length - 1];
   const securityChartData = data && data.security;
 
-  const epochDuration = (data?.epochnumlayers * data?.layerduration) / 60;
+  const epochDuration = data && ((data.epochnumlayers * data.layerduration) / 60);
 
   const deployConfig = {
     explorerUrl: network?.explorer,
@@ -156,7 +157,7 @@ const Home = (props: Props) => {
       </Helmet>
       <div className="row pb-2">
         <div className="col-lg-12">
-          <NetworkName name={networkName} age={lastUpdatedTime} uiStore={uiStore} />
+          <NetworkName name={networkName} age={lastUpdatedTime} />
         </div>
       </div>
       <div className="row">

@@ -6,15 +6,15 @@ import Switcher from '../../atoms/Switcher';
 import Logo from '../../atoms/Logo';
 import NavBar from '../../atoms/NavBar';
 import DropDown from '../../atoms/DropDown';
+import { useViewStore } from '../../../store/ViewStore';
 
 type Props = {
   checkedTheme: string,
   switchTheme: Function,
-  viewStore: Object,
 }
 
-const Header = (props: Props) => {
-  const { checkedTheme, switchTheme, viewStore } = props;
+const Header = ({ checkedTheme, switchTheme }: Props) => {
+  const viewStore = useViewStore();
 
   const links = [
     {

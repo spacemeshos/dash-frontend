@@ -1,38 +1,71 @@
 {
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false
+  },
   "extends": [
+    "react-app",
     "airbnb",
+    "plugin:jsx-a11y/recommended",
     "plugin:flowtype/recommended"
   ],
   "env": {
     "browser": true
   },
   "plugins": [
-    "flowtype",
-    "react-hooks"
+    "jsx-a11y",
+    "flowtype"
   ],
-  "ignorePatterns": [".netx/", "node_modules/"],
+  "ignorePatterns": [
+    ".netx/",
+    "node_modules/"
+  ],
   "rules": {
     "react/jsx-props-no-spreading": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
     "react/require-default-props": 0,
     "react/default-props-match-prop-types": 0,
-    "object-curly-newline": ["error", {
-      "ImportDeclaration": { "multiline": true, "minProperties": 3 },
-      "ExportDeclaration": "never"
-    }],
-    "react/destructuring-assignment": [2, "always", { "ignoreClassFields": true }],
+    "object-curly-newline": [
+      "error",
+      {
+        "ImportDeclaration": {
+          "multiline": true,
+          "minProperties": 3
+        },
+        "ExportDeclaration": "never"
+      }
+    ],
+    "react/destructuring-assignment": [
+      2,
+      "always",
+      {
+        "ignoreClassFields": true
+      }
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "no-case-declarations": "off",
     "no-plusplus": "off",
-    "prefer-destructuring": ["error", {
-      "array": false,
-      "object": false
-    }, {
-      "enforceForRenamedProperties": false
-    }],
+    "prefer-destructuring": [
+      "error",
+      {
+        "array": false,
+        "object": false
+      },
+      {
+        "enforceForRenamedProperties": false
+      }
+    ],
     "no-restricted-syntax": "off",
     "func-names": "off",
     "no-underscore-dangle": "off",
@@ -47,11 +80,18 @@
     "import/prefer-default-export": "off",
     "no-return-assign": "off",
     "import/no-extraneous-dependencies": "off",
-    "max-len": ["error", { "code": 850 }],
+    "max-len": "off",
     "react/no-unused-prop-types": "off",
     "react/prop-types": 0,
     "consistent-return": "off",
     "no-param-reassign": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ]
   }
 }

@@ -11,35 +11,32 @@
     "eslint": "./node_modules/.bin/eslint 'src/**/*.js'"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.6.0",
-    "bootstrap": "^4.5.3",
-    "is-mobile": "^2.2.2",
-    "mobx": "^6.0.4",
-    "mobx-react": "^7.0.5",
-    "moment": "^2.29.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.2.3",
+    "is-mobile": "^3.1.1",
+    "mobx": "^6.7.0",
+    "mobx-react": "^7.6.0",
+    "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
-    "nanoid": "^3.1.20",
+    "nanoid": "^4.0.0",
     "normalize.css": "^8.0.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-dropdown": "^1.9.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropdown": "^1.11.0",
     "react-helmet": "^6.1.0",
-    "react-range": "^1.8.3",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.1",
-    "react-simple-maps": "^2.3.0",
-    "react-spinners": "^0.9.0",
-    "react-tooltip": "^4.2.11",
-    "recharts": "^1.8.5",
-    "sass": "^1.30.0",
-    "timeago-react": "^3.0.1",
-    "web-vitals": "^1.0.1",
-    "websocket": "^1.0.33"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "react-range": "^1.8.14",
+    "react-router-dom": "^6.7.0",
+    "react-scripts": "^5.0.1",
+    "react-simple-maps": "^3.0.0",
+    "react-spinners": "^0.13.8",
+    "react-tooltip": "^5.7.0",
+    "recharts": "^2.3.2",
+    "sass": "^1.57.1",
+    "timeago-react": "^3.0.5",
+    "web-vitals": "^2.1.4",
+    "websocket": "^1.0.34"
   },
   "browserslist": {
     "production": [
@@ -54,11 +51,12 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^7.15.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-flowtype": "^5.2.0",
-    "eslint-plugin-react": "^7.21.5",
-    "flow": "^0.2.3",
-    "flow-bin": "^0.140.0"
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/plugin-syntax-flow": "^7.18.6",
+    "babel-preset-flow": "^6.23.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-flow": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "flow-bin": "^0.198.1"
   }
 }
