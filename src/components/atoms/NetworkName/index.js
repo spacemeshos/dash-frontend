@@ -2,7 +2,7 @@
 import React from 'react';
 import NetworkStatus from '../NetworkStatus';
 import CustomTimeAgo from '../CustomTimeAgo';
-import {useUiStore} from "../../../store/UiStore";
+import { useUiStore } from '../../../store/UiStore';
 
 type Props = {
   name: string,

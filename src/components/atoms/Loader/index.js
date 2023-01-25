@@ -6,8 +6,7 @@ type Props = {
   size: number;
 };
 
-const Loader = (props: Props) => {
-  const { size } = props;
+const Loader = ({ size }: Props) => {
   const loaderSize = size || 15;
 
   return (

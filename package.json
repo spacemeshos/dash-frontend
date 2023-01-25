@@ -31,7 +31,7 @@
     "react-scripts": "^5.0.1",
     "react-simple-maps": "^3.0.0",
     "react-spinners": "^0.13.8",
-    "react-tooltip": "^5.7.0",
+    "react-tooltip": "^4.5.1",
     "recharts": "^2.3.2",
     "sass": "^1.57.1",
     "timeago-react": "^3.0.5",

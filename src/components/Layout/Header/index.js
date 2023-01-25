@@ -26,13 +26,12 @@ const Header = ({ checkedTheme, switchTheme }: Props) => {
       title: 'explore testnet',
     },
   ];
-  console.log('viewStore.network.value', toJS(viewStore.network.explorer));
 
   return (
     <div className="header">
       <Logo />
       <NavBar links={links} />
-      <DropDown viewStore={viewStore} />
+      <DropDown />
       <Switcher id="switch" onChange={switchTheme} checked={checkedTheme === 'dark'} />
     </div>
   );

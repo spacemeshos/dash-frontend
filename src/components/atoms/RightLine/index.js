@@ -115,5 +115,4 @@ const RightLine = () => (
   </svg>
 );
 
-
 export default RightLine;

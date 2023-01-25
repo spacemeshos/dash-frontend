@@ -7,20 +7,16 @@ type Props = {
   onChange: Function,
 }
 
-const Switcher = (props: Props) => {
-  const { id, checked, onChange } = props;
-
-  return (
-    <div className="m-checkbox switch">
-      <input
-        type="checkbox"
-        className="m-checkbox__input m-checkbox--switch__input"
-        checked={checked}
-        id={id}
-        onChange={onChange}
-      />
-    </div>
-  );
-};
+const Switcher = ({ id, checked, onChange }: Props) => (
+  <div className="m-checkbox switch">
+    <input
+      type="checkbox"
+      className="m-checkbox__input m-checkbox--switch__input"
+      checked={checked}
+      id={id}
+      onChange={onChange}
+    />
+  </div>
+);
 
 export default Switcher;
