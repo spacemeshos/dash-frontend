@@ -14,21 +14,17 @@ type Props = {
   delimiter?: string,
 }
 
-const DataTile = (props: Props) => {
-  const { title, value, valueUnit, toolTipMess, showValue, children, icon, delimiter, url } = props;
-
-  return (
-    <div className="dataTitle-wrap">
-      <TileTitle
-        icon={icon}
-        title={title}
-        url={url}
-        toolTipMessage={toolTipMess}
-      />
-      {showValue && (<ValueHolder value={value} delimiter={delimiter} units={valueUnit} />) }
-      { children }
-    </div>
-  );
-};
+const DataTile = ({ title, value, valueUnit, toolTipMess, showValue, children, icon, delimiter, url }: Props) => (
+  <div className="dataTitle-wrap">
+    <TileTitle
+      icon={icon}
+      title={title}
+      url={url}
+      toolTipMessage={toolTipMess}
+    />
+    {showValue && (<ValueHolder value={value} delimiter={delimiter} units={valueUnit} />) }
+    { children }
+  </div>
+);
 
 export default DataTile;

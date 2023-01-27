@@ -5,10 +5,11 @@ import {
   action,
   makeAutoObservable,
 } from 'mobx';
+import React from 'react';
 import { reMappingNetworkArray } from '../../helpers/mapping';
 
 const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://discover.spacemesh.io/networks.json';
-class ViewStore {
+export default class ViewStore {
   constructor(apiFetch: Object) {
     this.fetch = apiFetch;
     this.network = { value: null, label: null, explorer: null };
@@ -56,4 +57,10 @@ class ViewStore {
   }
 }
 
-export default ViewStore;
+const ViewStoreContext = React.createContext();
+
+export const ViewStoreProvider = ({ children, store }) => (
+  <ViewStoreContext.Provider value={store}>{children}</ViewStoreContext.Provider>
+);
+
+export const useViewStore = () => React.useContext(ViewStoreContext);

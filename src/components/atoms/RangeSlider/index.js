@@ -19,8 +19,7 @@ const STEP = 1;
 const MIN = 0;
 const MAX = 100;
 
-const RangeSlider = (props: Props) => {
-  const { value } = props;
+const RangeSlider = ({ value }: Props) => {
   const isBottomScale = value[0] === 0;
   const isSmallScale = value[0] <= 4;
   const data = value < 100 ? [value] : [0];

@@ -7,8 +7,7 @@ type Props = {
   live: boolean,
 };
 
-const CustomTimeAgo = (props: Props) => {
-  const { time, live } = props;
+const CustomTimeAgo = ({ time, live }: Props) => {
   const now = new Date().getTime().toString();
 
   const currentTimestamp = now.substring(0, now.length - 3);

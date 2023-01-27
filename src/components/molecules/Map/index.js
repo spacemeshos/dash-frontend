@@ -17,8 +17,7 @@ type Props = {
   activeSmeshers?: number,
 }
 
-const Map = (props: Props) => {
-  const { geoMarkers, activeSmeshers } = props;
+const Map = ({ geoMarkers, activeSmeshers }: Props) => {
   const markers = geoMarkers || [];
   const smeshers = activeSmeshers || 0;
 

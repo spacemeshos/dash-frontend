@@ -4,13 +4,10 @@ import * as React from 'react';
 import Dropdown from 'react-dropdown';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
+import { useViewStore } from '../../../store/ViewStore';
 
-type Props = {
-  viewStore: Object,
-}
-
-const DropDown = (props: Props) => {
-  const { viewStore } = props;
+const DropDown = () => {
+  const viewStore = useViewStore();
   const networks = toJS(viewStore.networks);
   const currentNetwork = toJS(viewStore.currentNetwork);
 

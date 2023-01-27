@@ -2,15 +2,15 @@
 import React from 'react';
 import NetworkStatus from '../NetworkStatus';
 import CustomTimeAgo from '../CustomTimeAgo';
+import { useUiStore } from '../../../store/UiStore';
 
 type Props = {
   name: string,
-  age: number,
-  uiStore: Object
+  age: number
 }
 
-const NetworkName = (props: Props) => {
-  const { name, age, uiStore } = props;
+const NetworkName = ({ name, age }: Props) => {
+  const uiStore = useUiStore();
   const value = name || 'Loading Network...';
 
   return (

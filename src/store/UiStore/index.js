@@ -4,9 +4,10 @@ import {
   action,
   computed, makeAutoObservable,
 } from 'mobx';
+import React from 'react';
 import { ERROR_STATUS, SYNCING_STATUS } from '../../config/constants';
 
-class UiStore {
+export default class UiStore {
   constructor() {
     this.theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
     document.documentElement.classList.add(`theme-${this.theme}`);
@@ -44,4 +45,10 @@ class UiStore {
   }
 }
 
-export default UiStore;
+const UiStoreContext = React.createContext();
+
+export const UiStoreProvider = ({ children, store }) => (
+  <UiStoreContext.Provider value={store}>{children}</UiStoreContext.Provider>
+);
+
+export const useUiStore = () => React.useContext(UiStoreContext);

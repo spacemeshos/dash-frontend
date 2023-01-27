@@ -8,8 +8,7 @@ type Props = {
   delimiter: string,
 }
 
-const ValueHolder = (props: Props) => {
-  const { value, units, delimiter } = props;
+const ValueHolder = ({ value, units, delimiter }: Props) => {
   const data = units ? `${value} ${delimiter || ''} ${units}` : value;
 
   return (
