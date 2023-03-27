@@ -82,13 +82,12 @@ const Home = () => {
     if (socketClient) {
       socketClient.onmessage = (message) => {
         const incomeData = JSON.parse(message.data);
-        // TODO 24 it's simple num, should be getting from backend
-        if ((incomeData.lastlayer + 24) < incomeData.lastapprovedlayer || incomeData.issynced === false) {
-          uiStore.setNetworkStatus(ERROR_STATUS);
-        } else if (incomeData.lastlayerts < ((Math.floor(Date.now() / 1000)) - (incomeData.layerduration))) {
+        if (incomeData.lastapprovedlayer <= (incomeData.lastlayer - 2)) {
+          uiStore.setNetworkStatus(SYNC_STATUS);
+        } else if (incomeData.lastapprovedlayer <= (incomeData.lastlayer - 5)) {
           uiStore.setNetworkStatus(SYNCING_STATUS);
         } else {
-          uiStore.setNetworkStatus(SYNC_STATUS);
+          uiStore.setNetworkStatus(ERROR_STATUS);
         }
         setData(incomeData);
 
