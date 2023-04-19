@@ -82,9 +82,9 @@ const Home = () => {
     if (socketClient) {
       socketClient.onmessage = (message) => {
         const incomeData = JSON.parse(message.data);
-        if (incomeData.lastapprovedlayer <= (incomeData.lastlayer - 2)) {
+        if (incomeData.lastlayer >= (incomeData.lastapprovedlayer - 2)) {
           uiStore.setNetworkStatus(SYNC_STATUS);
-        } else if (incomeData.lastapprovedlayer <= (incomeData.lastlayer - 5)) {
+        } else if (incomeData.lastlayer >= (incomeData.lastapprovedlayer - 5)) {
           uiStore.setNetworkStatus(SYNCING_STATUS);
         } else {
           uiStore.setNetworkStatus(ERROR_STATUS);
