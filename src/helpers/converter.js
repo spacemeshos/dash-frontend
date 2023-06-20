@@ -37,12 +37,6 @@ export const smhCoinConverter = (amount: number) => {
 
   if (amount >= 10 ** 6) {
     v = amount / 10 ** 9;
-  } else if (amount >= 10 ** 3) {
-    v = amount / 10 ** 6;
-    unit = 'GSMD';
-  } else if (amount >= 10 ** 1) {
-    v = amount / 10 ** 3;
-    unit = 'MSMD';
   } else if (amount === 0) {
     // we want to show 0 balance in SMH units
     v = 0;
