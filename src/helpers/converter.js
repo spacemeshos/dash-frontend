@@ -43,7 +43,7 @@ export const smhCoinConverter = (amount: number) => {
     unit = 'SMH';
   } else if (!Number.isNaN(amount) && typeof amount === 'number') {
     v = amount;
-    unit = 'SMD';
+    unit = 'Smidge';
   }
 
   // truncate to 3 decimals and truncate trailing fractional 0s
