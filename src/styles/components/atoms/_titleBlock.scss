@@ -1,0 +1,34 @@
+.titleBlock {
+  display: flex;
+  flex: 2;
+  justify-content: space-between;
+  font-family: "Source Code Pro", monospace;
+  height: 76px;
+  @include theme-aware('background-color', 'network-name-bg');
+
+  &-wrap {
+    padding: 5px 24px;
+  }
+
+  &-title {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  &-desc {
+    margin-top: 5px;
+    font-size: 14px;
+    @include theme-aware('color', 'titleDescColor');
+  }
+}
+
+@media (max-width: 1150px) {
+  .titleBlock {
+    height: unset;
+
+    &-wrap {
+      padding: 0 0 0 15px;
+    }
+  }
+}
