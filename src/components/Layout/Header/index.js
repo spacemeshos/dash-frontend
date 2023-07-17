@@ -18,12 +18,12 @@ const Header = ({ checkedTheme, switchTheme }: Props) => {
 
   const links = [
     {
-      href: 'https://spacemesh.io/testnet/',
-      title: 'join testnet',
+      href: 'https://spacemesh.io/start/',
+      title: 'join the network',
     },
     {
       href: toJS(viewStore.network.explorer),
-      title: 'explore testnet',
+      title: 'explore',
     },
   ];
 
