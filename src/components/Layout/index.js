@@ -3,7 +3,6 @@ import Header from './Header';
 import darkLine from '../../assets/right_decoration.svg';
 import whiteLine from '../../assets/darkTheme/right_decoration_dark.svg';
 import { useViewStore } from '../../store/ViewStore';
-import GenesisPopup from '../GenesisPopup';
 
 const Layout = (props) => {
   const viewStore = useViewStore();
@@ -33,7 +32,6 @@ const Layout = (props) => {
   return (
     <>
       <div className="site-wrapper">
-        <GenesisPopup checkedTheme={checkedTheme} />
         {hideLine && (<Header switchTheme={switchTheme} checkedTheme={checkedTheme} viewStore={viewStore} />)}
         <main>
           <div className="corner-box">
