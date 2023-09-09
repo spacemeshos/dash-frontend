@@ -42,7 +42,7 @@ import SecurityIconWhite from '../../assets/darkTheme/security_white.svg';
 import TxnCapacityIconWhite from '../../assets/darkTheme/txn-capacity_white.svg';
 import DecentralizationRatioWhite from '../../assets/darkTheme/decentralization-ratio_white.svg';
 
-import { byteConverter, smhCoinConverter } from '../../helpers/converter';
+import { byteConverter, formatSmidge } from '../../helpers/converter';
 import {
   ERROR_STATUS, SYNC_STATUS, SYNCING_STATUS,
 } from '../../config/constants';
@@ -186,10 +186,10 @@ const Home = () => {
             title="Smeshing Rewards"
             url={`${deployConfig.explorerUrl}rewards`}
             showValue
-            value={smeshingReward && smhCoinConverter(smeshingReward.amt)}
+            value={smeshingReward && formatSmidge(smeshingReward.amt)}
             toolTipMess="The total amount of coins awarded to smeshers since genesis. The graph displays the total rewards amount awarded to smeshers at the end of previous epochs. Smeshers are rewarded for submitting blocks with transactions to the network, for participating in the Spacemesh consensus protocol and for publishing proof of space time proofs."
           >
-            <BarChartCustom data={data && smeshingRewardChartData} dataMeasure="" tooltipFilter={smhCoinConverter} />
+            <BarChartCustom data={data && smeshingRewardChartData} dataMeasure="" tooltipFilter={formatSmidge} />
           </DataTile>
         </div>
         <div className="col-lg-6">
@@ -255,11 +255,11 @@ const Home = () => {
           <DataTile
             icon={isLightTheme ? CirculationIcon : CirculationIconWhite}
             title="Circulation"
-            value={circulation && smhCoinConverter(circulation.amt)}
+            value={circulation && formatSmidge(circulation.amt)}
             toolTipMess="The total amount of Smesh coins currently in circulation. This is determined by the coin rewards awarded to Smeshers as well as genesis minted coins. The graph displays the total amount in circulation at the end of previous epochs."
             showValue
           >
-            <BarChartCustom data={data && circulationChartData} dataMeasure="" tooltipFilter={smhCoinConverter} />
+            <BarChartCustom data={data && circulationChartData} dataMeasure="" tooltipFilter={formatSmidge} />
           </DataTile>
           <DataTile
             icon={isLightTheme ? SecurityIcon : SecurityIconWhite}
