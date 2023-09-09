@@ -11,47 +11,35 @@ export const byteConverter = (x) => {
   return `${+n.toFixed(3)} ${units[l]}`;
 };
 
-const divideNumber = (number) => {
-  const afterDot = number.split('.')[1];
-  // correct decimals
-  const decimals = afterDot ? `.${afterDot}` : '';
-  const int = String(Math.trunc(number));
-  if (int.length <= 3) return `${int}${decimals}`;
-  let space = 0;
-  let dividedNumber = ' ';
-
-  for (let i = int.length - 1; i >= 0; i--) {
-    if (space === 3) {
-      dividedNumber = `,${dividedNumber}`;
-      space = 0;
-    }
-    dividedNumber = int.charAt(i) + dividedNumber;
-    space++;
-  }
-  return `${dividedNumber.trim()}${decimals}`;
+const CoinUnits = {
+  SMH: 'SMH',
+  Smidge: 'Smidge',
 };
 
-export const smhCoinConverter = (amount: number) => {
-  let v = 0;
-  let unit = 'SMH';
+const packValueAndUnit = (value: number, unit: string) => ({
+  value: parseFloat(value.toFixed(3)).toString(),
+  unit,
+});
 
-  if (amount >= 10 ** 6) {
-    v = amount / 10 ** 9;
-  } else if (amount === 0) {
-    // we want to show 0 balance in SMH units
-    v = 0;
-    unit = 'SMH';
-  } else if (!Number.isNaN(amount) && typeof amount === 'number') {
-    v = amount;
-    unit = 'Smidge';
-  }
+export const toSMH = (smidge: number) => smidge / 10 ** 9;
+export const toSmidge = (smh: number) => Math.ceil(smh * 10 ** 9);
 
-  // truncate to 3 decimals and truncate trailing fractional 0s
-  // const s = parseFloat(v.toFixed(3)).toString(); previos version
-  const vString = v.toString();
-  const vDotIndex = vString.indexOf('.');
-  const s = vDotIndex === -1 ? vString : vString.slice(0, vDotIndex + 4);
+// Parses number into { value, unit } format.
+// Used to format smidge strings
+export const parseSmidge = (amount: number) => {
+  // If amount is "falsy" (0 | undefined | null)
+  if (!amount) return packValueAndUnit(0, CoinUnits.SMH);
+  // Show `23.053 SMH` for big amount
+  if (amount >= 10 ** 6) return packValueAndUnit(toSMH(amount), CoinUnits.SMH);
+  // Or `6739412 Smidge` (without dot) for small amount
+  if (!Number.isNaN(amount)) return packValueAndUnit(amount, CoinUnits.Smidge);
+  // Show `0 SMH` for zero amount and NaN
+  return packValueAndUnit(0, CoinUnits.SMH);
+};
 
-  // return { value: s, unit };
-  return `${divideNumber(s)} ${unit}`;
+// Returns formatted display string for a smidge amount.
+// All coin displayed in the app should display amount formatted
+export const formatSmidge = (amount: number): string => {
+  const { value, unit } = parseSmidge(amount);
+  return `${value} ${unit}`;
 };
