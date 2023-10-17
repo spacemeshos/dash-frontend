@@ -8,7 +8,7 @@ import {
 import React from 'react';
 import { reMappingNetworkArray } from '../../helpers/mapping';
 
-const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://discover.spacemesh.io/networks.json';
+const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
 export default class ViewStore {
   constructor(apiFetch: Object) {
     this.fetch = apiFetch;

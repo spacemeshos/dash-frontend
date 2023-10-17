@@ -18,7 +18,7 @@ jobs:
 
       - name: Build
         env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://discover.spacemesh.io/networks.json
+          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks.json
         run: |
           yarn
           yarn build
