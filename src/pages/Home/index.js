@@ -133,7 +133,7 @@ const Home = () => {
   const smeshingReward = data && data.rewards[data.rewards.length - 1];
   const smeshingRewardChartData = data && data.rewards;
 
-  const circulation = data && data.circulation[data.circulation.length - 1];
+  const circulation = data && data.circulation.reduce((accumulator, currentVal) => accumulator + currentVal.amt, 0);
   const circulationChartData = data && data.circulation;
 
   const transactions = data && data.transactions[data.transactions.length - 1];
@@ -255,7 +255,7 @@ const Home = () => {
           <DataTile
             icon={isLightTheme ? CirculationIcon : CirculationIconWhite}
             title="Circulation"
-            value={circulation && formatSmidge(circulation.amt)}
+            value={circulation && formatSmidge(circulation)}
             toolTipMess="The total amount of Smesh coins currently in circulation. This is determined by the coin rewards awarded to Smeshers as well as genesis minted coins. The graph displays the total amount in circulation at the end of previous epochs."
             showValue
           >
