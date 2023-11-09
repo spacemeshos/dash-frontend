@@ -130,7 +130,7 @@ const Home = () => {
   const accounts = data && data.accounts[data.accounts.length - 1];
   const accountsChartData = data && data.accounts;
 
-  const smeshingReward = data && data.rewards.reduce((accumulator, currentVal) => accumulator + currentVal.amt, 0);
+  const smeshingReward = data && data.rewards[data.rewards.length - 1];
   const smeshingRewardChartData = data && data.rewards;
 
   const circulation = data && data.circulation.reduce((accumulator, currentVal) => accumulator + currentVal.amt, 0);
@@ -186,7 +186,7 @@ const Home = () => {
             title="Smeshing Rewards"
             url={`${deployConfig.explorerUrl}rewards`}
             showValue
-            value={smeshingReward && formatSmidge(smeshingReward)}
+            value={smeshingReward && formatSmidge(smeshingReward.amt)}
             toolTipMess="The total amount of coins awarded to smeshers since genesis. The graph displays the total rewards amount awarded to smeshers at the end of previous epochs. Smeshers are rewarded for submitting blocks with transactions to the network, for participating in the Spacemesh consensus protocol and for publishing proof of space time proofs."
           >
             <BarChartCustom data={data && smeshingRewardChartData} dataMeasure="" tooltipFilter={formatSmidge} />
