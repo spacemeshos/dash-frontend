@@ -136,7 +136,7 @@ const Home = () => {
   const circulation = data && data.circulation.reduce((accumulator, currentVal) => accumulator + currentVal.amt, 0);
   const circulationChartData = data && data.circulation;
 
-  const transactions = data && data.transactions[data.transactions.length - 1];
+  const transactions = data && data.transactions.reduce((accumulator, currentVal) => accumulator + currentVal.amt, 0);
   const transactionsChartData = data && data.transactions;
 
   const security = data && data.security[data.security.length - 1];
@@ -246,7 +246,7 @@ const Home = () => {
             icon={isLightTheme ? TxnsIcon : TxnsIconWhite}
             title="Transactions"
             url={`${deployConfig.explorerUrl}txs`}
-            value={transactions && transactions.amt}
+            value={transactions && transactions}
             toolTipMess="The total number of transactions processed by the network since it went online (genesis time). The graph displays the total number of transactions processed by the network up to the end of previous epochs."
             showValue
           >
