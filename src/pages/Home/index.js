@@ -134,10 +134,16 @@ const Home = () => {
   const smeshingRewardChartData = data && data.rewards;
 
   const circulation = data && data.circulation.reduce((accumulator, currentVal) => accumulator + currentVal.amt, 0);
-  const circulationChartData = data && data.circulation;
+  const circulationChartData = data && data.circulation.map((obj, index) => {
+    obj.amt = index > 0 ? obj.amt + data.circulation[index - 1].amt : obj.amt;
+    return obj;
+  });
 
   const transactions = data && data.transactions.reduce((accumulator, currentVal) => accumulator + currentVal.amt, 0);
-  const transactionsChartData = data && data.transactions;
+  const transactionsChartData = data && data.transactions.map((obj, index) => {
+    obj.amt = index > 0 ? obj.amt + data.transactions[index - 1].amt : obj.amt;
+    return obj;
+  });
 
   const security = data && data.security[data.security.length - 1];
   const securityChartData = data && data.security;
