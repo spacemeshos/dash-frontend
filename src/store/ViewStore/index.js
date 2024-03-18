@@ -40,7 +40,9 @@ export default class ViewStore {
   }
 
   selectNetwork(data) {
-    this.network = data;
+    if (this.network.value !== data.value) {
+      this.network = data;
+    }
   }
 
   async getConfigFile() {
