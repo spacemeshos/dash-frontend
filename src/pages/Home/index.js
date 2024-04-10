@@ -169,10 +169,10 @@ const Home = () => {
         <div className="col-lg-3 pr-lg-2">
           <DataTile
             icon={isLightTheme ? ActiveSmeshersIcon : ActiveSmeshersIconWhite}
-            title="Active Smeshers"
+            title="Activations"
             url={`${deployConfig.explorerUrl}smeshers`}
             value={activeSmeshers && activeSmeshers.amt}
-            toolTipMess="Total of active smeshers in the most recent epoch. The graph displays the number of active smeshers in previous epochs. Active smeshers are deployed Spacemesh full p2p nodes that participate in the Spacemesh consensus protocol and submit blocks with transactions to the network."
+            toolTipMess="Total number of activations in the most recent epoch. Miners with one or more activations participate in the Spacemesh consensus protocol and submit blocks with transactions to the network."
             showValue
           >
             <BarChartCustom data={activeSmeshersChartData} dataMeasure="Smeshers" />
