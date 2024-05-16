@@ -34,4 +34,4 @@ jobs:
           yarn build
 
       - name: Upload to testnet-12 Dashboard
-        run: gsutil -m rsync -r -d ./build gs://testnet-12-dash.spacemesh.network
+        run: gsutil -m rsync -r -d ./build gs://testnet-12-dashboard.spacemesh.network
