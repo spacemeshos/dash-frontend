@@ -26,12 +26,12 @@ jobs:
       - name: Upload to Mainnet Dashboard
         run: gsutil -m rsync -r -d ./build gs://spacemesh-dash
 
-      - name: Build to testnet-12 Dashboard
+      - name: Build to testnet-13 Dashboard
         env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-12.json
+          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-13.json
         run: |
           yarn
           yarn build
 
-      - name: Upload to testnet-12 Dashboard
-        run: gsutil -m rsync -r -d ./build gs://testnet-12-dashboard.spacemesh.network
+      - name: Upload to testnet-13 Dashboard
+        run: gsutil -m rsync -r -d ./build gs://testnet-13-dashboard.spacemesh.network
