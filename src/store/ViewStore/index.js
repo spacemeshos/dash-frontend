@@ -9,16 +9,27 @@ import React from 'react';
 import { reMappingNetworkArray } from '../../helpers/mapping';
 
 const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://mainnet-api.spacemesh.network';
+const STATS_API_URL = process.env.REACT_APP_STATS_API_URL || 'https://mainnet-stats-api.spacemesh.network';
+const BITS_PER_LABEL = process.env.REACT_APP_BITS_PER_LABEL || 128;
+const LABELS_PER_UNIT = process.env.REACT_APP_LABELS_PER_UNIT || 1024;
+
 export default class ViewStore {
   constructor(apiFetch: Object) {
     this.fetch = apiFetch;
     this.network = { value: null, label: null, explorer: null };
     this.networkList = [];
+    this.postUnitSize = (BITS_PER_LABEL * LABELS_PER_UNIT) / 8;
+    this.statsApiUrl = STATS_API_URL;
+    this.apiBaseUrl = API_BASE_URL;
 
     makeAutoObservable(this, {
       currentNetwork: computed,
       networks: computed,
       network: observable,
+      statsApiUrl: observable,
+      apiBaseUrl: observable,
+      postUnitSize: observable,
       selectNetwork: action,
     });
   }

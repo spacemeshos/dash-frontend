@@ -4,10 +4,7 @@ import React, {
   useEffect,
 } from 'react';
 import { Helmet } from 'react-helmet';
-import { w3cwebsocket as W3CWebSocket } from 'websocket';
-import moment from 'moment';
 import 'moment-duration-format';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 
 // Component
@@ -20,32 +17,23 @@ import TemporaryImage from '../../components/atoms/TemporaryImage';
 
 // Icons
 import ActiveSmeshersIcon from '../../assets/icons/active-smeshers.svg';
-import AccountsIcon from '../../assets/icons/accounts.svg';
 import SmeshingRewardIcon from '../../assets/icons/smeshing-reward.svg';
-import AgeIcon from '../../assets/icons/age.svg';
 import LayerEpoch from '../../assets/icons/layer-epoch.svg';
 import TxnsIcon from '../../assets/icons/txns.svg';
 import CirculationIcon from '../../assets/icons/circulation.svg';
 import SecurityIcon from '../../assets/icons/security.svg';
-import TxnCapacityIcon from '../../assets/icons/txn-capacity.svg';
 import DecentralizationRatio from '../../assets/icons/decentralization-ratio.svg';
 
 // White Icons AccountsIconWhite
 import ActiveSmeshersIconWhite from '../../assets/darkTheme/active-smeshers_white.svg';
-import AccountsIconWhite from '../../assets/darkTheme/accounts_white.svg';
 import SmeshingRewardIconWhite from '../../assets/darkTheme/smeshing-reward_white.svg';
-import AgeIconWhite from '../../assets/darkTheme/age_white.svg';
 import LayerEpochWhite from '../../assets/darkTheme/layer-epoch_white.svg';
 import TxnsIconWhite from '../../assets/darkTheme/txns_white.svg';
 import CirculationIconWhite from '../../assets/darkTheme/circulation_white.svg';
 import SecurityIconWhite from '../../assets/darkTheme/security_white.svg';
-import TxnCapacityIconWhite from '../../assets/darkTheme/txn-capacity_white.svg';
 import DecentralizationRatioWhite from '../../assets/darkTheme/decentralization-ratio_white.svg';
 
 import { byteConverter, formatSmidge } from '../../helpers/converter';
-import {
-  ERROR_STATUS, SYNC_STATUS, SYNCING_STATUS,
-} from '../../config/constants';
 import { useUiStore } from '../../store/UiStore';
 import { useViewStore } from '../../store/ViewStore';
 
@@ -55,58 +43,72 @@ const Home = () => {
   const { checkedTheme } = uiStore;
   const isLightTheme = checkedTheme === 'light';
 
-  const [data, setData] = useState(false);
   const [lastUpdatedTime, setLastUpdatedTime] = useState(0);
-  const network = toJS(viewStore.currentNetwork);
 
-  const [socketClient, setSocketClient] = useState(null);
-
-  const connect = (url) => {
-    if (socketClient) {
-      socketClient.close();
-      setSocketClient(new W3CWebSocket(`${url}`));
-    } else {
-      setSocketClient(new W3CWebSocket(`${url}`));
-    }
-  };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    async function conn() {
-      if (network.value) connect(network.value);
-    }
-    conn();
-  }, [network.value]);
+  const [currentLayer, setCurrentLayer] = useState(0);
+  const [currentEpoch, setCurrentEpoch] = useState(0);
+  const [epochs, setEpochs] = useState({});
+  const [circulation, setCirculation] = useState(0);
 
   useEffect(() => {
-    if (socketClient) {
-      socketClient.onmessage = (message) => {
-        const incomeData = JSON.parse(message.data);
-        if (incomeData.lastlayer >= (incomeData.lastapprovedlayer - 2)) {
-          uiStore.setNetworkStatus(SYNC_STATUS);
-        } else if (incomeData.lastlayer >= (incomeData.lastapprovedlayer - 5)) {
-          uiStore.setNetworkStatus(SYNCING_STATUS);
-        } else {
-          uiStore.setNetworkStatus(ERROR_STATUS);
-        }
-        setData(incomeData);
+    const fetchData = async () => {
+      let res = await fetch(`${viewStore.apiBaseUrl}/spacemesh.v2alpha1.NetworkService/Info`, {
+        method: 'POST',
+      });
+      const netInfo = await res.json();
 
-        setLastUpdatedTime(1000);
-      };
+      res = await fetch(`${viewStore.statsApiUrl}/circulation`);
+      const data = await res.json();
+      setCirculation(data.circulation);
 
-      socketClient.onclose = (e) => {
-        uiStore.setNetworkStatus(SYNCING_STATUS);
-        setData(false);
-        console.log('connection is closed.', e.reason);
-      };
+      res = await fetch(`${viewStore.apiBaseUrl}/spacemesh.v2alpha1.LayerService/List`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          limit: 1,
+          sort_order: 1,
+        }),
+      });
+      const layers = await res.json();
 
-      socketClient.onerror = (err) => {
-        uiStore.setNetworkStatus(ERROR_STATUS);
-        setData(false);
-        console.error('Socket encountered error: ', err.message, 'Closing socket');
-      };
-    }
-  }, [socketClient]);
+      const epochNums = Math.floor(layers.layers[0].number / netInfo.layersPerEpoch);
+      setCurrentEpoch(epochNums);
+      setCurrentLayer(layers.layers[0].number);
+
+      const promises = [];
+      for (let i = epochNums + 1; i >= 0; i--) {
+        promises.push(fetch(`${viewStore.statsApiUrl}/epoch/${i}`).then((r) => r.json()).then((val) => ({
+          number: i,
+          layers: netInfo.layersPerEpoch,
+          startLayer: i * netInfo.layersPerEpoch,
+          endLayer: i * netInfo.layersPerEpoch + netInfo.layersPerEpoch - 1,
+          stats: val,
+        })));
+      }
+
+      const epochsList = {};
+      const epochData = await Promise.all(promises);
+      epochData.forEach((epoch) => {
+        epochsList[epoch.number] = epoch;
+      });
+
+      Object.keys(epochsList).forEach((key) => {
+        epochsList[parseInt(key, 10)].stats.transactions_count = key > 0
+          ? epochsList[parseInt(key, 10)].stats.transactions_count + epochsList[parseInt(key, 10) - 1].stats.transactions_count
+          : epochsList[parseInt(key, 10)].stats.transactions_count;
+
+        epochsList[parseInt(key, 10)].stats.circulation = epochsList[parseInt(key, 10)].stats.rewards_sum;
+        epochsList[parseInt(key, 10)].stats.circulation = key > 0
+          ? epochsList[parseInt(key, 10)].stats.circulation + epochsList[parseInt(key, 10) - 1].stats.circulation
+          : epochsList[parseInt(key, 10)].stats.circulation;
+      });
+      setEpochs(epochsList);
+    };
+    setLastUpdatedTime(0);
+    fetchData();
+  }, [viewStore.apiBaseUrl, viewStore.statsApiUrl]);
 
   useEffect(() => {
     async function fetchConfig() {
@@ -119,40 +121,15 @@ const Home = () => {
         document.documentElement.classList.add('theme-light');
       }
     }
+
     fetchConfig();
   }, []);
 
-  const networkName = network?.label;
+  const epochDuration = 0;
+  const layerDuration = 0;
 
-  const activeSmeshers = data && data.smeshers[data.smeshers.length - 1];
-  const activeSmeshersChartData = data && data.smeshers;
-
-  const accounts = data && data.accounts[data.accounts.length - 1];
-  const accountsChartData = data && data.accounts;
-
-  const smeshingReward = data && data.rewards[data.rewards.length - 1];
-  const smeshingRewardChartData = data && data.rewards;
-
-  const circulation = data && data.circulation.reduce((accumulator, currentVal) => accumulator + currentVal.amt, 0);
-  const circulationChartData = data && data.circulation.map((obj, index) => {
-    obj.amt = index > 0 ? obj.amt + data.circulation[index - 1].amt : obj.amt;
-    return obj;
-  });
-
-  const transactions = data && data.transactions.reduce((accumulator, currentVal) => accumulator + currentVal.amt, 0);
-  const transactionsChartData = data && data.transactions.map((obj, index) => {
-    obj.amt = index > 0 ? obj.amt + data.transactions[index - 1].amt : obj.amt;
-    return obj;
-  });
-
-  const security = data && data.security[data.security.length - 1];
-  const securityChartData = data && data.security;
-
-  const epochDuration = data && ((data.epochnumlayers * data.layerduration) / 60);
-
-  const deployConfig = {
-    explorerUrl: network?.explorer,
-  };
+  const networkName = 'test';
+  const deployConfig = 'test';
 
   return (
     <div className="wrap">
@@ -171,42 +148,32 @@ const Home = () => {
             icon={isLightTheme ? ActiveSmeshersIcon : ActiveSmeshersIconWhite}
             title="Activations"
             url={`${deployConfig.explorerUrl}smeshers`}
-            value={activeSmeshers && activeSmeshers.amt}
+            value={epochs[currentEpoch] && epochs[currentEpoch].stats.smeshers_count}
             toolTipMess="Total number of activations in the most recent epoch. Miners with one or more activations participate in the Spacemesh consensus protocol and submit blocks with transactions to the network."
             showValue
           >
-            <BarChartCustom data={activeSmeshersChartData} dataMeasure="Smeshers" />
-          </DataTile>
-          <DataTile
-            icon={isLightTheme ? AccountsIcon : AccountsIconWhite}
-            title="Accounts"
-            url={`${deployConfig.explorerUrl}accounts`}
-            value={accounts && accounts.amt}
-            toolTipMess="Current total of number of user coin accounts on the network with a non-zero coin balance. The graph displays the total number of accounts in previous epochs."
-            showValue
-          >
-            <BarChartCustom data={data && accountsChartData} dataMeasure="Accounts" />
+            <BarChartCustom data={epochs} dataMeasure="Smeshers" dataKey="smeshers_count" />
           </DataTile>
           <DataTile
             icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite}
             title="Smeshing Rewards"
             url={`${deployConfig.explorerUrl}rewards`}
             showValue
-            value={smeshingReward && formatSmidge(smeshingReward.amt)}
+            value={epochs[currentEpoch] && formatSmidge(epochs[currentEpoch].stats.rewards_sum)}
             toolTipMess="The total amount of coins awarded to smeshers since genesis. The graph displays the total rewards amount awarded to smeshers at the end of previous epochs. Smeshers are rewarded for submitting blocks with transactions to the network, for participating in the Spacemesh consensus protocol and for publishing proof of space time proofs."
           >
-            <BarChartCustom data={data && smeshingRewardChartData} dataMeasure="" tooltipFilter={formatSmidge} />
+            <BarChartCustom data={epochs} dataKey="rewards_sum" dataMeasure="" tooltipFilter={formatSmidge} />
           </DataTile>
         </div>
         <div className="col-lg-6">
           <div className="row">
             <div className="col-lg-6 pl-lg-0 pr-lg-1">
               <DataTile
-                icon={isLightTheme ? AgeIcon : AgeIconWhite}
-                title="Age"
+                icon={isLightTheme ? SecurityIcon : SecurityIconWhite}
+                title="Security"
+                value={epochs[currentEpoch] && byteConverter(epochs[currentEpoch].stats.num_units * viewStore.postUnitSize)}
+                toolTipMess="Security is measured by the total storage size committed to the network by smeshers. The bigger the number, the more storage is required by an adversary to attack the network. The number displays the amount of storage committed by all active smeshers in the previous epoch. The graph displays the amount of storage committed in previous epochs."
                 showValue
-                value={data && moment.duration(data.age, 'seconds').format('d[d]:h[h]', { trim: 'small' })}
-                toolTipMess="The network age is the time which passed from the network went online (genesis time) until the current time."
               />
             </div>
             <div className="col-lg-6 pr-lg-0 pl-lg-1">
@@ -215,8 +182,8 @@ const Home = () => {
                 title="Layer / Epoch"
                 url={`${deployConfig.explorerUrl}`}
                 showValue
-                value={data && `${data.layer} / ${data.epoch}`}
-                toolTipMess={`The current layer number and the current epoch number. One layer's duration is ${data?.layerduration} seconds and one epoch's duration is ${epochDuration} minutes`}
+                value={`${currentLayer} / ${currentEpoch}`}
+                toolTipMess={`The current layer number and the current epoch number. One layer's duration is ${layerDuration} seconds and one epoch's duration is ${epochDuration} minutes`}
               />
             </div>
           </div>
@@ -227,22 +194,13 @@ const Home = () => {
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-6 pl-lg-0 pr-lg-1">
-              <DataTile
-                icon={isLightTheme ? TxnCapacityIcon : TxnCapacityIconWhite}
-                title="Transactions / Second"
-                toolTipMess={`The recent average transactions processed per second by the network over the network's transactions per second capacity. This indicates the current network transaction processing utilization. This network capacity is ${data?.maxcapacity} transactions per second.`}
-              >
-                <RangeSlider value={data && [data.capacity]} />
-              </DataTile>
-            </div>
-            <div className="col-lg-6 pr-lg-0 pl-lg-1">
+            <div className="col-lg-12 pr-lg-0 pl-lg-1">
               <DataTile
                 icon={isLightTheme ? DecentralizationRatio : DecentralizationRatioWhite}
                 title="Decentralization Ratio"
                 toolTipMess="The network degree of decentralization where 100 is highly decentralized and 0 is highly centralized. This measure factors in both the overall number of smeshers and the amount of space committed by each. A network is more decentralized if the long tail of smeshers is longer and the ratio of space committed by whales is low compared to the amount of space committed by home smeshers."
               >
-                <RangeSlider value={data && [data.decentral]} />
+                <RangeSlider value={0} />
               </DataTile>
             </div>
           </div>
@@ -252,29 +210,20 @@ const Home = () => {
             icon={isLightTheme ? TxnsIcon : TxnsIconWhite}
             title="Transactions"
             url={`${deployConfig.explorerUrl}txs`}
-            value={transactions && transactions}
+            value={epochs[currentEpoch] && epochs[currentEpoch].stats.transactions_count}
             toolTipMess="The total number of transactions processed by the network since it went online (genesis time). The graph displays the total number of transactions processed by the network up to the end of previous epochs."
             showValue
           >
-            <BarChartCustom data={data && transactionsChartData} dataMeasure="Transactions" />
+            <BarChartCustom data={epochs} dataKey="transactions_count" dataMeasure="Transactions" />
           </DataTile>
           <DataTile
             icon={isLightTheme ? CirculationIcon : CirculationIconWhite}
             title="Circulation"
-            value={circulation && formatSmidge(circulation)}
+            value={formatSmidge(circulation)}
             toolTipMess="The total amount of Smesh coins currently in circulation. This is determined by the coin rewards awarded to Smeshers as well as genesis minted coins. The graph displays the total amount in circulation at the end of previous epochs."
             showValue
           >
-            <BarChartCustom data={data && circulationChartData} dataMeasure="" tooltipFilter={formatSmidge} />
-          </DataTile>
-          <DataTile
-            icon={isLightTheme ? SecurityIcon : SecurityIconWhite}
-            title="Security"
-            value={security && byteConverter(security.amt)}
-            toolTipMess="Security is measured by the total storage size committed to the network by smeshers. The bigger the number, the more storage is required by an adversary to attack the network. The number displays the amount of storage committed by all active smeshers in the previous epoch. The graph displays the amount of storage committed in previous epochs."
-            showValue
-          >
-            <BarChartCustom data={data && securityChartData} dataMeasure="Security" tooltipFilter={byteConverter} />
+            <BarChartCustom data={epochs} dataKey="circulation" dataMeasure="" tooltipFilter={formatSmidge} />
           </DataTile>
         </div>
       </div>
