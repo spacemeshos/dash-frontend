@@ -6,10 +6,9 @@ import App from './App';
 
 import ViewStore, { ViewStoreProvider } from './store/ViewStore';
 import UiStore, { UiStoreProvider } from './store/UiStore';
-import { fetchAPI } from './api/fetchAPI';
 import reportWebVitals from './reportWebVitals';
 
-const viewStore = new ViewStore(fetchAPI);
+const viewStore = new ViewStore();
 const uiStore = new UiStore();
 
 const container = document.getElementById('root');

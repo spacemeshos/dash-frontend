@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 import { Helmet } from 'react-helmet';
 import 'moment-duration-format';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 
 // Component
@@ -12,7 +13,6 @@ import NetworkName from '../../components/atoms/NetworkName';
 import BarChartCustom from '../../components/atoms/BarChartCustom';
 import RangeSlider from '../../components/atoms/RangeSlider';
 import DataTile from '../../components/molecules/DataTile';
-// import Map from '../../components/molecules/Map';
 import TemporaryImage from '../../components/atoms/TemporaryImage';
 
 // Icons
@@ -42,72 +42,96 @@ const Home = () => {
   const viewStore = useViewStore();
   const { checkedTheme } = uiStore;
   const isLightTheme = checkedTheme === 'light';
+  const network = toJS(viewStore.currentNetwork);
 
-  const [lastUpdatedTime, setLastUpdatedTime] = useState(0);
+  const [lastUpdatedTime, setLastUpdatedTime] = useState(new Date().getTime());
 
   const [currentLayer, setCurrentLayer] = useState(0);
   const [currentEpoch, setCurrentEpoch] = useState(0);
   const [epochs, setEpochs] = useState({});
   const [circulation, setCirculation] = useState(0);
+  const [decentral, setDecentral] = useState(0);
+  const [layerDuration, setLayerDuration] = useState(0);
+  const [epochDuration, setEpochDuration] = useState(0);
+
+  const fetchData = async () => {
+    setLastUpdatedTime(new Date().getTime());
+    // network info
+    let res = await fetch(`${viewStore.apiBaseUrl}/spacemesh.v2alpha1.NetworkService/Info`, {
+      method: 'POST',
+    });
+    const netInfo = await res.json();
+    setLayerDuration(netInfo.layerDuration);
+    setEpochDuration((viewStore.epochNumLayers * netInfo.layerDuration) / 60);
+    const genesisTime = new Date(netInfo.genesisTime);
+    const durationMs = parseInt(netInfo.layerDuration, 10);
+
+    // node status
+    res = await fetch(`${viewStore.apiBaseUrl}/spacemesh.v2alpha1.NodeService/Status`, {
+      method: 'POST',
+    });
+    const nodeInfo = await res.json();
+    uiStore.setNetworkStatus(nodeInfo.status);
+
+    const epochNums = Math.floor(nodeInfo.latestLayer / netInfo.layersPerEpoch);
+    setCurrentEpoch(epochNums);
+    setCurrentLayer(nodeInfo.latestLayer);
+
+    // circulation
+    res = await fetch(`${viewStore.statsApiUrl}/circulation`);
+    const data = await res.json();
+    setCirculation(data.circulation);
+
+    // decentral
+    res = await fetch(`${viewStore.statsApiUrl}/epoch/${epochNums}/decentral`);
+    const dec = await res.json();
+    setDecentral(dec.decentral);
+
+    // query epoch statistics
+    const promises = [];
+    for (let i = epochNums + 1; i >= 0; i--) {
+      promises.push(fetch(`${viewStore.statsApiUrl}/epoch/${i}`).then((r) => r.json()).then((val) => ({
+        number: i,
+        timestamp: (genesisTime.getTime() / 1000 + (i * netInfo.layersPerEpoch * durationMs) + durationMs) - 1,
+        layers: netInfo.layersPerEpoch,
+        startLayer: i * netInfo.layersPerEpoch,
+        endLayer: i * netInfo.layersPerEpoch + netInfo.layersPerEpoch - 1,
+        stats: val,
+      })));
+    }
+
+    const epochsList = {};
+    const epochData = await Promise.all(promises);
+    epochData.forEach((epoch) => {
+      epochsList[epoch.number] = epoch;
+    });
+
+    // calculate cumulative values
+    Object.keys(epochsList).forEach((key) => {
+      if (epochsList[parseInt(key, 10)].stats.transactions_count === undefined) {
+        epochsList[parseInt(key, 10)].stats.transactions_count = 0;
+      }
+      epochsList[parseInt(key, 10)].stats.transactions_count = key > 0
+        ? epochsList[parseInt(key, 10)].stats.transactions_count + epochsList[parseInt(key, 10) - 1].stats.transactions_count
+        : epochsList[parseInt(key, 10)].stats.transactions_count;
+
+      if (epochsList[parseInt(key, 10)].stats.rewards_sum === undefined) {
+        epochsList[parseInt(key, 10)].stats.rewards_sum = 0;
+      }
+      epochsList[parseInt(key, 10)].stats.circulation = epochsList[parseInt(key, 10)].stats.rewards_sum;
+      epochsList[parseInt(key, 10)].stats.circulation = key > 0
+        ? epochsList[parseInt(key, 10)].stats.circulation + epochsList[parseInt(key, 10) - 1].stats.circulation
+        : epochsList[parseInt(key, 10)].stats.circulation;
+    });
+    setEpochs(epochsList);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      let res = await fetch(`${viewStore.apiBaseUrl}/spacemesh.v2alpha1.NetworkService/Info`, {
-        method: 'POST',
-      });
-      const netInfo = await res.json();
-
-      res = await fetch(`${viewStore.statsApiUrl}/circulation`);
-      const data = await res.json();
-      setCirculation(data.circulation);
-
-      res = await fetch(`${viewStore.apiBaseUrl}/spacemesh.v2alpha1.LayerService/List`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          limit: 1,
-          sort_order: 1,
-        }),
-      });
-      const layers = await res.json();
-
-      const epochNums = Math.floor(layers.layers[0].number / netInfo.layersPerEpoch);
-      setCurrentEpoch(epochNums);
-      setCurrentLayer(layers.layers[0].number);
-
-      const promises = [];
-      for (let i = epochNums + 1; i >= 0; i--) {
-        promises.push(fetch(`${viewStore.statsApiUrl}/epoch/${i}`).then((r) => r.json()).then((val) => ({
-          number: i,
-          layers: netInfo.layersPerEpoch,
-          startLayer: i * netInfo.layersPerEpoch,
-          endLayer: i * netInfo.layersPerEpoch + netInfo.layersPerEpoch - 1,
-          stats: val,
-        })));
-      }
-
-      const epochsList = {};
-      const epochData = await Promise.all(promises);
-      epochData.forEach((epoch) => {
-        epochsList[epoch.number] = epoch;
-      });
-
-      Object.keys(epochsList).forEach((key) => {
-        epochsList[parseInt(key, 10)].stats.transactions_count = key > 0
-          ? epochsList[parseInt(key, 10)].stats.transactions_count + epochsList[parseInt(key, 10) - 1].stats.transactions_count
-          : epochsList[parseInt(key, 10)].stats.transactions_count;
-
-        epochsList[parseInt(key, 10)].stats.circulation = epochsList[parseInt(key, 10)].stats.rewards_sum;
-        epochsList[parseInt(key, 10)].stats.circulation = key > 0
-          ? epochsList[parseInt(key, 10)].stats.circulation + epochsList[parseInt(key, 10) - 1].stats.circulation
-          : epochsList[parseInt(key, 10)].stats.circulation;
-      });
-      setEpochs(epochsList);
-    };
-    setLastUpdatedTime(0);
     fetchData();
+    const interval = setInterval(() => {
+      fetchData();
+    }, 60 * 1000);
+    return () => clearInterval(interval);
   }, [viewStore.apiBaseUrl, viewStore.statsApiUrl]);
 
   useEffect(() => {
@@ -125,11 +149,10 @@ const Home = () => {
     fetchConfig();
   }, []);
 
-  const epochDuration = 0;
-  const layerDuration = 0;
-
-  const networkName = 'test';
-  const deployConfig = 'test';
+  const networkName = network?.label;
+  const deployConfig = {
+    explorerUrl: network?.explorer,
+  };
 
   return (
     <div className="wrap">
@@ -152,7 +175,7 @@ const Home = () => {
             toolTipMess="Total number of activations in the most recent epoch. Miners with one or more activations participate in the Spacemesh consensus protocol and submit blocks with transactions to the network."
             showValue
           >
-            <BarChartCustom data={epochs} dataMeasure="Smeshers" dataKey="smeshers_count" />
+            <BarChartCustom data={epochs} dataMeasure="Smeshers" dataKey="stats.smeshers_count" />
           </DataTile>
           <DataTile
             icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite}
@@ -162,7 +185,7 @@ const Home = () => {
             value={epochs[currentEpoch] && formatSmidge(epochs[currentEpoch].stats.rewards_sum)}
             toolTipMess="The total amount of coins awarded to smeshers since genesis. The graph displays the total rewards amount awarded to smeshers at the end of previous epochs. Smeshers are rewarded for submitting blocks with transactions to the network, for participating in the Spacemesh consensus protocol and for publishing proof of space time proofs."
           >
-            <BarChartCustom data={epochs} dataKey="rewards_sum" dataMeasure="" tooltipFilter={formatSmidge} />
+            <BarChartCustom data={epochs} dataKey="stats.rewards_sum" dataMeasure="" tooltipFilter={formatSmidge} />
           </DataTile>
         </div>
         <div className="col-lg-6">
@@ -200,7 +223,7 @@ const Home = () => {
                 title="Decentralization Ratio"
                 toolTipMess="The network degree of decentralization where 100 is highly decentralized and 0 is highly centralized. This measure factors in both the overall number of smeshers and the amount of space committed by each. A network is more decentralized if the long tail of smeshers is longer and the ratio of space committed by whales is low compared to the amount of space committed by home smeshers."
               >
-                <RangeSlider value={0} />
+                <RangeSlider value={decentral} />
               </DataTile>
             </div>
           </div>
@@ -214,7 +237,7 @@ const Home = () => {
             toolTipMess="The total number of transactions processed by the network since it went online (genesis time). The graph displays the total number of transactions processed by the network up to the end of previous epochs."
             showValue
           >
-            <BarChartCustom data={epochs} dataKey="transactions_count" dataMeasure="Transactions" />
+            <BarChartCustom data={epochs} dataKey="stats.transactions_count" dataMeasure="Transactions" />
           </DataTile>
           <DataTile
             icon={isLightTheme ? CirculationIcon : CirculationIconWhite}
@@ -223,7 +246,7 @@ const Home = () => {
             toolTipMess="The total amount of Smesh coins currently in circulation. This is determined by the coin rewards awarded to Smeshers as well as genesis minted coins. The graph displays the total amount in circulation at the end of previous epochs."
             showValue
           >
-            <BarChartCustom data={epochs} dataKey="circulation" dataMeasure="" tooltipFilter={formatSmidge} />
+            <BarChartCustom data={epochs} dataKey="stats.circulation" dataMeasure="" tooltipFilter={formatSmidge} />
           </DataTile>
         </div>
       </div>
