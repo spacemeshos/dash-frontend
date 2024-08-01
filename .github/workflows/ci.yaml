@@ -35,3 +35,6 @@ jobs:
 
       - name: Upload to testnet-13 Dashboard
         run: gsutil -m rsync -r -d ./build gs://testnet-13-dashboard.spacemesh.network
+
+      - name: Upload to testnet-atxmerge Dashboard
+        run: gsutil -m rsync -r -d ./build gs://testnet-atxmerge-dashboard.spacemesh.network
