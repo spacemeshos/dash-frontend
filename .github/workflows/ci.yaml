@@ -36,12 +36,12 @@ jobs:
       - name: Upload to testnet-15 Dashboard
         run: gsutil -m rsync -r -d ./build gs://testnet-15-dashboard.spacemesh.network
 
-      - name: Build to testnet-atxmerge Dashboard
+      - name: Build to testnet-atxmerge2 Dashboard
         env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-atxmerge.json
+          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-atxmerge2.json
         run: |
           yarn
           yarn build
 
       - name: Upload to testnet-atxmerge Dashboard
-        run: gsutil -m rsync -r -d ./build gs://testnet-atxmerge-dashboard.spacemesh.network
+        run: gsutil -m rsync -r -d ./build gs://testnet-atxmerge2-dashboard.spacemesh.network
