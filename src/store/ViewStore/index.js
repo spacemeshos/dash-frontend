@@ -17,6 +17,7 @@ const EPOCH_NUM_LAYERS = process.env.REACT_APP_EPOCH_NUM_LAYERS || 288;
 export default class ViewStore {
   constructor() {
     this.network = { value: null, label: null, explorer: null };
+    this.config = null;
     this.networkList = [];
     this.postUnitSize = (BITS_PER_LABEL * LABELS_PER_UNIT) / 8;
     this.statsApiUrl = STATS_API_URL;
@@ -31,6 +32,8 @@ export default class ViewStore {
       apiBaseUrl: observable,
       postUnitSize: observable,
       selectNetwork: action,
+      config: observable,
+      setConfig: action,
     });
   }
 
@@ -56,19 +59,28 @@ export default class ViewStore {
     }
   }
 
+  setConfig(data) {
+    this.config = data;
+  }
+
   async getConfigFile() {
     try {
-      const response = await fetch(DISCOVERY_SERVICE_URL);
-      const data = await response.json();
+      let response = await fetch(DISCOVERY_SERVICE_URL);
+      let data = await response.json();
       const networks = data.map((network) => (
         {
           value: network.dashAPI,
           label: network.netName,
+          conf: network.conf,
           explorer: network.explorer,
         }
       ));
       this.setNetworks(networks);
       this.setNetwork(networks[0]);
+
+      response = await fetch(networks[0].conf);
+      data = await response.json();
+      this.setConfig(data);
     } catch (e) {
       console.log('Error: ', e.message);
     }

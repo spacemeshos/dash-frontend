@@ -9,6 +9,7 @@ import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 
 // Component
+import moment from 'moment';
 import NetworkName from '../../components/atoms/NetworkName';
 import BarChartCustom from '../../components/atoms/BarChartCustom';
 import RangeSlider from '../../components/atoms/RangeSlider';
@@ -16,7 +17,9 @@ import DataTile from '../../components/molecules/DataTile';
 import TemporaryImage from '../../components/atoms/TemporaryImage';
 
 // Icons
+import AgeIcon from '../../assets/icons/age.svg';
 import ActiveSmeshersIcon from '../../assets/icons/active-smeshers.svg';
+import AccountsIcon from '../../assets/icons/accounts.svg';
 import SmeshingRewardIcon from '../../assets/icons/smeshing-reward.svg';
 import LayerEpoch from '../../assets/icons/layer-epoch.svg';
 import TxnsIcon from '../../assets/icons/txns.svg';
@@ -25,11 +28,13 @@ import SecurityIcon from '../../assets/icons/security.svg';
 import DecentralizationRatio from '../../assets/icons/decentralization-ratio.svg';
 
 // White Icons AccountsIconWhite
+import AccountsIconWhite from '../../assets/darkTheme/accounts_white.svg';
 import ActiveSmeshersIconWhite from '../../assets/darkTheme/active-smeshers_white.svg';
 import SmeshingRewardIconWhite from '../../assets/darkTheme/smeshing-reward_white.svg';
 import LayerEpochWhite from '../../assets/darkTheme/layer-epoch_white.svg';
 import TxnsIconWhite from '../../assets/darkTheme/txns_white.svg';
 import CirculationIconWhite from '../../assets/darkTheme/circulation_white.svg';
+import AgeIconWhite from '../../assets/darkTheme/age_white.svg';
 import SecurityIconWhite from '../../assets/darkTheme/security_white.svg';
 import DecentralizationRatioWhite from '../../assets/darkTheme/decentralization-ratio_white.svg';
 
@@ -73,8 +78,8 @@ const Home = () => {
     const nodeInfo = await res.json();
     uiStore.setNetworkStatus(nodeInfo.status);
 
-    const epochNums = Math.floor(nodeInfo.latestLayer / netInfo.layersPerEpoch);
-    setCurrentEpoch(epochNums);
+    const epochNums = Math.floor(nodeInfo.latestLayer / netInfo.layersPerEpoch) - 1;
+    setCurrentEpoch(epochNums + 1);
     setCurrentLayer(nodeInfo.latestLayer);
 
     // circulation
@@ -108,6 +113,10 @@ const Home = () => {
 
     // calculate cumulative values
     Object.keys(epochsList).forEach((key) => {
+      if (epochsList[parseInt(key, 10)].stats.security === undefined) {
+        epochsList[parseInt(key, 10)].stats.security = 0;
+      }
+      epochsList[parseInt(key, 10)].stats.security = epochsList[parseInt(key, 10)].stats.num_units * viewStore.postUnitSize;
       if (epochsList[parseInt(key, 10)].stats.transactions_count === undefined) {
         epochsList[parseInt(key, 10)].stats.transactions_count = 0;
       }
@@ -118,7 +127,11 @@ const Home = () => {
       if (epochsList[parseInt(key, 10)].stats.rewards_sum === undefined) {
         epochsList[parseInt(key, 10)].stats.rewards_sum = 0;
       }
-      epochsList[parseInt(key, 10)].stats.circulation = epochsList[parseInt(key, 10)].stats.rewards_sum;
+      if (epochsList[parseInt(key, 10)].stats.vested_amount === undefined) {
+        epochsList[parseInt(key, 10)].stats.vested_amount = 0;
+      }
+      epochsList[parseInt(key, 10)].stats.circulation = epochsList[parseInt(key, 10)].stats.rewards_sum
+        + epochsList[parseInt(key, 10)].stats.vested_amount;
       epochsList[parseInt(key, 10)].stats.circulation = key > 0
         ? epochsList[parseInt(key, 10)].stats.circulation + epochsList[parseInt(key, 10) - 1].stats.circulation
         : epochsList[parseInt(key, 10)].stats.circulation;
@@ -178,6 +191,16 @@ const Home = () => {
             <BarChartCustom data={epochs} dataMeasure="Smeshers" dataKey="stats.smeshers_count" />
           </DataTile>
           <DataTile
+            icon={isLightTheme ? AccountsIcon : AccountsIconWhite}
+            title="Accounts"
+            url={`${deployConfig.explorerUrl}accounts`}
+            value={epochs[currentEpoch] && epochs[currentEpoch].stats.accounts_count}
+            toolTipMess="Current total of number of user coin accounts on the network with a non-zero coin balance. The graph displays the total number of accounts in previous epochs."
+            showValue
+          >
+            <BarChartCustom data={epochs} dataMeasure="Accounts" dataKey="stats.accounts_count" />
+          </DataTile>
+          <DataTile
             icon={isLightTheme ? SmeshingRewardIcon : SmeshingRewardIconWhite}
             title="Smeshing Rewards"
             url={`${deployConfig.explorerUrl}rewards`}
@@ -192,11 +215,11 @@ const Home = () => {
           <div className="row">
             <div className="col-lg-6 pl-lg-0 pr-lg-1">
               <DataTile
-                icon={isLightTheme ? SecurityIcon : SecurityIconWhite}
-                title="Security"
-                value={epochs[currentEpoch] && byteConverter(epochs[currentEpoch].stats.num_units * viewStore.postUnitSize)}
-                toolTipMess="Security is measured by the total storage size committed to the network by smeshers. The bigger the number, the more storage is required by an adversary to attack the network. The number displays the amount of storage committed by all active smeshers in the previous epoch. The graph displays the amount of storage committed in previous epochs."
+                icon={isLightTheme ? AgeIcon : AgeIconWhite}
+                title="Age"
                 showValue
+                value={viewStore.config && moment.duration(moment().diff(moment(viewStore.config.genesis['genesis-time']), 'seconds'), 'seconds').format('d[d]:h[h]', { trim: 'small' })}
+                toolTipMess="The network age is the time which passed from the network went online (genesis time) until the current time."
               />
             </div>
             <div className="col-lg-6 pr-lg-0 pl-lg-1">
@@ -247,6 +270,15 @@ const Home = () => {
             showValue
           >
             <BarChartCustom data={epochs} dataKey="stats.circulation" dataMeasure="" tooltipFilter={formatSmidge} />
+          </DataTile>
+          <DataTile
+            icon={isLightTheme ? SecurityIcon : SecurityIconWhite}
+            title="Security"
+            value={epochs[currentEpoch] && byteConverter(epochs[currentEpoch].stats.security)}
+            toolTipMess="Security is measured by the total storage size committed to the network by smeshers. The bigger the number, the more storage is required by an adversary to attack the network. The number displays the amount of storage committed by all active smeshers in the previous epoch. The graph displays the amount of storage committed in previous epochs."
+            showValue
+          >
+            <BarChartCustom data={epochs} dataKey="stats.security" dataMeasure="Security" tooltipFilter={byteConverter} />
           </DataTile>
         </div>
       </div>
