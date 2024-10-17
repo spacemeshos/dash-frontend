@@ -8,11 +8,10 @@ import {
 import React from 'react';
 
 const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://mainnet-api.spacemesh.network';
-const STATS_API_URL = process.env.REACT_APP_STATS_API_URL || 'https://mainnet-stats-api.spacemesh.network';
-const BITS_PER_LABEL = process.env.REACT_APP_BITS_PER_LABEL || 128;
+const BITS_PER_LABEL = 128;
 const LABELS_PER_UNIT = process.env.REACT_APP_LABELS_PER_UNIT || 1024;
-const EPOCH_NUM_LAYERS = process.env.REACT_APP_EPOCH_NUM_LAYERS || 288;
+const PUBLIC_API = process.env.REACT_APP_PUBLIC_API || null;
+const STATS_API = process.env.REACT_APP_STATS_API || null;
 
 export default class ViewStore {
   constructor() {
@@ -20,20 +19,21 @@ export default class ViewStore {
     this.config = null;
     this.networkList = [];
     this.postUnitSize = (BITS_PER_LABEL * LABELS_PER_UNIT) / 8;
-    this.statsApiUrl = STATS_API_URL;
-    this.apiBaseUrl = API_BASE_URL;
-    this.epochNumLayers = EPOCH_NUM_LAYERS;
+    this.statsApiUrl = null;
+    this.publicApiUrl = null;
 
     makeAutoObservable(this, {
       currentNetwork: computed,
       networks: computed,
       network: observable,
       statsApiUrl: observable,
-      apiBaseUrl: observable,
+      publicApiUrl: observable,
       postUnitSize: observable,
       selectNetwork: action,
       config: observable,
       setConfig: action,
+      setPublicApiUrl: action,
+      setStatsApiUrl: action,
     });
   }
 
@@ -63,6 +63,14 @@ export default class ViewStore {
     this.config = data;
   }
 
+  setStatsApiUrl(url) {
+    this.statsApiUrl = url;
+  }
+
+  setPublicApiUrl(url) {
+    this.publicApiUrl = url;
+  }
+
   async getConfigFile() {
     try {
       let response = await fetch(DISCOVERY_SERVICE_URL);
@@ -73,10 +81,24 @@ export default class ViewStore {
           label: network.netName,
           conf: network.conf,
           explorer: network.explorer,
+          statsAPI: network.statsAPI,
+          grpcAPI: network.grpcAPI,
         }
       ));
       this.setNetworks(networks);
       this.setNetwork(networks[0]);
+
+      if (PUBLIC_API === null) {
+        this.setPublicApiUrl(networks[0].grpcAPI.replace(/\/$/, ''));
+      } else {
+        this.setPublicApiUrl(PUBLIC_API.replace(/\/$/, ''));
+      }
+
+      if (STATS_API === null) {
+        this.setStatsApiUrl(networks[0].statsAPI.replace(/\/$/, ''));
+      } else {
+        this.setStatsApiUrl(STATS_API.replace(/\/$/, ''));
+      }
 
       response = await fetch(networks[0].conf);
       data = await response.json();

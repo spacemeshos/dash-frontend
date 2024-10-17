@@ -62,7 +62,7 @@ const Home = () => {
   const fetchData = async () => {
     setLastUpdatedTime(new Date().getTime());
     // network info
-    let res = await fetch(`${viewStore.apiBaseUrl}/spacemesh.v2alpha1.NetworkService/Info`, {
+    let res = await fetch(`${viewStore.publicApiUrl}/spacemesh.v2alpha1.NetworkService/Info`, {
       method: 'POST',
     });
     const netInfo = await res.json();
@@ -72,7 +72,7 @@ const Home = () => {
     const durationMs = parseInt(netInfo.layerDuration, 10);
 
     // node status
-    res = await fetch(`${viewStore.apiBaseUrl}/spacemesh.v2alpha1.NodeService/Status`, {
+    res = await fetch(`${viewStore.publicApiUrl}/spacemesh.v2alpha1.NodeService/Status`, {
       method: 'POST',
     });
     const nodeInfo = await res.json();
@@ -140,12 +140,13 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (viewStore.publicApiUrl === null || viewStore.statsApiUrl === null) return;
     fetchData();
     const interval = setInterval(() => {
       fetchData();
     }, 60 * 1000);
     return () => clearInterval(interval);
-  }, [viewStore.apiBaseUrl, viewStore.statsApiUrl]);
+  }, [viewStore.publicApiUrl, viewStore.statsApiUrl]);
 
   useEffect(() => {
     async function fetchConfig() {
