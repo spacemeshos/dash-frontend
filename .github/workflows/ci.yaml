@@ -19,6 +19,7 @@ jobs:
       - name: Build to Mainnet Dashboard
         env:
           REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks.json
+          REACT_APP_LABELS_PER_UNIT: 4294967296
         run: |
           yarn
           yarn build
@@ -26,42 +27,5 @@ jobs:
       - name: Upload to Mainnet Dashboard
         run: gsutil -m rsync -r -d ./build gs://spacemesh-dash
 
-      - name: Build to testnet-15 Dashboard
-        env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-15.json
-        run: |
-          yarn
-          yarn build
-
-      - name: Upload to testnet-15 Dashboard
-        run: gsutil -m rsync -r -d ./build gs://testnet-15-dashboard.spacemesh.network
-
-      - name: Build to testnet-atxmerge2 Dashboard
-        env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-atxmerge2.json
-        run: |
-          yarn
-          yarn build
-
-      - name: Upload to testnet-atxmerge2 Dashboard
-        run: gsutil -m rsync -r -d ./build gs://testnet-atxmerge2-dashboard.spacemesh.network
-      
-      - name: Build to testnet-atxmerge3 Dashboard
-        env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-atxmerge3.json
-        run: |
-          yarn
-          yarn build
-
-      - name: Upload to testnet-atxmerge3 Dashboard
-        run: gsutil -m rsync -r -d ./build gs://testnet-atxmerge3-dashboard.spacemesh.network
-
-      - name: Build to testnet-hare-4 Dashboard
-        env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-hare-4.json
-        run: |
-          yarn
-          yarn build
-
-      - name: Upload to testnet-hare-4 Dashboard
-        run: gsutil -m rsync -r -d ./build gs://testnet-hare-4-dashboard.spacemesh.network
+      - name: Set cache-control headers for Mainnet Dashboard
+        run: gsutil -m setmeta -h "Cache-Control:public, max-age=0, no-transform" -r gs://spacemesh-dash/index.html

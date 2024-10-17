@@ -23,7 +23,7 @@ const Header = ({ checkedTheme, switchTheme }: Props) => {
     },
     {
       href: toJS(viewStore.network.explorer),
-      title: 'explore',
+      title: 'explorer',
     },
   ];
 

@@ -6,20 +6,34 @@ import {
   makeAutoObservable,
 } from 'mobx';
 import React from 'react';
-import { reMappingNetworkArray } from '../../helpers/mapping';
 
 const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
+const BITS_PER_LABEL = 128;
+const LABELS_PER_UNIT = process.env.REACT_APP_LABELS_PER_UNIT || 1024;
+const PUBLIC_API = process.env.REACT_APP_PUBLIC_API || null;
+const STATS_API = process.env.REACT_APP_STATS_API || null;
+
 export default class ViewStore {
-  constructor(apiFetch: Object) {
-    this.fetch = apiFetch;
+  constructor() {
     this.network = { value: null, label: null, explorer: null };
+    this.config = null;
     this.networkList = [];
+    this.postUnitSize = (BITS_PER_LABEL * LABELS_PER_UNIT) / 8;
+    this.statsApiUrl = null;
+    this.publicApiUrl = null;
 
     makeAutoObservable(this, {
       currentNetwork: computed,
       networks: computed,
       network: observable,
+      statsApiUrl: observable,
+      publicApiUrl: observable,
+      postUnitSize: observable,
       selectNetwork: action,
+      config: observable,
+      setConfig: action,
+      setPublicApiUrl: action,
+      setStatsApiUrl: action,
     });
   }
 
@@ -45,14 +59,50 @@ export default class ViewStore {
     }
   }
 
+  setConfig(data) {
+    this.config = data;
+  }
+
+  setStatsApiUrl(url) {
+    this.statsApiUrl = url;
+  }
+
+  setPublicApiUrl(url) {
+    this.publicApiUrl = url;
+  }
+
   async getConfigFile() {
     try {
-      const response = await this.fetch(DISCOVERY_SERVICE_URL);
-      const networks = reMappingNetworkArray(response);
-      // TODO remove this after moving dash to discovery service
-      // networks.push({ value: 'wss://stage-dash.spacemesh.io/ws/dev-net', label: 'TweedleDee Open Testnet 122', explorer: 'https://stage-explore.spacemesh.io/' });
+      let response = await fetch(DISCOVERY_SERVICE_URL);
+      let data = await response.json();
+      const networks = data.map((network) => (
+        {
+          value: network.dashAPI,
+          label: network.netName,
+          conf: network.conf,
+          explorer: network.explorer,
+          statsAPI: network.statsAPI,
+          grpcAPI: network.grpcAPI,
+        }
+      ));
       this.setNetworks(networks);
       this.setNetwork(networks[0]);
+
+      if (PUBLIC_API === null) {
+        this.setPublicApiUrl(networks[0].grpcAPI.replace(/\/$/, ''));
+      } else {
+        this.setPublicApiUrl(PUBLIC_API.replace(/\/$/, ''));
+      }
+
+      if (STATS_API === null) {
+        this.setStatsApiUrl(networks[0].statsAPI.replace(/\/$/, ''));
+      } else {
+        this.setStatsApiUrl(STATS_API.replace(/\/$/, ''));
+      }
+
+      response = await fetch(networks[0].conf);
+      data = await response.json();
+      this.setConfig(data);
     } catch (e) {
       console.log('Error: ', e.message);
     }

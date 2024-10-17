@@ -5,7 +5,6 @@ import {
   computed, makeAutoObservable,
 } from 'mobx';
 import React from 'react';
-import { ERROR_STATUS, SYNCING_STATUS } from '../../config/constants';
 
 export default class UiStore {
   constructor() {
@@ -35,12 +34,14 @@ export default class UiStore {
   }
 
   setNetworkStatus(status) {
-    if (status === ERROR_STATUS) {
-      this.color = 'red';
-    } else if (status === SYNCING_STATUS) {
-      this.color = 'orange';
-    } else {
+    if (status === 'SYNC_STATUS_SYNCED') {
       this.color = 'green';
+    } else if (status === 'SYNC_STATUS_SYNCING') {
+      this.color = 'orange';
+    } else if (status === 'SYNC_STATUS_OFFLINE') {
+      this.color = 'red';
+    } else {
+      this.color = 'red';
     }
   }
 }
