@@ -11,10 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Init gcloud
-        run: |
-          echo "${{ secrets.GCLOUD_KEY }}" | base64 -d > key.json
-          gcloud auth activate-service-account --key-file=key.json
+      - name: Setup gcloud authentication
+        uses: google-github-actions/auth@v2
+        id: 'auth'
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ secrets.GCP_WIP }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
+        
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: "469.0.0"
 
       - name: Build to Mainnet Dashboard
         env:
